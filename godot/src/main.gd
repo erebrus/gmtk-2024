@@ -31,6 +31,7 @@ func _ready() -> void:
 func _load_room(data: Room, door: Door) -> void:
 	Logger.info("Loading room: %s" % data)
 	blackout_overlay.show()
+	await get_tree().create_timer(0.1).timeout
 	if room != null:
 		room.queue_free()
 	room = RoomScene.instantiate()
@@ -38,6 +39,7 @@ func _load_room(data: Room, door: Door) -> void:
 	room_container.add_child.call_deferred(room)
 	await room.ready
 	player.position = room.start_position(door)
+	await get_tree().create_timer(0.2).timeout
 	blackout_overlay.hide()
 	
 
@@ -51,9 +53,12 @@ func _generate_map() -> void:
 
 func _go_through_door(room: Room, door: Door) -> void:
 	var room_cell = room.global_door_cell(door) + door.side
-	var next_room = rooms_map[room_cell]
-	var next_door = next_room.door_at(room_cell, -door.side)
-	_load_room(next_room, next_door)
+	if rooms_map.has(room_cell):
+		var next_room = rooms_map[room_cell]
+		var next_door = next_room.door_at(room_cell, -door.side)
+		_load_room(next_room, next_door)
+	else:
+		Logger.info("Exit found!")
 	
 	
 	

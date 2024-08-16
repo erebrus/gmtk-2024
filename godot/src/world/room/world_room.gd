@@ -14,12 +14,18 @@ const TILES_PER_ROOM = 19
 
 
 @onready var walls: TileMapLayer = %Walls
+var doors: Dictionary
 var tile_size: Vector2i
 
 func _ready() -> void:
 	assert(DoorScene != null)
 	tile_size = walls.tile_set.tile_size
 	_build_room()
+	
+
+func start_position(door: Door) -> Vector2i:
+	assert(door in doors)
+	return doors[door].player_position
 	
 
 func _build_room() -> void:
@@ -29,14 +35,13 @@ func _build_room() -> void:
 	
 
 func _build_walls() -> void:
-	Logger.info("Creating room of size %sx%s" % [data.width, data.height])
+	Logger.info("Creating room of size %s" % data.size)
 	
-	var width = TILES_PER_ROOM * data.width
-	var height = TILES_PER_ROOM * data.height
+	var room_size = TILES_PER_ROOM * data.size
 	
 	var room_cells: Array[Vector2i]
-	for w in width:
-		for h in height:
+	for w in room_size.x:
+		for h in room_size.y:
 			room_cells.append(Vector2i(w,h))
 	
 	walls.set_cells_terrain_connect(room_cells, 0, 0)
@@ -66,3 +71,12 @@ func _build_doors() -> void:
 				
 		door.position = Vector2(door_x, door_y)
 		add_child(door)
+		
+		doors[door_data] = door
+		door.door_entered.connect(_on_door_entered.bind(door_data))
+	
+
+func _on_door_entered(door: Door) -> void:
+	Logger.info("entered door")
+	Events.door_entered.emit(data, door)
+	

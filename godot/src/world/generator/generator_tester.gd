@@ -1,6 +1,6 @@
 extends Node2D
 
-const position_delta=Vector2i.ONE*256
+const position_delta=Vector2i(250, 100)
 @onready var room_container: Node2D = $RoomContainer
 
 var room_scene:PackedScene= preload("res://src/map/room/map_room.tscn")
@@ -20,7 +20,7 @@ var room_scene:PackedScene= preload("res://src/map/room/map_room.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_update_ui()
-	
+	seed(1)
 	
 	generate()
 
@@ -48,7 +48,7 @@ func draw_dungeon():
 		var world_room:MapRoom = room_scene.instantiate()
 		world_room.size=room.size
 		room_container.add_child(world_room)
-		world_room.global_position=Globals.TILE_SIZE*room.cell+position_delta+room.size*Globals.TILE_SIZE/2
+		world_room.global_position=Globals.MAP_CELL_SIZE*room.cell+position_delta+room.size*Globals.MAP_CELL_SIZE/2
 		
 
 #func _process(delta: float) -> void:

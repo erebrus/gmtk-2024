@@ -1,9 +1,9 @@
 class_name BlockGenerator extends DungeonGenerator
 
 @export var size:Vector2i = Vector2i(4,4)
-@export var max_attempts := 30
-@export var min_coverage := .6
-@export var max_coverage := .2
+@export var max_attempts := 50
+@export var min_coverage := .5
+@export var max_coverage := .6
 @export var s1x1_count := 4
 @export var s2x1_count := 2
 @export var s1x2_count := 2
@@ -72,6 +72,7 @@ func prune()->void:
 	while get_coverage()> max_coverage and attempt < max_attempts:
 		last_room_removed = dungeon.rooms.pick_random()
 		if last_room_removed == dungeon.rooms[0]:
+			attempt+=1
 			continue
 		remove_room(last_room_removed)
 		if not are_all_rooms_wall_connected():
@@ -97,17 +98,17 @@ func init_matrix():
 		matrix.append(column)
 		
 			
-func is_room_wall_connected(room:Room)->bool:
-	var adjcent_cells:=[]
-	for cell in room.get_cells():
-		var neighbors = get_adjacent_cells(cell)
-		for neighbor in neighbors:
-			if not neighbor in room.get_cells() and not neighbor in adjcent_cells:
-				adjcent_cells.append(neighbor)
-	for neighbor in adjcent_cells:
-		if matrix[neighbor.x][neighbor.y]!=null:
-			return true
-	return false
+#func is_room_wall_connected(room:Room)->bool:
+	#var adjcent_cells:=[]
+	#for cell in room.get_cells():
+		#var neighbors = get_adjacent_cells(cell)
+		#for neighbor in neighbors:
+			#if not neighbor in room.get_cells() and not neighbor in adjcent_cells:
+				#adjcent_cells.append(neighbor)
+	#for neighbor in adjcent_cells:
+		#if matrix[neighbor.x][neighbor.y]!=null:
+			#return true
+	#return false
 
 func get_coverage()->float:
 	var cells_used:float = 0
@@ -117,11 +118,33 @@ func get_coverage()->float:
 	return cells_used/ float(size.x * size.y)
 	
 func are_all_rooms_wall_connected()->bool:
-	for room in dungeon.rooms:
-		if not is_room_wall_connected(room):
-			return false
-	return true
+	var checked_rooms=[]
+	var rooms_to_check=[dungeon.rooms[0]]
+	while not rooms_to_check.is_empty():
+		var current_room=rooms_to_check.pop_front()
+		checked_rooms.append(current_room)
+		var new_rooms = get_wall_connected_rooms(current_room)
+		for nr in new_rooms:
+			if not nr in checked_rooms and not nr in rooms_to_check:
+				rooms_to_check.append(nr)
+		
+	return checked_rooms.size() == dungeon.rooms.size()
+	
 
+func get_wall_connected_rooms(room:Room)->Array:
+	var neighbor_rooms=[]
+	var adjcent_cells:=[]
+	for cell in room.get_cells():
+		var neighbors = get_adjacent_cells(cell)
+		for neighbor in neighbors:
+			if not neighbor in room.get_cells() and not neighbor in adjcent_cells:
+				adjcent_cells.append(neighbor)
+	for neighbor in adjcent_cells:
+		if matrix[neighbor.x][neighbor.y]!=null:
+			if not matrix[neighbor.x][neighbor.y] in neighbor_rooms:
+				neighbor_rooms.append(matrix[neighbor.x][neighbor.y])
+	return neighbor_rooms
+	
 func get_room_position(room_size:Vector2i)->RoomCell:
 	if dungeon.rooms.is_empty():		
 		return RoomCell.new(Vector2i(randi_range(0,size.x-room_size.x), size.y-room_size.y))

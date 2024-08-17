@@ -1,6 +1,5 @@
 class_name MapRoom extends Area2D
 
-
 @export var size: Vector2i:
 	set(value):
 		if value.x < 1 or value.y < 1:
@@ -9,9 +8,16 @@ class_name MapRoom extends Area2D
 		_calculate_size()
 	
 
+@export_category("Scenes")
+@export var DoorScene: PackedScene
+
+
 @onready var draggable: Draggable = $Draggable
 @onready var walls: NinePatchRect = $Walls
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@onready var door_container: Node2D = $Doors
+
+var doors: Array[MapDoor]
 
 
 func _ready() -> void:
@@ -20,28 +26,43 @@ func _ready() -> void:
 	draggable.dragged.connect(_on_dragged)
 	draggable.dropped.connect(_on_dropped)
 	
+	for x in size.x:
+		_add_door(Vector2i(x, 0), Vector2i.UP)
+		_add_door(Vector2i(x, size.y -1), Vector2i.DOWN)
+		
+	for y in size.y:
+		_add_door(Vector2i(0, y), Vector2i.LEFT)
+		_add_door(Vector2i(size.x - 1, y), Vector2i.RIGHT)
+	
+
+func _add_door(cell: Vector2i, side: Vector2i) -> void:
+	var door: MapDoor = DoorScene.instantiate()
+	door.place(cell, side)
+	doors.append(door)
+	door_container.add_child(door)
+	
 
 func _calculate_size() -> void:
 	if walls == null or collision_shape == null:
 		return
 	
-	walls.custom_minimum_size = size * Globals.TILE_SIZE
+	walls.custom_minimum_size = size * Globals.MAP_CELL_SIZE
 	var shape = RectangleShape2D.new()
-	shape.size = size * Globals.TILE_SIZE
+	shape.size = size * Globals.MAP_CELL_SIZE
 	collision_shape.shape = shape
+	door_container.position = -size * Globals.MAP_CELL_SIZE * 0.5
 	
 
 func _move_to(to_global_position: Vector2) -> void:
-	var x:float = int(to_global_position.x) / Globals.TILE_SIZE
-	var y:float = int(to_global_position.y) / Globals.TILE_SIZE
+	var x:float = int(to_global_position.x) / Globals.MAP_CELL_SIZE
+	var y:float = int(to_global_position.y) / Globals.MAP_CELL_SIZE
 	
 	if size.x % 2:
 		x += 0.5
 	if size.y % 2:
 		y += 0.5
 	
-	global_position = Vector2(x,y) * Globals.TILE_SIZE
-	
+	global_position = Vector2(x,y) * Globals.MAP_CELL_SIZE
 	
 
 func _on_drag_started() -> void:

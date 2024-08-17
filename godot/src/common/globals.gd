@@ -3,6 +3,7 @@ extends Node
 const GAME_SCENE_PATH = "res://src/main.tscn"
 const TILES_PER_ROOM = 19 
 const TILE_SIZE = 32
+const MAP_CELL_SIZE = 64
 
 var master_volume:float = 100
 var music_volume:float = 100
@@ -13,6 +14,12 @@ var config:ConfigFile
 
 var debug_build := false
 var in_game:=false
+var map_mode:= Types.MapMode.Rooms:
+	set(value):
+		if value != map_mode:
+			map_mode = value
+			Events.map_mode_changed.emit()
+
 
 var music_on:=true:
 	set(v):

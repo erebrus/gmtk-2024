@@ -50,3 +50,5 @@ unique_name_in_owner = true
 layout_mode = 2
 toggle_mode = true
 text = "Edit doors"
+
+[connection signal="toggled" from="MarginContainer/VBoxContainer/EditDoors" to="." method="_on_edit_doors_toggled"]

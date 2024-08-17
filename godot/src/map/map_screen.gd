@@ -24,3 +24,9 @@ func _add_room_pressed(size: Vector2i) -> void:
 	room.size = size
 	dungeon.add_room(room)
 	
+
+func _on_edit_doors_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		Globals.map_mode = Types.MapMode.Doors
+	else:
+		Globals.map_mode = Types.MapMode.Rooms

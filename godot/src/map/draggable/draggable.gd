@@ -18,8 +18,12 @@ func _init() -> void:
 	add_to_group(GROUP)
 	
 
+func _ready() -> void:
+	Events.map_mode_changed.connect(drop)
+	
+
 func start(from_global_position: Vector2) -> bool:
-	if _other_is_dragging():
+	if _other_is_dragging() or Globals.map_mode == Types.MapMode.Doors:
 		return false
 		
 	is_dragging = true
@@ -30,6 +34,9 @@ func start(from_global_position: Vector2) -> bool:
 	
 
 func drop() -> void:
+	if not is_dragging:
+		return
+	
 	is_dragging = false
 	if is_valid_position.call(mouse_position()):
 		dropped.emit(mouse_position())
@@ -52,7 +59,6 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if not event.pressed:
 			drop()
-		
 	
 
 func _other_is_dragging() -> bool:
@@ -60,3 +66,9 @@ func _other_is_dragging() -> bool:
 		if draggable.is_dragging:
 			return true
 	return false
+	
+
+func _on_map_mode_changed() -> void:
+	if Globals.map_mode == Types.MapMode.Doors:
+		drop()
+	

@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cbbhfj0irlnxf"]
+[gd_scene load_steps=5 format=3 uid="uid://cbbhfj0irlnxf"]
 
 [ext_resource type="Script" path="res://src/main.gd" id="1_ffdrq"]
 [ext_resource type="Resource" uid="uid://cqwv1i3l7vw8e" path="res://src/world/levels/test_dungeon.tres" id="2_c52b4"]
 [ext_resource type="PackedScene" uid="uid://bbln7lq8cus1a" path="res://src/world/room/world_room.tscn" id="2_rokb7"]
-[ext_resource type="Texture2D" uid="uid://dji2h7nphrw1b" path="res://icon.svg" id="4_tf61c"]
 [ext_resource type="PackedScene" uid="uid://bg6f5xhsa624e" path="res://src/player/player.tscn" id="5_dfd4u"]
 
 [node name="Main" type="Node"]
@@ -14,11 +13,9 @@ RoomScene = ExtResource("2_rokb7")
 [node name="RoomContainer" type="Node2D" parent="."]
 unique_name_in_owner = true
 
-[node name="PlayerPlaceholder" type="Sprite2D" parent="."]
+[node name="Player" parent="." instance=ExtResource("5_dfd4u")]
 unique_name_in_owner = true
-visible = false
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("4_tf61c")
+position = Vector2(288, 552)
 
 [node name="BlackoutOverlay" type="ColorRect" parent="."]
 unique_name_in_owner = true
@@ -28,6 +25,3 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.188235, 0.054902, 0.109804, 1)
-
-[node name="Player" parent="." instance=ExtResource("5_dfd4u")]
-position = Vector2(288, 552)

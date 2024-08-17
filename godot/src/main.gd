@@ -16,7 +16,7 @@ var room: Node
 
 @onready var room_container: Node2D = %RoomContainer
 @onready var blackout_overlay: Control = %BlackoutOverlay
-@onready var player: Node2D = %PlayerPlaceholder
+@onready var player: Node2D = %Player
 
 
 func _ready() -> void:

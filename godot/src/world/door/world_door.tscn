@@ -13,6 +13,7 @@ side = Vector2i(0, -1)
 size = Vector2(38, 14)
 
 [node name="Door" type="Area2D"]
+collision_layer = 0
 script = ExtResource("1_7ub7w")
 data = SubResource("Resource_asoxu")
 
@@ -27,4 +28,5 @@ shape = SubResource("RectangleShape2D_i2uhm")
 unique_name_in_owner = true
 position = Vector2(0, 64)
 
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="input_event" from="." to="." method="_on_input_event"]

@@ -1,0 +1,10 @@
+[gd_scene load_steps=4 format=3 uid="uid://bch5d7larrs4k"]
+
+[ext_resource type="Script" path="res://src/world/dungeon/world_dungeon.gd" id="1_nw3s3"]
+[ext_resource type="Resource" uid="uid://cqwv1i3l7vw8e" path="res://src/world/levels/test_dungeon.tres" id="2_f6xcq"]
+[ext_resource type="PackedScene" uid="uid://bbln7lq8cus1a" path="res://src/world/room/world_room.tscn" id="2_qgj13"]
+
+[node name="WorldDungeon" type="Node2D"]
+script = ExtResource("1_nw3s3")
+data = ExtResource("2_f6xcq")
+RoomScene = ExtResource("2_qgj13")

@@ -1,4 +1,4 @@
-extends Node2D
+class_name WorldRoom extends Node2D
 
 const TILES_PER_ROOM = 19
 
@@ -16,6 +16,7 @@ const TILES_PER_ROOM = 19
 @onready var walls: TileMapLayer = %Walls
 var doors: Dictionary
 var tile_size: Vector2i
+
 
 func _ready() -> void:
 	assert(DoorScene != null)

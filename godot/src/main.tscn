@@ -1,14 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://cbbhfj0irlnxf"]
+[gd_scene load_steps=4 format=3 uid="uid://cbbhfj0irlnxf"]
 
 [ext_resource type="Script" path="res://src/main.gd" id="1_ffdrq"]
-[ext_resource type="Resource" uid="uid://cqwv1i3l7vw8e" path="res://src/world/levels/test_dungeon.tres" id="2_c52b4"]
-[ext_resource type="PackedScene" uid="uid://bbln7lq8cus1a" path="res://src/world/room/world_room.tscn" id="2_rokb7"]
+[ext_resource type="PackedScene" uid="uid://bch5d7larrs4k" path="res://src/world/dungeon/world_dungeon.tscn" id="4_dmi0r"]
 [ext_resource type="PackedScene" uid="uid://bg6f5xhsa624e" path="res://src/player/player.tscn" id="5_dfd4u"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_ffdrq")
-dungeon = ExtResource("2_c52b4")
-RoomScene = ExtResource("2_rokb7")
+
+[node name="WorldDungeon" parent="." instance=ExtResource("4_dmi0r")]
+unique_name_in_owner = true
 
 [node name="RoomContainer" type="Node2D" parent="."]
 unique_name_in_owner = true

@@ -1,10 +1,15 @@
-extends Area2D
+class_name WorldDoor extends Area2D
 
 
 signal door_entered
 
 
 @export var data: Door
+
+
+var room: WorldRoom
+var target_room: WorldRoom
+var target_door: WorldDoor
 
 
 var player_position: Vector2i:

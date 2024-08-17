@@ -2,8 +2,8 @@ extends CharacterBody2D
 class_name Player
 
 @export var dash_impulse:float = 1200
-@export var walk_speed:float = 100	
-@export var run_speed:float = 200
+@export var walk_speed:float = 200	
+@export var run_speed:float = 400
 #@export var max_hp:float = 150
 
 @onready var xsm = $xsm

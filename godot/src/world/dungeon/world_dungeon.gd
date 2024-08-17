@@ -1,62 +1,69 @@
 class_name WorldDungeon extends Node2D
 
 signal room_loaded(player_position: Vector2i)
-
-
-@export var data: Dungeon:
-	set(value):
-		data = value
-		if data != null:
-			_generate_map()
-var rooms_map: Dictionary
-var doors_map: Dictionary
+signal room_exited
 
 
 @export_category("Scenes")
 @export var RoomScene: PackedScene
 
-var room: Node
-
+var current_room: WorldRoom
+var rooms: Array[WorldRoom]
 
 func _ready() -> void:
 	assert(RoomScene != null)
 	
-	Events.door_entered.connect(_go_through_door)
+
+func enter(dungeon: Dungeon) -> void:
+	_build(dungeon)
+	
+	var room = rooms.front()
+	var door = room.doors.front()
+	_enter_room(door)
 	
 
-func enter() -> void:
-	var start_room = data.rooms.front()
-	var start_door = start_room.doors.front()
-	_load_room(start_room, start_door)
+func _enter_room(door: WorldDoor) -> void:
+	Logger.info("Entering room: %s" % door.room)
+	
+	if current_room != null:
+		remove_child(current_room)
+	current_room = door.room
+	door.room.request_ready()
+	add_child.call_deferred(door.room)
+	await door.room.ready
+	room_loaded.emit(door.player_position)
 	
 
-func _load_room(data: Room, door: Door) -> void:
-	Logger.info("Loading room: %s" % data)
-	
-	if room != null:
-		room.queue_free()
-	room = RoomScene.instantiate()
-	room.data = data
-	add_child.call_deferred(room)
-	await room.ready
-	room_loaded.emit(room.start_position(door))
-	
-
-func _generate_map() -> void:
-	rooms_map.clear()
-	for room in data.rooms:
+func _build(data: Dungeon) -> void:
+	var rooms_by_cell: Dictionary
+	for room_data in data.rooms:
+		var room: WorldRoom = RoomScene.instantiate()
+		rooms.append(room)
+		
+		room.build(room_data)
+		room.door_entered.connect(_on_door_entered)
+		
 		for x in room.size.x:
 			for y in room.size.y:
-				rooms_map[room.position + Vector2i(x,y)] = room
+				var cell = room.cell + Vector2i(x,y)
+				assert(not rooms_by_cell.has(cell), "cell is already occupied by another room")
+				rooms_by_cell[cell] = room
+		
+	for room in rooms:
+		var at_least_one_door:= false
+		for door in room.doors:
+			if rooms_by_cell.has(door.target_cell):
+				var target_room = rooms_by_cell[door.target_cell]
+				var target_door = target_room.door_at(door.target_cell, -door.side)
+				door.target = target_door
+				at_least_one_door = true
+		assert(at_least_one_door, "every room should have at least one door leading to another room")
 	
 
-func _go_through_door(room: Room, door: Door) -> void:
-	var room_cell = room.global_door_cell(door) + door.side
-	if rooms_map.has(room_cell):
-		var next_room = rooms_map[room_cell]
-		var next_door = next_room.door_at(room_cell, -door.side)
-		_load_room(next_room, next_door)
-	else:
+func _on_door_entered(door: WorldDoor) -> void:
+	room_exited.emit()
+	if door.target == null:
 		Logger.info("Exit found!")
-	
-	
+	else:
+		Logger.info("Room entered")
+		_enter_room(door.target)

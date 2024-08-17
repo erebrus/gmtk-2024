@@ -4,13 +4,17 @@ class_name WorldDoor extends Area2D
 signal door_entered
 
 
-@export var data: Door
-
+var cell: Vector2i
+var side: Vector2i
 
 var room: WorldRoom
-var target_room: WorldRoom
-var target_door: WorldDoor
+var target: WorldDoor
 
+
+var target_cell: Vector2i:
+	get:
+		return room.cell + cell + side
+	
 
 var player_position: Vector2i:
 	get:
@@ -18,16 +22,20 @@ var player_position: Vector2i:
 	
 
 func _ready() -> void:
-	match data.side:
+	rotation = Vector2(side).angle() + PI / 2
+	position = Vector2(cell) * Globals.TILES_PER_ROOM * Globals.TILE_SIZE + Vector2(0.5, 0.5) * Globals.TILE_SIZE
+	
+	match side:
 		Vector2i.UP:
-			rotation = 0
+			position.x += Globals.TILES_PER_ROOM * 0.5 * Globals.TILE_SIZE
 		Vector2i.DOWN: 
-			rotation = PI
+			position.x += Globals.TILES_PER_ROOM * 0.5 * Globals.TILE_SIZE
+			position.y += (Globals.TILES_PER_ROOM - 1) * Globals.TILE_SIZE
 		Vector2i.LEFT:
-			rotation = PI/2
+			position.y += (Globals.TILES_PER_ROOM - 1) * 0.5 * Globals.TILE_SIZE
 		Vector2i.RIGHT:
-			rotation = -PI/2
-
+			position.x += (Globals.TILES_PER_ROOM - 1) * Globals.TILE_SIZE
+			position.y += (Globals.TILES_PER_ROOM - 1) * 0.5 * Globals.TILE_SIZE
 
 func _on_body_entered(body):
 	door_entered.emit()

@@ -1,6 +1,8 @@
 extends Node
 
 const GAME_SCENE_PATH = "res://src/main.tscn"
+const TILES_PER_ROOM = 19 
+const TILE_SIZE = 32
 
 var master_volume:float = 100
 var music_volume:float = 100

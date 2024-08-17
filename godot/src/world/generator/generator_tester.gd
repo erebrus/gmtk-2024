@@ -9,12 +9,18 @@ var room_scene:PackedScene= preload("res://src/map/room/map_room.tscn")
 @onready var y_text_edit: TextEdit = $CanvasLayer/Panel/VBoxContainer/GridContainer/YTextEdit
 @onready var min_text_edit: TextEdit = $CanvasLayer/Panel/VBoxContainer/GridContainer/MinTextEdit
 @onready var max_text_edit: TextEdit = $CanvasLayer/Panel/VBoxContainer/GridContainer/MaxTextEdit
+@onready var p_1x_1_text_edit: TextEdit = $CanvasLayer/Panel/VBoxContainer/GridContainer/P1x1TextEdit
+@onready var p_1x_2_text_edit: TextEdit = $CanvasLayer/Panel/VBoxContainer/GridContainer/P1x2TextEdit
+@onready var p_2x_1_text_edit: TextEdit = $CanvasLayer/Panel/VBoxContainer/GridContainer/P2x1TextEdit
+@onready var p_2x_2_text_edit: TextEdit = $CanvasLayer/Panel/VBoxContainer/GridContainer/P2x2TextEdit
+@onready var block_check_box: CheckBox = $CanvasLayer/Panel/VBoxContainer/GridContainer/BlockCheckBox
 
 @onready var generator: BlockGenerator = $Generator
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_update_ui()
+	seed(1)
 	
 	generate()
 
@@ -23,17 +29,14 @@ func _update_ui():
 	y_text_edit.text="%d" % generator.size.y
 	min_text_edit.text="%f" % generator.min_coverage
 	max_text_edit.text="%f" % generator.max_coverage
-	
+	p_1x_1_text_edit.text="%d" % generator.s1x1_count
+	p_1x_2_text_edit.text="%d" % generator.s1x2_count
+	p_2x_1_text_edit.text="%d" % generator.s2x1_count
+	p_2x_2_text_edit.text="%d" % generator.s2x2_count
+	block_check_box.button_pressed = generator.block_limit
 func generate():
 	generator.generate()	
-	for y in range(generator.size.y):
-		var row=" ."
-		for x in range(generator.size.x):
-			if generator.matrix[x][y]==null:
-				row+=" "
-			else:
-				row+= "%2d." % generator.dungeon.rooms.find(generator.matrix[x][y])
-		print(row)
+
 	draw_dungeon()			
 
 
@@ -74,3 +77,27 @@ func _on_max_text_edit_focus_exited() -> void:
 
 func _on_button_pressed() -> void:
 	generate()
+
+
+func _on_p_2x_2_text_edit_focus_exited() -> void:
+	generator.s2x2_count = clamp(int(p_2x_2_text_edit.text), 0,20)
+	_update_ui()
+
+
+func _on_p_2x_1_text_edit_focus_exited() -> void:
+	generator.s2x1_count = clamp(int(p_2x_1_text_edit.text), 0,20)
+	_update_ui()
+
+
+func _on_p_1x_2_text_edit_focus_exited() -> void:
+	generator.s1x2_count = clamp(int(p_1x_2_text_edit.text), 0,20)
+	_update_ui()
+
+
+func _on_p_1x_1_text_edit_focus_exited() -> void:
+	generator.s1x1_count = clamp(int(p_1x_1_text_edit.text), 0,20)
+	_update_ui()
+
+
+func _on_block_check_box_toggled(toggled_on: bool) -> void:
+	generator.block_limit=toggled_on

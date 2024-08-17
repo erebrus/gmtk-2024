@@ -8,15 +8,14 @@ script = ExtResource("1_drh67")
 
 [node name="Generator" type="Node" parent="."]
 script = ExtResource("2_dlca5")
-size = Vector2i(8, 8)
 
 [node name="RoomContainer" type="Node2D" parent="."]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Panel" type="Panel" parent="CanvasLayer"]
-offset_right = 144.0
-offset_bottom = 210.0
+offset_right = 193.0
+offset_bottom = 369.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel"]
 layout_mode = 1
@@ -69,6 +68,51 @@ vertical_alignment = 1
 [node name="MaxTextEdit" type="TextEdit" parent="CanvasLayer/Panel/VBoxContainer/GridContainer"]
 layout_mode = 2
 
+[node name="Label5" type="Label" parent="CanvasLayer/Panel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "1x1"
+vertical_alignment = 1
+
+[node name="P1x1TextEdit" type="TextEdit" parent="CanvasLayer/Panel/VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Label6" type="Label" parent="CanvasLayer/Panel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "1x2"
+vertical_alignment = 1
+
+[node name="P1x2TextEdit" type="TextEdit" parent="CanvasLayer/Panel/VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Label7" type="Label" parent="CanvasLayer/Panel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "2x1"
+vertical_alignment = 1
+
+[node name="P2x1TextEdit" type="TextEdit" parent="CanvasLayer/Panel/VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Label8" type="Label" parent="CanvasLayer/Panel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "2x2"
+vertical_alignment = 1
+
+[node name="P2x2TextEdit" type="TextEdit" parent="CanvasLayer/Panel/VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Label9" type="Label" parent="CanvasLayer/Panel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "BlockLimit"
+vertical_alignment = 1
+
+[node name="BlockCheckBox" type="CheckBox" parent="CanvasLayer/Panel/VBoxContainer/GridContainer"]
+layout_mode = 2
+
 [node name="Button" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
 layout_mode = 2
 text = "Generate"
@@ -77,4 +121,9 @@ text = "Generate"
 [connection signal="focus_exited" from="CanvasLayer/Panel/VBoxContainer/GridContainer/YTextEdit" to="." method="_on_y_text_edit_focus_exited"]
 [connection signal="focus_exited" from="CanvasLayer/Panel/VBoxContainer/GridContainer/MinTextEdit" to="." method="_on_min_text_edit_focus_exited"]
 [connection signal="focus_exited" from="CanvasLayer/Panel/VBoxContainer/GridContainer/MaxTextEdit" to="." method="_on_max_text_edit_focus_exited"]
+[connection signal="focus_exited" from="CanvasLayer/Panel/VBoxContainer/GridContainer/P1x1TextEdit" to="." method="_on_p_1x_1_text_edit_focus_exited"]
+[connection signal="focus_exited" from="CanvasLayer/Panel/VBoxContainer/GridContainer/P1x2TextEdit" to="." method="_on_p_1x_2_text_edit_focus_exited"]
+[connection signal="focus_exited" from="CanvasLayer/Panel/VBoxContainer/GridContainer/P2x1TextEdit" to="." method="_on_p_2x_1_text_edit_focus_exited"]
+[connection signal="focus_exited" from="CanvasLayer/Panel/VBoxContainer/GridContainer/P2x2TextEdit" to="." method="_on_p_2x_2_text_edit_focus_exited"]
+[connection signal="toggled" from="CanvasLayer/Panel/VBoxContainer/GridContainer/BlockCheckBox" to="." method="_on_block_check_box_toggled"]
 [connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/Button" to="." method="_on_button_pressed"]

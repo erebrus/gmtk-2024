@@ -1,27 +1,32 @@
 class_name BlockGenerator extends DungeonGenerator
 
 @export var size:Vector2i = Vector2i(4,4)
-@export var max_attempts := 100
+@export var max_attempts := 30
 @export var min_coverage := .6
-@export var max_coverage := .8
-
+@export var max_coverage := .2
+@export var s1x1_count := 4
+@export var s2x1_count := 2
+@export var s1x2_count := 2
+@export var s2x2_count := 1
+@export var block_limit := false
 var matrix=[]
-var room_sizes:Array[Vector2i]=[
-	Vector2i(1,1),
-	Vector2i(1,1),
-	Vector2i(1,1),
-	Vector2i(1,1),
-	Vector2i(2,1),
-	Vector2i(2,1),
-	Vector2i(1,2),
-	Vector2i(1,2),
-	Vector2i(2,2)
-	]
+
 	
 func generate() -> void:
 	Logger.info("***************************")
 	Logger.info("Generating dungeon size %s" % size)
-	var valid_room_sizes = room_sizes.duplicate()
+	
+	var valid_room_sizes = []
+	
+	for i in range(s1x1_count):
+		valid_room_sizes.append(Vector2i(1,1))
+	for i in range(s1x2_count):
+		valid_room_sizes.append(Vector2i(1,2))
+	for i in range(s2x1_count):
+		valid_room_sizes.append(Vector2i(2,1))
+	for i in range(s2x2_count):
+		valid_room_sizes.append(Vector2i(2,2))
+		
 	dungeon = Dungeon.new()
 	init_matrix()
 
@@ -34,15 +39,30 @@ func generate() -> void:
 				valid_room_sizes.erase(room_size)
 			continue
 		var room = generate_room_for_spec(room_size, room_position.cell)
-		for cell in room.get_cells():
-			matrix[cell.x][cell.y]=room
-		dungeon.rooms.append(room)
+		place_room(room)
+		if block_limit:
+			valid_room_sizes.erase(room_size)
 	
 	Logger.info("Generated %d rooms" % dungeon.rooms.size())
 	
+	print()
+	
 	prune()
+	
+	print()
 	Logger.info("Final dungeon has %d rooms" % dungeon.rooms.size())
 	Logger.info("***************************")
+
+func remove_room(room:Room):
+	dungeon.rooms.erase(room)
+	for x in range(room.size.x):
+		for y in range(room.size.y):
+			matrix[room.cell.x+x][room.cell.y+y]=null
+
+func place_room(room:Room):
+	for cell in room.get_cells():
+		matrix[cell.x][cell.y]=room
+	dungeon.rooms.append(room)
 	
 func prune()->void:
 	Logger.info("Prunning")
@@ -51,9 +71,11 @@ func prune()->void:
 	var attempt:int =0
 	while get_coverage()> max_coverage and attempt < max_attempts:
 		last_room_removed = dungeon.rooms.pick_random()
-		dungeon.rooms.erase(last_room_removed)
+		if last_room_removed == dungeon.rooms[0]:
+			continue
+		remove_room(last_room_removed)
 		if not are_all_rooms_wall_connected():
-			dungeon.rooms.append(last_room_removed)
+			place_room(last_room_removed)
 			attempt+=1
 			continue
 		
@@ -61,7 +83,7 @@ func prune()->void:
 		
 	#if we went under min coverage, then replace last removed room (even if we go above max coverage)
 	if get_coverage()<min_coverage and last_room_removed != null:
-		dungeon.rooms.append(last_room_removed)
+		place_room(last_room_removed)
 		Logger.info("Replaced room %s" % last_room_removed)
 		
 	Logger.info("Coverage %2f" % get_coverage())
@@ -140,9 +162,8 @@ func is_next_to_room(cell:Vector2i) -> bool:
 
 func get_adjacent_cells(cell:Vector2i) -> Array:
 	var ret := []
-	for x in range(-1,2):
-		for y in range(-1,2):
-			var neighbor := cell + Vector2i (x,y)
+	for delta in [Vector2i.UP,Vector2i.DOWN,Vector2i.LEFT,Vector2i.RIGHT]:
+			var neighbor:Vector2i = cell + delta
 			if neighbor != cell and is_cell_in_dungeon(neighbor):				
 				ret.append(neighbor)				
 	return ret
@@ -160,3 +181,14 @@ class RoomCell:
 	func _init(new_cell:Vector2i) -> void:
 		self.cell = new_cell
 #func get_empty_cells() -> Array
+
+func print():
+
+	for y in range(size.y):
+		var row=" ."
+		for x in range(size.x):
+			if matrix[x][y]==null:
+				row+=" "
+			else:
+				row+= "%2d." % dungeon.rooms.find(matrix[x][y])
+		Logger.info(row)

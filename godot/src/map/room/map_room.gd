@@ -32,12 +32,20 @@ func _calculate_size() -> void:
 	
 
 func _move_to(to_global_position: Vector2) -> void:
-	var x = int(to_global_position.x) / Globals.TILE_SIZE
-	var y = int(to_global_position.y) / Globals.TILE_SIZE
-	global_position = Vector2(x,y) * Globals.TILE_SIZE + size * Globals.TILE_SIZE * 0.5
+	var x:float = int(to_global_position.x) / Globals.TILE_SIZE
+	var y:float = int(to_global_position.y) / Globals.TILE_SIZE
+	
+	if size.x % 2:
+		x += 0.5
+	if size.y % 2:
+		y += 0.5
+	
+	global_position = Vector2(x,y) * Globals.TILE_SIZE
+	
 	
 
 func _on_drag_started() -> void:
+	Logger.info("Started dragging room")
 	modulate.a = 0.5
 	
 
@@ -46,6 +54,7 @@ func _on_dragged(to_global_position: Vector2) -> void:
 	
 
 func _on_dropped(to_global_position: Vector2) -> void:
+	Logger.info("Dropped room at %s" % to_global_position)
 	_move_to(to_global_position)
 	modulate.a = 1
 	
@@ -53,4 +62,4 @@ func _on_dropped(to_global_position: Vector2) -> void:
 func _on_input_event(_viewport, event: InputEvent, _shape_idx) -> void:
 	if event is InputEventMouseButton:
 		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-			draggable.start(global_position - size * Globals.TILE_SIZE * 0.5)
+			draggable.start(global_position)

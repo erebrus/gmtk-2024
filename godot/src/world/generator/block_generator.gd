@@ -48,9 +48,15 @@ func prune()->void:
 	Logger.info("Prunning")
 	var last_room_removed:Room
 	#remove rooms until we are under max coverage
-	while get_coverage()> max_coverage:
+	var attempt:int =0
+	while get_coverage()> max_coverage and attempt < max_attempts:
 		last_room_removed = dungeon.rooms.pick_random()
 		dungeon.rooms.erase(last_room_removed)
+		if not are_all_rooms_wall_connected():
+			dungeon.rooms.append(last_room_removed)
+			attempt+=1
+			continue
+		
 		Logger.info("Removed room %s" % last_room_removed)
 		
 	#if we went under min coverage, then replace last removed room (even if we go above max coverage)

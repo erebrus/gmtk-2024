@@ -18,6 +18,8 @@ func _on_enter(_args) -> void:
 # This function is called each frame if the state is ACTIVE
 # XSM updates the root first, then the children
 func _on_update(_delta: float) -> void:
+	if owner.in_animation:
+		return 
 	var direction:=Input.get_vector("move_left","move_right", "move_up", "move_down")
 	if direction != Vector2.ZERO:
 		if direction != Vector2.ZERO and direction!=owner.last_direction:

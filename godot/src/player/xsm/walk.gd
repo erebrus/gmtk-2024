@@ -13,6 +13,8 @@ func _on_enter(_args) -> void:
 # This function is called each frame if the state is ACTIVE
 # XSM updates the root first, then the children
 func _on_update(_delta: float) -> void:	
+	if owner.in_animation:
+		return 
 	var direction:=Input.get_vector("move_left","move_right", "move_up", "move_down")
 	var speed:float = owner.walk_speed
 	if Input.is_action_pressed("sprint"):

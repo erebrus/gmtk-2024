@@ -25,7 +25,8 @@ func _on_update(_delta: float) -> void:
 		if direction != Vector2.ZERO and direction!=owner.last_direction:
 			owner.last_direction = direction
 			_update_sprite()
-		change_state("walk")
+		if owner.can_move():
+			change_state("walk")
 	
 
 func _update_sprite():

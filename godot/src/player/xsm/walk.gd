@@ -32,6 +32,8 @@ func _on_update(_delta: float) -> void:
 			_update_sprite()
 	else:
 		change_state("idle")
+	if not owner.can_move():
+		change_state("idle")
 
 
 func _update_sprite():
@@ -40,7 +42,7 @@ func _update_sprite():
 		owner.anim_player.current_animation="walk"
 		if owner.last_direction.y < 0:
 			owner.sprite.rotation=0
-		elif owner.last_direction.y:
+		elif owner.last_direction.y > 0:
 			owner.sprite.rotation=PI
 		elif owner.last_direction.x < 0:
 			owner.sprite.rotation=-PI/2

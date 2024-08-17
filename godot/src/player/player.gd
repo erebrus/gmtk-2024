@@ -1,6 +1,7 @@
 extends CharacterBody2D
 class_name Player
 
+@export var rc_distance := 50.0
 @export var dash_impulse:float = 1200
 @export var walk_speed:float = 200	
 @export var run_speed:float = 400
@@ -10,13 +11,18 @@ class_name Player
 @onready var anim_tree:AnimationTree = $AnimationTree
 @onready var anim_player:AnimationPlayer = $AnimationPlayer
 @onready var sprite: Sprite2D = $Sprite
+@onready var wall_rc: RayCast2D = $wall_rc
 
 @onready var sfx_walk: AudioStreamPlayer2D = $sfx/sfx_walk
 @onready var sfx_dash: AudioStreamPlayer2D = $sfx/sfx_dash
 
 
 
-var last_direction:Vector2 = Vector2.UP
+var last_direction:Vector2 = Vector2.UP:
+	set(v):
+		last_direction=v
+		wall_rc.target_position=last_direction * rc_distance
+
 var in_animation:bool = false
 #@onready var hp:float = max_hp
 
@@ -25,10 +31,13 @@ func _control(delta:float) -> void:
 	if Input.is_action_just_pressed("dash"):
 		_do_dash()
 
-
+func can_move()->bool:
+	return not wall_rc.is_colliding()
+	
 func _physics_process(delta: float) -> void:
 	if not in_animation:
 		_control(delta)	
+	
 	
 	#if velocity != Vector2.ZERO:
 		#play_footstep()

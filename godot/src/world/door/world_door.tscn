@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://def0jas8yr3ia"]
+
+[ext_resource type="Script" path="res://src/world/door/world_door.gd" id="1_7ub7w"]
+[ext_resource type="Texture2D" uid="uid://dnsrv4wp1rvk8" path="res://assets/gfx/world/door.png" id="1_h6t70"]
+[ext_resource type="Script" path="res://src/world/door/door.gd" id="2_3gb27"]
+
+[sub_resource type="Resource" id="Resource_asoxu"]
+script = ExtResource("2_3gb27")
+cell = Vector2i(0, 0)
+side = Vector2i(0, -1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i2uhm"]
+size = Vector2(38, 14)
+
+[node name="Door" type="Area2D"]
+script = ExtResource("1_7ub7w")
+data = SubResource("Resource_asoxu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_h6t70")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_i2uhm")
+
+[node name="PlayerPosition" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, 64)
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

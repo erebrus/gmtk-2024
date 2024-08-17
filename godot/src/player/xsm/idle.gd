@@ -6,6 +6,7 @@ extends State
 # XSM enters the root first, the the children
 func _on_enter(_args) -> void:
 	owner.anim_player.play("idle")
+	_update_sprite()
 	
 	#owner.anim_tree.set("parameters/idle/blend_position", owner.last_direction)
 	#owner.anim_tree.get("parameters/playback").travel("idle")	
@@ -21,5 +22,16 @@ func _on_update(_delta: float) -> void:
 	if direction != Vector2.ZERO:
 		if direction != Vector2.ZERO and direction!=owner.last_direction:
 			owner.last_direction = direction
+			_update_sprite()
 		change_state("walk")
 	
+
+func _update_sprite():
+	if owner.last_direction.y < 0:
+		owner.sprite.rotation=0
+	elif owner.last_direction.y > 0:
+		owner.sprite.rotation=PI
+	elif owner.last_direction.x < 0:
+		owner.sprite.rotation=-PI/2
+	elif owner.last_direction.x > 0:
+		owner.sprite.rotation=PI/2

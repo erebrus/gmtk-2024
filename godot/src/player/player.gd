@@ -35,8 +35,8 @@ func _physics_process(delta: float) -> void:
 				
 	move_and_slide()
 	
-	if not in_animation:
-		_update_sprite()
+	#if not in_animation:
+		#_update_sprite()
 	
 
 func _update_sprite():

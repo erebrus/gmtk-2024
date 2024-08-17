@@ -24,8 +24,5 @@ func _ready() -> void:
 			rotation = -PI/2
 
 
-func _on_input_event(_viewport, event: InputEvent, _shape_idx):
-	# FIXME: only clicable for debug purposes!!!
-	if event.is_action_pressed("left_click"):
-		door_entered.emit()
-		
+func _on_body_entered(body):
+	door_entered.emit()

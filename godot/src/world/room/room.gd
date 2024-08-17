@@ -13,3 +13,12 @@ func _to_string() -> String:
 		cell,
 		doors.size()
 	]
+
+
+func get_cells()->Array:
+	var ret := []
+	for x in range(size.x):
+		for y in range(size.y):
+			ret.append(cell+Vector2i(x,y))
+	return ret
+			

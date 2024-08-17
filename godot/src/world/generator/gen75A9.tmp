@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cclfrrtwylx1n"]
+
+[ext_resource type="Script" path="res://src/world/generator/generator_tester.gd" id="1_drh67"]
+[ext_resource type="Script" path="res://src/world/generator/block_generator.gd" id="2_dlca5"]
+
+[node name="GeneratorTester" type="Node2D"]
+script = ExtResource("1_drh67")
+
+[node name="Generator" type="Node" parent="."]
+script = ExtResource("2_dlca5")

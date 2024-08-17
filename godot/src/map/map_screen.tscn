@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://bakmp3c63fsg6"]
+
+[ext_resource type="Script" path="res://src/map/map_screen.gd" id="1_fitck"]
+[ext_resource type="PackedScene" uid="uid://bq6sff2no7cjn" path="res://src/map/dungeon/map_dungeon.tscn" id="1_uj5lt"]
+[ext_resource type="PackedScene" uid="uid://ds2geaj03qxer" path="res://src/map/room/map_room.tscn" id="2_2ptas"]
+[ext_resource type="PackedScene" uid="uid://btojqqgajj37t" path="res://src/map/door/map_door.tscn" id="3_gjdh2"]
+
+[node name="MapScreen" type="Node"]
+script = ExtResource("1_fitck")
+RoomScene = ExtResource("2_2ptas")
+DoorScene = ExtResource("3_gjdh2")
+
+[node name="MapDungeon" parent="." instance=ExtResource("1_uj5lt")]
+unique_name_in_owner = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Rooms"
+
+[node name="Room1x1" type="Button" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1x1"
+
+[node name="Room2x1" type="Button" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "2x1"
+
+[node name="Room1x2" type="Button" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1x2"
+
+[node name="Room2x2" type="Button" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "2x2"
+
+[node name="EditDoors" type="Button" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+toggle_mode = true
+text = "Edit doors"

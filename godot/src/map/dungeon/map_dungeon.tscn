@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bq6sff2no7cjn"]
+
+[ext_resource type="Script" path="res://src/map/dungeon/map_dungeon.gd" id="1_daiet"]
+
+[node name="MapDungeon" type="Node2D"]
+script = ExtResource("1_daiet")

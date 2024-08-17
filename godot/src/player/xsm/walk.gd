@@ -5,6 +5,7 @@ extends State
 # XSM enters the root first, the the children
 func _on_enter(_args) -> void:
 	owner.anim_player.play("walk")
+	_update_sprite()
 
 
 
@@ -24,6 +25,38 @@ func _on_update(_delta: float) -> void:
 	owner.velocity = direction * speed
 	if direction != Vector2.ZERO:
 		if direction != Vector2.ZERO and direction!=owner.last_direction:
+			Logger.info("new direction %s" % [direction])
 			owner.last_direction = direction
+			_update_sprite()
 	else:
 		change_state("idle")
+
+
+func _update_sprite():
+
+	if owner.last_direction.x==0 or owner.last_direction.y==0:
+		owner.anim_player.current_animation="walk"
+		if owner.last_direction.y < 0:
+			owner.sprite.rotation=0
+		elif owner.last_direction.y:
+			owner.sprite.rotation=PI
+		elif owner.last_direction.x < 0:
+			owner.sprite.rotation=-PI/2
+		elif owner.last_direction.x > 0:
+			owner.sprite.rotation=PI/2
+	else:
+		owner.anim_player.current_animation="walk_diag"
+		owner.sprite.rotation=0
+		if owner.last_direction.x < -.5 and owner.last_direction.y < -.5:
+			owner.sprite.flip_h=false
+			owner.sprite.flip_v=false
+		elif owner.last_direction.x > .5 and owner.last_direction.y > .5:
+			owner.sprite.flip_h=true
+			owner.sprite.flip_v=true
+		elif owner.last_direction.x < -.5 and owner.last_direction.y > .5:
+			owner.sprite.flip_h=false
+			owner.sprite.flip_v=true
+		elif owner.last_direction.x > .5 and owner.last_direction.y < -.5:
+			owner.sprite.flip_h=true
+			owner.sprite.flip_v=false
+		

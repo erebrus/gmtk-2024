@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://bg6f5xhsa624e"]
+
+[ext_resource type="Script" path="res://src/player/player.gd" id="1_ousdh"]
+[ext_resource type="Script" path="res://addons/xsm/state.gd" id="1_vxbpr"]
+[ext_resource type="Script" path="res://src/player/xsm/idle.gd" id="2_i5jnq"]
+[ext_resource type="Script" path="res://src/player/xsm/walk.gd" id="3_sawg0"]
+[ext_resource type="Script" path="res://src/player/xsm/dash.gd" id="4_7nurc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g2p6n"]
+size = Vector2(64, 64)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_ousdh")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_g2p6n")
+
+[node name="xsm" type="Node" parent="."]
+script = ExtResource("1_vxbpr")
+history_size = 0
+disabled = false
+debug_mode = false
+target_path = NodePath("")
+timed = false
+next_state = NodePath("")
+
+[node name="idle" type="Node" parent="xsm"]
+script = ExtResource("2_i5jnq")
+
+[node name="walk" type="Node" parent="xsm"]
+script = ExtResource("3_sawg0")
+
+[node name="dash" type="Node" parent="xsm"]
+script = ExtResource("4_7nurc")
+
+[node name="DashTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+anim_player = NodePath("../AnimationPlayer")

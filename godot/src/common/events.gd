@@ -1,4 +1,4 @@
 extends Node
 
 
-signal door_entered(room: Room, door: Door)
+signal map_mode_changed

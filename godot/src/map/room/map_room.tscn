@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://ds2geaj03qxer"]
+[gd_scene load_steps=5 format=3 uid="uid://ds2geaj03qxer"]
 
 [ext_resource type="Script" path="res://src/map/room/map_room.gd" id="1_g0p23"]
 [ext_resource type="Texture2D" uid="uid://b6x23cnbcmgln" path="res://assets/gfx/map/room.png" id="1_qalxe"]
+[ext_resource type="PackedScene" uid="uid://btojqqgajj37t" path="res://src/map/door/map_door.tscn" id="2_xrf3q"]
 [ext_resource type="PackedScene" uid="uid://b38lu5l8p5qxf" path="res://src/map/draggable/draggable.tscn" id="3_3l3pu"]
 
 [node name="MapRoom" type="Area2D"]
@@ -9,9 +10,10 @@ collision_layer = 130
 collision_mask = 2
 script = ExtResource("1_g0p23")
 size = Vector2i(1, 1)
+DoorScene = ExtResource("2_xrf3q")
 
 [node name="Walls" type="NinePatchRect" parent="."]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(64, 64)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -24,12 +26,15 @@ offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_qalxe")
-patch_margin_left = 12
-patch_margin_top = 12
-patch_margin_right = 12
-patch_margin_bottom = 12
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 24
+patch_margin_bottom = 24
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+
+[node name="Doors" type="Node2D" parent="."]
 
 [node name="Draggable" parent="." instance=ExtResource("3_3l3pu")]
 

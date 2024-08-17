@@ -36,6 +36,6 @@ func _ready() -> void:
 		Vector2i.RIGHT:
 			position.x += (Globals.TILES_PER_ROOM - 1) * Globals.TILE_SIZE
 			position.y += (Globals.TILES_PER_ROOM - 1) * 0.5 * Globals.TILE_SIZE
-
+	
 func _on_body_entered(body):
 	door_entered.emit()

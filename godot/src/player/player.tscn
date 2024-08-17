@@ -1,31 +1,153 @@
-[gd_scene load_steps=7 format=3 uid="uid://bg6f5xhsa624e"]
+[gd_scene load_steps=15 format=3 uid="uid://bg6f5xhsa624e"]
 
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_ousdh"]
-[ext_resource type="Script" path="res://addons/xsm/state.gd" id="1_vxbpr"]
 [ext_resource type="Script" path="res://src/player/xsm/idle.gd" id="2_i5jnq"]
+[ext_resource type="Texture2D" uid="uid://dmx1b1615akvt" path="res://assets/gfx/characters/mc-mouse.png" id="2_wx3e3"]
+[ext_resource type="Script" path="res://src/player/xsm/xsm.gd" id="3_gvos8"]
 [ext_resource type="Script" path="res://src/player/xsm/walk.gd" id="3_sawg0"]
 [ext_resource type="Script" path="res://src/player/xsm/dash.gd" id="4_7nurc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g2p6n"]
 size = Vector2(64, 64)
 
+[sub_resource type="Animation" id="Animation_iduwe"]
+resource_name = "idle"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0), Vector2i(4, 0), Vector2i(5, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hbkjn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_eon11"]
+resource_name = "walk"
+length = 0.3
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_fuauk"]
+resource_name = "walk_diag"
+length = 0.3
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 2), Vector2i(1, 2), Vector2i(2, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_06l7t"]
+resource_name = "dash"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 3), Vector2i(1, 3), Vector2i(2, 3), Vector2i(3, 3), Vector2i(4, 3)]
+}
+
+[sub_resource type="Animation" id="Animation_5b8i8"]
+resource_name = "dash_diag"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 4), Vector2i(1, 4), Vector2i(2, 4), Vector2i(3, 4), Vector2i(4, 4)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1kdea"]
+_data = {
+"RESET": SubResource("Animation_hbkjn"),
+"dash": SubResource("Animation_06l7t"),
+"dash_diag": SubResource("Animation_5b8i8"),
+"idle": SubResource("Animation_iduwe"),
+"walk": SubResource("Animation_eon11"),
+"walk_diag": SubResource("Animation_fuauk")
+}
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_ousdh")
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
-polygon = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_wx3e3")
+hframes = 6
+vframes = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_g2p6n")
 
+[node name="DashTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_1kdea")
+}
+speed_scale = 0.5
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+anim_player = NodePath("../AnimationPlayer")
+
 [node name="xsm" type="Node" parent="."]
-script = ExtResource("1_vxbpr")
-history_size = 0
-disabled = false
-debug_mode = false
-target_path = NodePath("")
-timed = false
-next_state = NodePath("")
+script = ExtResource("3_gvos8")
 
 [node name="idle" type="Node" parent="xsm"]
 script = ExtResource("2_i5jnq")
@@ -36,10 +158,10 @@ script = ExtResource("3_sawg0")
 [node name="dash" type="Node" parent="xsm"]
 script = ExtResource("4_7nurc")
 
-[node name="DashTimer" type="Timer" parent="."]
-one_shot = true
+[node name="sfx" type="Node2D" parent="."]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="sfx_walk" type="AudioStreamPlayer2D" parent="sfx"]
+bus = &"Sfx"
 
-[node name="AnimationTree" type="AnimationTree" parent="."]
-anim_player = NodePath("../AnimationPlayer")
+[node name="sfx_dash" type="AudioStreamPlayer2D" parent="sfx"]
+bus = &"Sfx"

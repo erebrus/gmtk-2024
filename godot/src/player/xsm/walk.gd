@@ -4,11 +4,7 @@ extends State
 # This function is called when the state enters
 # XSM enters the root first, the the children
 func _on_enter(_args) -> void:
-	#if owner.last_direction != Vector2.ZERO:
-		#owner.anim_tree.set("parameters/walk/blend_position", owner.velocity.normalized())
-		#owner.anim_tree.get("parameters/playback").travel("walk")
-	#owner.sprite.flip_h=owner.last_direction.x<0
-	pass
+	owner.anim_player.play("walk")
 
 
 
@@ -20,9 +16,12 @@ func _on_update(_delta: float) -> void:
 	var speed:float = owner.walk_speed
 	if Input.is_action_pressed("sprint"):
 		speed = owner.run_speed
+		owner.anim_player.speed_scale=1
+	else:
+		owner.anim_player.speed_scale=.5
+		
 		
 	owner.velocity = direction * speed
-	#owner.anim_tree.set("parameters/walk/blend_position", owner.velocity.normalized())
 	if direction != Vector2.ZERO:
 		if direction != Vector2.ZERO and direction!=owner.last_direction:
 			owner.last_direction = direction

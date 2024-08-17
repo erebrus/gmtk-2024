@@ -16,10 +16,8 @@ func _on_enter(_args) -> void:
 	Logger.debug("last direction used in dash %s " % owner.last_direction)
 	owner.velocity = owner.last_direction * owner.dash_impulse
 	tween.tween_property(owner, "velocity", Vector2.ZERO, .5)
-	#owner.anim_tree.set("parameters/dash/blend_position", owner.last_direction)
-	#owner.anim_tree.get("parameters/playback").travel("dash")
-	#owner.sprite.flip_h = owner.last_direction.x<0
-	#owner.sfx_dash.play()
+	owner.anim_player.play("dash")	
+	owner.sfx_dash.play()
 	await tween.finished
 	owner.in_animation=false
 	dash_done = true

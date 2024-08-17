@@ -1,10 +1,12 @@
 extends State
 
 
+
 # This function is called when the state enters
 # XSM enters the root first, the the children
 func _on_enter(_args) -> void:
-	pass
+	owner.anim_player.play("idle")
+	
 	#owner.anim_tree.set("parameters/idle/blend_position", owner.last_direction)
 	#owner.anim_tree.get("parameters/playback").travel("idle")	
 	#owner.sprite.flip_h=owner.last_direction.x<0

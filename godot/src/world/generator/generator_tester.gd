@@ -20,7 +20,7 @@ var room_scene:PackedScene= preload("res://src/map/room/map_room.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_update_ui()
-	seed(1)
+	
 	
 	generate()
 

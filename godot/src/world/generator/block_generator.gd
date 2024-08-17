@@ -121,7 +121,7 @@ func are_all_rooms_wall_connected()->bool:
 		if not is_room_wall_connected(room):
 			return false
 	return true
-		
+
 func get_room_position(room_size:Vector2i)->RoomCell:
 	if dungeon.rooms.is_empty():		
 		return RoomCell.new(Vector2i(randi_range(0,size.x-room_size.x), size.y-room_size.y))

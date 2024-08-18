@@ -9,6 +9,7 @@ class_name BlockGenerator extends DungeonGenerator
 @export var s1x2_count := 2
 @export var s2x2_count := 1
 @export var block_limit := false
+@export var cycle_factor := .1
 var matrix=[]
 
 	
@@ -32,7 +33,7 @@ func generate() -> void:
 
 	Logger.info("Generating rooms")
 	while not valid_room_sizes.is_empty():
-		var room_size:Vector2i = valid_room_sizes.pick_random()
+		var room_size:Vector2i = Vector2i.ONE if dungeon.rooms.is_empty() else valid_room_sizes.pick_random()
 		var room_position:RoomCell = get_room_position(room_size)
 		if room_position == null:
 			while valid_room_sizes.has(room_size):
@@ -51,8 +52,40 @@ func generate() -> void:
 	
 	print()
 	Logger.info("Final dungeon has %d rooms" % dungeon.rooms.size())
+	
+	create_doors()
+	
+	for room in dungeon.rooms:
+		Logger.info("%s" % room)
+	
+	
 	Logger.info("***************************")
-
+func create_doors():
+	var room_positions:=[]
+	for room in dungeon.rooms:
+		room_positions.append(room.cell)
+	
+	var mst = get_mst()
+	for c in mst:
+		var ro:Room = dungeon.rooms[c.x]
+		var rd:Room = dungeon.rooms[c.y]
+		var door :Door = get_door_options(ro,rd).pick_random()
+		ro.doors.append(door)
+		var reverse_door:Door = Door.new()
+		reverse_door.side = door.side * -1
+		# dest room abs cell -(ori room cell
+		reverse_door.cell = ((ro.cell+door.cell)-door.side) - rd.cell
+		rd.doors.append(reverse_door)
+		
+	#for p in mst.get_points():
+		#var ro = dungeon.get_room_for_cell(p)
+		#assert(ro)
+		#for c in mst.get_point_connections(p):
+			#var rd = dungeon.get_room_for_cell(mst.get_point_position(c))
+			#assert(rd)
+			
+	
+	
 func remove_room(room:Room):
 	dungeon.rooms.erase(room)
 	for x in range(room.size.x):
@@ -130,7 +163,28 @@ func are_all_rooms_wall_connected()->bool:
 		
 	return checked_rooms.size() == dungeon.rooms.size()
 	
-
+func get_door_options(room1:Room, room2:Room)->Array:
+	var ret=[]
+	var room2_cells=get_adjacent_neighbor_cells(room1, room2)
+	var room1_cells=get_adjacent_neighbor_cells(room2, room1)
+	for c1 in room1_cells:
+		for c2 in room2_cells:
+			for dir in [Vector2i.UP,Vector2i.DOWN,Vector2i.LEFT,Vector2i.RIGHT]:
+				if c1 - dir == c2:
+					var door:Door = Door.new()
+					door.cell=room1.cell-c1
+					door.side=dir
+					ret.append(door)
+	return ret
+	
+func get_adjacent_neighbor_cells(room:Room, neighbor:Room)->Array:
+	var ret=[]
+	for cell in room.get_cells():
+		var cells = get_adjacent_cells(cell).filter(func(c): return c in neighbor.get_cells())
+		for nc in cells:
+			if not nc in ret:
+				ret.append(nc)
+	return ret
 func get_wall_connected_rooms(room:Room)->Array:
 	var neighbor_rooms=[]
 	var adjcent_cells:=[]
@@ -199,12 +253,6 @@ func get_used_cells() -> Array:
 				ret.append(Vector2i(x,y))
 	return ret
 
-class RoomCell:
-	var cell:Vector2i
-	func _init(new_cell:Vector2i) -> void:
-		self.cell = new_cell
-#func get_empty_cells() -> Array
-
 func print():
 
 	for y in range(size.y):
@@ -215,3 +263,85 @@ func print():
 			else:
 				row+= "%2d." % dungeon.rooms.find(matrix[x][y])
 		Logger.info(row)
+
+func segment_adds_loop(new_segment:Vector2i, astar:AStar2D)->bool:
+	return not astar.get_id_path(new_segment.x, new_segment.y).is_empty
+	
+func get_mst()->Array[Vector2i]:
+	var astar=AStar2D.new()
+	for i in range(dungeon.rooms.size()):
+		astar.add_point(i, dungeon.rooms[i].cell)
+
+	var segments=[]
+	for i in range(dungeon.rooms.size()):
+		var room = dungeon.rooms[i]
+		var neighbors = get_wall_connected_rooms(room)
+		for n in neighbors:
+			var nidx = dungeon.rooms.find(n)
+			assert(nidx >=0)
+			if not (Vector2i(i,nidx) in segments or Vector2i(nidx,i) in segments):
+				segments.append(Vector2i(i,nidx))
+	
+	var available_segments=segments.duplicate()
+	#var lengths:=[]
+	#for s in segments:
+		#lengths.append(points[s.x].distance_to(points[s.y]))
+	#available_segments.sort_custom(func (a,b): return lengths[available_segments.find(b)]>lengths[available_segments.find(a)])
+
+	var ret:Array[Vector2i]=[]
+
+	for i in range(dungeon.rooms.size()-1):
+		var new_segment=available_segments.pop_front()
+		while segment_adds_loop(new_segment, astar):
+			if available_segments.is_empty():
+				Logger.error("Failed to find MST")
+				assert(false)
+				return []				
+			new_segment=available_segments.pop_front()
+		ret.append(new_segment)
+		astar.connect_points(new_segment.x, new_segment.y)
+		
+	var extra_count:int = floor(available_segments.size()*cycle_factor)
+	for i in range(extra_count):
+		ret.append(available_segments.pop_front())
+	return ret
+#func find_mst(nodes):
+	## Prim's algorithm
+	## Given an array of positions (nodes), generates a minimum
+	## spanning tree
+	## Returns an AStar object
+#
+	## Initialize the AStar and add the first point
+	#var path = AStar2D.new()
+	#path.add_point(path.get_available_point_id(), nodes.pop_front())
+#
+	## Repeat until no more nodes remain
+	#while nodes:
+		#var min_dist = INF  # Minimum distance found so far
+		#var min_p = null  # Position of that node
+		#var p = null  # Current position
+		## Loop through the points in the path
+		#for p1 in path.get_points():
+			#p1 = path.get_point_position(p1)
+			## Loop through the remaining nodes in the given array
+			#for p2 in nodes:
+				## If the node is closer, make it the closest
+				#if p1.distance_to(p2) < min_dist:
+					#min_dist = p1.distance_to(p2)
+					#min_p = p2
+					#p = p1
+		## Insert the resulting node into the path and add
+		## its connection
+		#var n = path.get_available_point_id()
+		#path.add_point(n, min_p)
+		#path.connect_points(path.get_closest_point(p), n)
+		## Remove the node from the array so it isn't visited again
+		#nodes.erase(min_p)
+	#return path
+	
+	
+class RoomCell:
+	var cell:Vector2i
+	func _init(new_cell:Vector2i) -> void:
+		self.cell = new_cell
+#func get_empty_cells() -> Array

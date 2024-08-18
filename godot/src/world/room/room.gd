@@ -7,11 +7,11 @@ class_name Room extends Resource
 
 
 func _to_string() -> String:
-	return "%sx%s room at %s. %s Doors." % [
+	return "%sx%s room at %s. Doors:%s " % [
 		size.x,
 		size.y,
 		cell,
-		doors.size()
+		doors
 	]
 
 

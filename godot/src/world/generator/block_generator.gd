@@ -250,7 +250,7 @@ func get_room_position(room_size:Vector2i)->RoomCell:
 	if dungeon.rooms.is_empty():		
 		return RoomCell.new(Vector2i(randi_range(0,size.x-room_size.x), size.y-room_size.y))
 		
-	var possible_positions = get_possible_cell_positions()
+	var possible_positions = get_possible_cell_positions(room_size)
 	while not possible_positions.is_empty():
 		var cell:Vector2i = possible_positions.pick_random()
 		possible_positions.erase(cell)
@@ -269,11 +269,20 @@ func does_room_fit(size:Vector2i, cell:Vector2i)-> bool:
 func is_cell_in_dungeon(cell:Vector2i):
 	return not(cell.x < 0 or cell.x >= size.x or cell.y < 0 or cell.y >= size.y)
 	
-func get_possible_cell_positions()-> Array:
+func get_possible_cell_positions(room_size:Vector2i)-> Array:
 	var ret := []
 	for x in range(size.x):
 		for y in range(size.y):
-			if matrix[x][y] == null and is_next_to_room(Vector2i(x,y)):
+			var adjacent:=false
+			var valid:=true
+			for rx in range(room_size.x):
+				for ry in range(room_size.y):
+					if not is_cell_in_dungeon(Vector2i(x+rx,y+ry)) or matrix[x+rx][y+ry] != null:
+						valid=false
+						break
+					if is_next_to_room(Vector2i(x+rx,y+ry)):
+						adjacent=true
+			if valid and adjacent:
 				ret.append(Vector2i(x,y))
 	return ret
 		

@@ -38,11 +38,24 @@ func _ready() -> void:
 		_add_door(Vector2i(size.x - 1, y), Vector2i.RIGHT)
 	
 
+func activate_door(cell: Vector2i, side: Vector2i) -> void:
+	var door = _find_door(cell, side)
+	assert(door != null)
+	door.has_door = true
+	
+
 func _add_door(cell: Vector2i, side: Vector2i) -> void:
 	var door: MapDoor = DoorScene.instantiate()
 	door.place(cell, side)
 	doors.append(door)
 	door_container.add_child(door)
+	
+
+func _find_door(cell: Vector2i, side: Vector2i) -> MapDoor:
+	for door in doors:
+		if door.cell == cell and door.side == side:
+			return door
+	return null
 	
 
 func _calculate_size() -> void:

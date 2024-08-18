@@ -39,11 +39,42 @@ func _ready() -> void:
 		_add_door(Vector2i(size.x - 1, y), Vector2i.RIGHT)
 	
 
+func any_cell(filter: Callable) -> bool:
+	for x in size.x:
+		for y in size.y:
+			if filter.call(cell + Vector2i(x,y)):
+				return true
+	return false
+	
+
 func activate_door(cell: Vector2i, side: Vector2i, start_door: bool = false) -> void:
 	var door = _find_door(cell, side)
 	assert(door != null)
 	door.has_door = true
 	door.is_start_door = start_door
+	
+
+func evaluate(target: Room) -> float:
+	var score = Globals.SCORE_ROOM_EXISTS
+	
+	score += _handle_result(target.size == size, Globals.SCORE_ROOM_SIZE, "Room is the right size")
+	
+	var door_spots = 2 * size.x + 2 * size.y
+	var score_per_door = Globals.SCORE_DOORS / door_spots
+	
+	for drawn_door in doors:
+		var valid_door = drawn_door.has_door == target.has_door(drawn_door.cell, drawn_door.side)
+		score += _handle_result(valid_door, score_per_door, "Door at %s: %s" % [drawn_door, drawn_door.has_door])
+		
+	# TODO: landmarks
+	
+	return score
+	
+
+func _handle_result(result: bool, score: float, msg: String) -> float:
+	var result_str = "PASS" if result else "FAIL"
+	Logger.info("\t%s: %s -> %s" % [result_str, msg, score])
+	return score if result else 0.0
 	
 
 func _add_door(cell: Vector2i, side: Vector2i) -> void:
@@ -91,6 +122,7 @@ func _on_dropped(to_global_position: Vector2) -> void:
 	_move_to(to_global_position)
 	Logger.info("Dropped room at cell %s (%s)" % [cell, to_global_position])
 	modulate.a = 1
+	Events.map_changed.emit()
 	
 
 func _on_input_event(_viewport, event: InputEvent, _shape_idx) -> void:

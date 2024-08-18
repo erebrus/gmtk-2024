@@ -32,6 +32,7 @@ func _enter_room(room_data: Room, door_data: Door) -> void:
 	var door = _create_door(room_data, door_data)
 	await door.room.ready
 	room_loaded.emit(door.player_position)
+	Events.on_transition_state_change.emit(false)
 	
 
 func _create_door(room_data: Room, door_data: Door) -> WorldDoor:
@@ -55,4 +56,3 @@ func _on_door_entered(door: WorldDoor) -> void:
 		var target_door = target_room.door_at(target_cell, -door.side)
 		_enter_room(target_room, target_door)
 	
-	Events.on_transition_state_change.emit(false)

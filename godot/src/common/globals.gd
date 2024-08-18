@@ -9,6 +9,12 @@ const TILE_SIZE = 32
 const MAP_CELL_SIZE = 64
 const LANDMARK_SIZE = 64
 
+const SCORE_ROOM_EXISTS = 0.4
+const SCORE_ROOM_SIZE = 0.3
+const SCORE_DOORS = 0.2
+const SCORE_LANDMARK = 0.1
+
+
 var master_volume:float = 100
 var music_volume:float = 100
 var sfx_volume:float = 100

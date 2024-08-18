@@ -8,7 +8,6 @@ extends Node
 
 var target_dungeon: Dungeon
 
-
 @onready var dungeon: MapDungeon = %MapDungeon
 
 @onready var rooms_radio = %RoomsRadio
@@ -22,6 +21,7 @@ func _ready() -> void:
 	assert(RoomScene != null)
 	assert(DoorScene != null)
 	
+	Events.map_changed.connect(_on_map_changed)
 	target_dungeon = Globals.dungeon
 	rooms_radio.button_pressed = true
 	
@@ -60,3 +60,8 @@ func _on_map_mode_toggled(map_mode: Types.MapMode) -> void:
 	for m in panels:
 		panels[m].visible = map_mode == m
 	
+
+func _on_map_changed() -> void:
+	Logger.info("Map changed. Evaluating...")
+	var score = dungeon.evaluate()
+	Logger.info("Score: %s/%s" % [score, target_dungeon.max_score])

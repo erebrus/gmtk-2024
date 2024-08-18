@@ -41,7 +41,7 @@ func _build() -> void:
 			position.y += 0.5 * Globals.MAP_CELL_SIZE
 
 func _toggle_door() -> void:
-	sprite.visible = has_door
+	sprite.frame = 0 if has_door else 1
 
 
 func _on_input_event(_viewport: Viewport, event: InputEvent, _shape_idx):
@@ -50,4 +50,4 @@ func _on_input_event(_viewport: Viewport, event: InputEvent, _shape_idx):
 	
 	if event.is_action_released("left_click"):
 		has_door = !has_door
-		_viewport.set_input_as_handled()
+	

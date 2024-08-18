@@ -88,7 +88,11 @@ func _add_door(cell: Vector2i, side: Vector2i) -> void:
 
 
 func _build_hint(hint_data:Hint):
-	hint = HINT_SCENE.instantiate()
+	if hint_data.found:
+		return
+		
+	hint = HINT_SCENE.instantiate()	
+	hint.data = hint_data
 	add_child(hint)
 	if not hint_data.built:
 		var pos:= (get_room_pixel_size()-Vector2.ONE*Globals.HINT_SIZE*2)*randf()+Vector2.ONE*Globals.HINT_SIZE 
@@ -109,6 +113,7 @@ func _build_hint(hint_data:Hint):
 					
 func _build_landmark(landmark_data:Landmark):
 	landmark = LANDMARK_SCENES[0].instantiate()
+	landmark.data = landmark_data
 	add_child(landmark)
 	if not landmark_data.built:
 		var pos:= (get_room_pixel_size()-Vector2.ONE*Globals.LANDMARK_SIZE*2)*randf()+Vector2.ONE*Globals.LANDMARK_SIZE 
@@ -124,7 +129,7 @@ func _build_landmark(landmark_data:Landmark):
 			Logger.info("Added landmark after %d" % attempt)
 		landmark_data.position = pos
 		landmark_data.built = true
-		
+	landmark.update_state()
 	landmark.global_position = landmark_data.position
 		
 func is_hint_position_valid(pos:Vector2)-> bool:

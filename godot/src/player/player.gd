@@ -29,7 +29,7 @@ var in_animation:bool = false
 func _ready():
 	Globals.player = self
 	
-	Events.on_transition_state_change.connect(_on_transition_state_change)
+	#Events.on_transition_state_change.connect(_on_transition_state_change)
 	
 func _on_transition_state_change(state:bool):
 	in_animation=state

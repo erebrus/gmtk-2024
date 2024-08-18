@@ -23,6 +23,8 @@ func _to_string() -> String:
 
 
 func build() -> bool:
+	doors_by_cell.clear()
+	
 	for door in doors:
 		if not _is_valid_door(door.cell, door.side):
 			Logger.error("Door not valid position in room at room %s, cell %s, direction %s" % [cell, door.cell, door.side])

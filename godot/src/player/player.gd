@@ -35,7 +35,7 @@ func _on_transition_state_change(state:bool):
 	in_animation=state
 	collision_layer=0 if state else 1
 	
-func _control(delta:float) -> void:
+func _control(_delta:float) -> void:
 	if Input.is_action_just_pressed("dash"):
 		_do_dash()
 

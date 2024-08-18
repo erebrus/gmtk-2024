@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bakmp3c63fsg6"]
+[gd_scene load_steps=7 format=3 uid="uid://bakmp3c63fsg6"]
 
 [ext_resource type="Script" path="res://src/map/map_screen.gd" id="1_fitck"]
 [ext_resource type="PackedScene" uid="uid://bq6sff2no7cjn" path="res://src/map/dungeon/map_dungeon.tscn" id="1_uj5lt"]
@@ -6,6 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://btojqqgajj37t" path="res://src/map/door/map_door.tscn" id="3_gjdh2"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_plko2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_tf2tt"]
+font_size = 48
 
 [node name="MapScreen" type="Node"]
 script = ExtResource("1_fitck")
@@ -100,6 +103,10 @@ layout_mode = 2
 text = "Click on a wall to place or remove a door. There can only be one door leading outside!"
 autowrap_mode = 3
 
+[node name="EvaluateButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Evaluate"
+
 [node name="MapContainer" type="MarginContainer" parent="."]
 anchors_preset = 11
 anchor_left = 1.0
@@ -113,5 +120,55 @@ theme_override_constants/margin_right = 40
 unique_name_in_owner = true
 position = Vector2(-644, 34)
 
+[node name="EvaluationPopup" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ColorRect" type="ColorRect" parent="EvaluationPopup"]
+layout_mode = 2
+color = Color(0.192157, 0.054902, 0.109804, 0.392157)
+
+[node name="PanelContainer" type="PanelContainer" parent="EvaluationPopup"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EvaluationPopup/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="EvaluationPopup/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"HeaderLarge"
+text = "Map Score"
+
+[node name="ScoreLabel" type="Label" parent="EvaluationPopup/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "?"
+label_settings = SubResource("LabelSettings_tf2tt")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="EvaluationPopup/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="RetryButton" type="Button" parent="EvaluationPopup/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Retry"
+
+[node name="ContinueButton2" type="Button" parent="EvaluationPopup/PanelContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Continue"
+
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/RoomsRadio" to="." method="_on_map_mode_toggled" binds= [0]]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/DoorsRadio" to="." method="_on_map_mode_toggled" binds= [1]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/EvaluateButton" to="." method="_on_evaluate_button_pressed"]
+[connection signal="pressed" from="EvaluationPopup/PanelContainer/VBoxContainer/HBoxContainer/RetryButton" to="." method="_on_retry_button_pressed"]
+[connection signal="pressed" from="EvaluationPopup/PanelContainer/VBoxContainer/HBoxContainer/ContinueButton2" to="." method="_on_continue_button_pressed"]

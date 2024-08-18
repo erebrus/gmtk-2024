@@ -74,7 +74,7 @@ func create_doors():
 		var reverse_door:Door = Door.new()
 		reverse_door.side = door.side * -1
 		# dest room abs cell -(ori room cell
-		reverse_door.cell = ((ro.cell+door.cell)-door.side) - rd.cell
+		reverse_door.cell = ((ro.cell+door.cell)+door.side) - rd.cell
 		rd.doors.append(reverse_door)
 		
 	#for p in mst.get_points():
@@ -170,7 +170,7 @@ func get_door_options(room1:Room, room2:Room)->Array:
 	for c1 in room1_cells:
 		for c2 in room2_cells:
 			for dir in [Vector2i.UP,Vector2i.DOWN,Vector2i.LEFT,Vector2i.RIGHT]:
-				if c1 - dir == c2:
+				if c1 + dir == c2:
 					var door:Door = Door.new()
 					door.cell=room1.cell-c1
 					door.side=dir

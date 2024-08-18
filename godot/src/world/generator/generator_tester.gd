@@ -50,7 +50,7 @@ func draw_dungeon():
 		room_container.add_child(world_room)
 		world_room.global_position=Globals.MAP_CELL_SIZE*room.cell+position_delta+room.size*Globals.MAP_CELL_SIZE/2
 		for d in room.doors:
-			world_room._add_door(d.cell, d.side)
+			world_room.activate_door(d.cell, d.side)
 		
 
 #func _process(delta: float) -> void:

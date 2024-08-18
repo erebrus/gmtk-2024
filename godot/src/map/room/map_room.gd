@@ -11,13 +11,16 @@ class_name MapRoom extends Area2D
 @export_category("Scenes")
 @export var DoorScene: PackedScene
 
+var dungeon: MapDungeon
+var cell: Vector2i
+var doors: Array[MapDoor]
+var drag_cell: Vector2i
+
 
 @onready var draggable: Draggable = $Draggable
 @onready var walls: NinePatchRect = $Walls
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var door_container: Node2D = $Doors
-
-var doors: Array[MapDoor]
 
 
 func _ready() -> void:
@@ -54,19 +57,14 @@ func _calculate_size() -> void:
 	
 
 func _move_to(to_global_position: Vector2) -> void:
-	var x:float = int(to_global_position.x) / Globals.MAP_CELL_SIZE
-	var y:float = int(to_global_position.y) / Globals.MAP_CELL_SIZE
-	
-	if size.x % 2:
-		x += 0.5
-	if size.y % 2:
-		y += 0.5
-	
-	global_position = Vector2(x,y) * Globals.MAP_CELL_SIZE
+	var drop_cell = dungeon.cell_from_global_position(to_global_position)
+	cell = drop_cell - drag_cell
+	var drop_position = dungeon.cell_to_global_position(cell)
+	global_position = drop_position + size * Globals.MAP_CELL_SIZE * 0.5
 	
 
 func _on_drag_started() -> void:
-	Logger.info("Started dragging room")
+	Logger.info("Started dragging room from cell %s" % drag_cell)
 	modulate.a = 0.5
 	
 
@@ -75,8 +73,8 @@ func _on_dragged(to_global_position: Vector2) -> void:
 	
 
 func _on_dropped(to_global_position: Vector2) -> void:
-	Logger.info("Dropped room at %s" % to_global_position)
 	_move_to(to_global_position)
+	Logger.info("Dropped room at cell %s (%s)" % [cell, to_global_position])
 	modulate.a = 1
 	
 
@@ -84,3 +82,5 @@ func _on_input_event(_viewport, event: InputEvent, _shape_idx) -> void:
 	if event is InputEventMouseButton:
 		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 			draggable.start(global_position)
+			var global_cell = dungeon.cell_from_global_position(get_global_mouse_position())
+			drag_cell = global_cell - cell

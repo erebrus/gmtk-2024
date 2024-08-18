@@ -8,10 +8,18 @@ extends Node
 
 @onready var dungeon: MapDungeon = %MapDungeon
 
+@onready var rooms_radio = %RoomsRadio
+
+@onready var panels: Dictionary = {
+	Types.MapMode.Rooms: %RoomsContainer,
+	Types.MapMode.Doors: %DoorsContainer
+}
 
 func _ready() -> void:
 	assert(RoomScene != null)
 	assert(DoorScene != null)
+	
+	rooms_radio.button_pressed = true
 	
 	%Room1x1.pressed.connect(_add_room_pressed.bind(Vector2i(1,1)))
 	%Room2x1.pressed.connect(_add_room_pressed.bind(Vector2i(2,1)))
@@ -25,8 +33,12 @@ func _add_room_pressed(size: Vector2i) -> void:
 	dungeon.add_room(room)
 	
 
-func _on_edit_doors_toggled(toggled_on: bool) -> void:
-	if toggled_on:
-		Globals.map_mode = Types.MapMode.Doors
-	else:
-		Globals.map_mode = Types.MapMode.Rooms
+func _on_map_mode_toggled(map_mode: Types.MapMode) -> void:
+	if map_mode == Globals.map_mode:
+		return
+	
+	Logger.info("Change to map mode %s" % Types.MapMode.keys()[map_mode])
+	Globals.map_mode = map_mode
+	for m in panels:
+		panels[m].visible = map_mode == m
+	

@@ -29,6 +29,8 @@ var in_animation:bool = false
 func _ready():
 	Globals.player = self
 	
+	Events.on_transition_state_change.connect(func(state): in_animation=state)
+	
 
 func _control(delta:float) -> void:
 	if Input.is_action_just_pressed("dash"):

@@ -104,6 +104,33 @@ vertical_alignment = 1
 [node name="P2x2TextEdit" type="TextEdit" parent="CanvasLayer/Panel/VBoxContainer/GridContainer"]
 layout_mode = 2
 
+[node name="Label10" type="Label" parent="CanvasLayer/Panel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "hints"
+vertical_alignment = 1
+
+[node name="HintTextEdit" type="TextEdit" parent="CanvasLayer/Panel/VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Label11" type="Label" parent="CanvasLayer/Panel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "traps"
+vertical_alignment = 1
+
+[node name="TrapTextEdit" type="TextEdit" parent="CanvasLayer/Panel/VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Label12" type="Label" parent="CanvasLayer/Panel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "landmarks"
+vertical_alignment = 1
+
+[node name="LandmarkTextEdit" type="TextEdit" parent="CanvasLayer/Panel/VBoxContainer/GridContainer"]
+layout_mode = 2
+
 [node name="Label9" type="Label" parent="CanvasLayer/Panel/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
@@ -125,5 +152,8 @@ text = "Generate"
 [connection signal="focus_exited" from="CanvasLayer/Panel/VBoxContainer/GridContainer/P1x2TextEdit" to="." method="_on_p_1x_2_text_edit_focus_exited"]
 [connection signal="focus_exited" from="CanvasLayer/Panel/VBoxContainer/GridContainer/P2x1TextEdit" to="." method="_on_p_2x_1_text_edit_focus_exited"]
 [connection signal="focus_exited" from="CanvasLayer/Panel/VBoxContainer/GridContainer/P2x2TextEdit" to="." method="_on_p_2x_2_text_edit_focus_exited"]
+[connection signal="focus_exited" from="CanvasLayer/Panel/VBoxContainer/GridContainer/HintTextEdit" to="." method="_on_hint_text_edit_focus_exited"]
+[connection signal="focus_exited" from="CanvasLayer/Panel/VBoxContainer/GridContainer/TrapTextEdit" to="." method="_on_trapext_edit_focus_exited"]
+[connection signal="focus_exited" from="CanvasLayer/Panel/VBoxContainer/GridContainer/LandmarkTextEdit" to="." method="_on_landmark_text_edit_focus_exited"]
 [connection signal="toggled" from="CanvasLayer/Panel/VBoxContainer/GridContainer/BlockCheckBox" to="." method="_on_block_check_box_toggled"]
 [connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/Button" to="." method="_on_button_pressed"]

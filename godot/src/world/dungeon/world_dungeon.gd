@@ -44,6 +44,7 @@ func _create_door(room_data: Room, door_data: Door) -> WorldDoor:
 	
 	
 func _on_door_entered(door: WorldDoor) -> void:
+	Events.on_transition_state_change.emit(true)
 	room_exited.emit()
 	var target_cell = door.target_cell
 	var target_room: Room = Globals.dungeon.get_room_for_cell(target_cell)
@@ -54,3 +55,4 @@ func _on_door_entered(door: WorldDoor) -> void:
 		var target_door = target_room.door_at(target_cell, -door.side)
 		_enter_room(target_room, target_door)
 	
+	Events.on_transition_state_change.emit(false)

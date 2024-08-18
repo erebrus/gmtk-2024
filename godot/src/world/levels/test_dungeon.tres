@@ -19,6 +19,9 @@ script = ExtResource("1_0yjn3")
 cell = Vector2i(0, 0)
 size = Vector2i(1, 1)
 doors = Array[ExtResource("2_g7oqn")]([SubResource("Resource_k152g"), SubResource("Resource_2fre6")])
+trap = 0
+landmark = 0
+hint = false
 
 [sub_resource type="Resource" id="Resource_dkxl8"]
 script = ExtResource("2_g7oqn")
@@ -30,6 +33,9 @@ script = ExtResource("1_0yjn3")
 cell = Vector2i(0, -1)
 size = Vector2i(2, 1)
 doors = Array[ExtResource("2_g7oqn")]([SubResource("Resource_dkxl8")])
+trap = 0
+landmark = 0
+hint = false
 
 [resource]
 script = ExtResource("2_sjm52")

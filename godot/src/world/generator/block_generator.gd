@@ -1,6 +1,5 @@
 class_name BlockGenerator extends DungeonGenerator
 
-@export var size:Vector2i = Vector2i(4,4)
 @export var max_attempts := 50
 @export var min_coverage := .5
 @export var max_coverage := .6
@@ -46,14 +45,32 @@ func generate() -> void:
 	
 	Logger.info("Generated %d rooms" % dungeon.rooms.size())
 	
-	print()
-	
 	prune()
 	
-	print()
 	Logger.info("Final dungeon has %d rooms" % dungeon.rooms.size())
-	
+	Logger.info("Create doors")	
 	create_doors()
+
+	Logger.info("Generating hints")
+	for i in range(round(dungeon.rooms.size()*hint_ratio)):
+		var room:Room = dungeon.rooms.pick_random()
+		while room.hint:
+			room = dungeon.rooms.pick_random()
+		room.hint = true
+			
+	Logger.info("Generating landmarks")
+	for i in range(round(dungeon.rooms.size()*landmark_ratio)):
+		var room:Room = dungeon.rooms.pick_random()
+		while room.landmark or room.trap:
+			room = dungeon.rooms.pick_random()
+		room.landmark = randi_range(1,Types.Landmarks.size())
+	
+	Logger.info("Generating traps")
+	for i in range(round(dungeon.rooms.size()*trap_ratio)):
+		var room:Room = dungeon.rooms.pick_random()
+		while room.landmark or room.trap:
+			room = dungeon.rooms.pick_random()
+		room.trap = randi_range(1,Types.Traps.size())
 	
 	for room in dungeon.rooms:
 		Logger.info("%s" % room)

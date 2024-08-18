@@ -14,6 +14,9 @@ var room_scene:PackedScene= preload("res://src/map/room/map_room.tscn")
 @onready var p_2x_1_text_edit: TextEdit = $CanvasLayer/Panel/VBoxContainer/GridContainer/P2x1TextEdit
 @onready var p_2x_2_text_edit: TextEdit = $CanvasLayer/Panel/VBoxContainer/GridContainer/P2x2TextEdit
 @onready var block_check_box: CheckBox = $CanvasLayer/Panel/VBoxContainer/GridContainer/BlockCheckBox
+@onready var hint_text_edit: TextEdit = $CanvasLayer/Panel/VBoxContainer/GridContainer/HintTextEdit
+@onready var trap_text_edit: TextEdit = $CanvasLayer/Panel/VBoxContainer/GridContainer/TrapTextEdit
+@onready var landmark_text_edit: TextEdit = $CanvasLayer/Panel/VBoxContainer/GridContainer/LandmarkTextEdit
 
 @onready var generator: BlockGenerator = $Generator
 
@@ -27,12 +30,16 @@ func _ready() -> void:
 func _update_ui():
 	x_text_edit.text="%d" % generator.size.x
 	y_text_edit.text="%d" % generator.size.y
-	min_text_edit.text="%f" % generator.min_coverage
-	max_text_edit.text="%f" % generator.max_coverage
+	min_text_edit.text="%.2f" % generator.min_coverage
+	max_text_edit.text="%.2f" % generator.max_coverage
 	p_1x_1_text_edit.text="%d" % generator.s1x1_count
 	p_1x_2_text_edit.text="%d" % generator.s1x2_count
 	p_2x_1_text_edit.text="%d" % generator.s2x1_count
 	p_2x_2_text_edit.text="%d" % generator.s2x2_count
+	hint_text_edit.text="%.2f" % generator.hint_ratio
+	trap_text_edit.text="%.2f" % generator.trap_ratio
+	landmark_text_edit.text="%.2f" % generator.landmark_ratio
+	
 	block_check_box.button_pressed = generator.block_limit
 func generate():
 	generator.generate()	
@@ -103,3 +110,18 @@ func _on_p_1x_1_text_edit_focus_exited() -> void:
 
 func _on_block_check_box_toggled(toggled_on: bool) -> void:
 	generator.block_limit=toggled_on
+
+
+func _on_landmark_text_edit_focus_exited() -> void:
+	generator.landmark_ratio = clamp(float(landmark_text_edit.text), 0.0,1.0)
+	_update_ui()
+
+
+func _on_trapext_edit_focus_exited() -> void:
+	generator.trap_ratio = clamp(float(trap_text_edit.text), 0.0,1.0)
+	_update_ui()
+
+
+func _on_hint_text_edit_focus_exited() -> void:
+	generator.hint_ratio = clamp(float(hint_text_edit.text), 0.0,1.0)
+	_update_ui()

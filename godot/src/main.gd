@@ -18,7 +18,6 @@ func _ready() -> void:
 
 func _on_room_loaded(player_position: Vector2i) -> void:
 	player.position = player_position
-	player.in_animation = false
 	await get_tree().create_timer(0.2).timeout
 	blackout_overlay.hide()
 	
@@ -26,4 +25,3 @@ func _on_room_loaded(player_position: Vector2i) -> void:
 func _on_room_exited() -> void:
 	blackout_overlay.show()
 	player.global_position = Vector2(-1000, -1000)
-	player.in_animation = true

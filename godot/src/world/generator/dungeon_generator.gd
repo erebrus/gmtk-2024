@@ -1,5 +1,10 @@
 class_name DungeonGenerator extends Node
 
+@export var size:Vector2i = Vector2i(4,4)
+@export var hint_ratio := .2
+@export var trap_ratio := .1
+@export var landmark_ratio := .4
+
 var dungeon:Dungeon
 
 func generate() -> void:

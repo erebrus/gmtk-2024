@@ -5,12 +5,16 @@ class_name Room extends Resource
 
 @export var doors: Array[Door]
 
+@export var trap:Types.Traps
+@export var landmark:Types.Landmarks
+@export var hint:bool
 
 func _to_string() -> String:
-	return "%sx%s room at %s. Doors:%s " % [
+	return "%sx%s room at %s (%s,%s,%s). Doors:%s " % [
 		size.x,
 		size.y,
 		cell,
+		trap, landmark, hint,
 		doors
 	]
 

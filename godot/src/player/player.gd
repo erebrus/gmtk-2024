@@ -26,7 +26,9 @@ var last_direction:Vector2 = Vector2.UP:
 var in_animation:bool = false
 #@onready var hp:float = max_hp
 
-
+func _ready():
+	Events.on_transition_state_change.connect(func(state): in_animation=state)
+	
 func _control(delta:float) -> void:
 	if Input.is_action_just_pressed("dash"):
 		_do_dash()

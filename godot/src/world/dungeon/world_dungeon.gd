@@ -61,9 +61,11 @@ func _build(data: Dungeon) -> void:
 	
 
 func _on_door_entered(door: WorldDoor) -> void:
+	Events.on_transition_state_change.emit(true)
 	room_exited.emit()
 	if door.target == null:
 		Logger.info("Exit found!")
 	else:
 		Logger.info("Room entered")
 		_enter_room(door.target)
+	Events.on_transition_state_change.emit(false)

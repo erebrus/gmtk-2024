@@ -1,6 +1,6 @@
 extends Node
 
-
+const MUSIC_VOLUME=-6
 const GAME_SCENE_PATH = "res://src/main.tscn"
 const MAP_SCENE_PATH = "res://src/map/map_screen.tscn"
 
@@ -51,13 +51,15 @@ var sound_on:=true:
 	
 
 @onready var menu_music: AudioStreamPlayer = $menu_music
-@onready var game_music: AudioStreamPlayer = $game_music
+@onready var explore_music: AudioStreamPlayer = $explore_music
+@onready var fighter_music: AudioStreamPlayer = $fighter_music
+@onready var puzzle_music: AudioStreamPlayer = $puzzle_music
 
 func _ready():
 	_init_logger()
 	Logger.info("Starting menu music")
-	fade_in_music(menu_music)
-	
+	#fade_in_music(menu_music)
+	#start_game()
 
 func start_game():
 	in_game=true
@@ -66,7 +68,8 @@ func start_game():
 	await get_tree().create_timer(1).timeout
 	
 	SceneManager.change_scene(GAME_SCENE_PATH)
-	fade_in_music(game_music)
+	fade_in_music(explore_music)
+	play_music(fighter_music,-60)
 	
 
 func go_to_map():
@@ -84,13 +87,20 @@ func _init_logger():
 	file_appender.logger_level = Logger.LOG_LEVEL_DEBUG
 	Logger.info("Logger initialized.")
 
-
-func play_music(node:AudioStreamPlayer):
+#func _process(delta: float) -> void:
+	#if Input.is_action_just_pressed("ui_cancel"):
+		#cross_fade_music(explore_music, fighter_music)
+		#Logger.info("cross fade")
+func play_music(node:AudioStreamPlayer, volume :=MUSIC_VOLUME):
 	if not node.playing:
-		node.volume_db = -9
+		node.volume_db = volume
 		node.play()
 	
-
+func cross_fade_music(from:AudioStreamPlayer, to:AudioStreamPlayer, duration:=.5):
+	var tween = get_tree().create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
+	tween.tween_property(from,"volume_db",-60 , duration)
+	tween.parallel().tween_property(to,"volume_db",MUSIC_VOLUME, duration).set_ease(Tween.EASE_OUT)
+	
 func fade_in_music(node:AudioStreamPlayer, duration := 1):
 	var tween = get_tree().create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	node.volume_db=-20

@@ -40,9 +40,6 @@ func build(room_data: Room) -> void:
 	
 	if room_data.landmark:
 		_build_landmark(room_data.landmark)
-		
-	#if room_data.landmark:
-	#	_build_landmark(room_data.landmark)
 	#if room_data.trap:
 		#_build_trap(room_data.trap)
 	#if room_data.hint:

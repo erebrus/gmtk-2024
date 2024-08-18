@@ -37,12 +37,10 @@ func build(room_data: Room) -> void:
 	size = room_data.size
 	
 	_build_walls()
-	#TODO remove
-	room_data.landmark = Landmark.new()
-	
 	
 	if room_data.landmark:
 		_build_landmark(room_data.landmark)
+		
 	#if room_data.landmark:
 	#	_build_landmark(room_data.landmark)
 	#if room_data.trap:

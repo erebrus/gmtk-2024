@@ -65,8 +65,8 @@ func create_doors():
 	for room in dungeon.rooms:
 		room_positions.append(room.cell)
 	
-	
-	for c in get_mst():
+	var mst = get_mst()
+	for c in mst:
 		var ro:Room = dungeon.rooms[c.x]
 		var rd:Room = dungeon.rooms[c.y]
 		var door :Door = get_door_options(ro,rd).pick_random()
@@ -74,7 +74,7 @@ func create_doors():
 		var reverse_door:Door = Door.new()
 		reverse_door.side = door.side * -1
 		# dest room abs cell -(ori room cell
-		reverse_door.cell = rd.cell - ((ro.cell+door.cell)-door.side)
+		reverse_door.cell = ((ro.cell+door.cell)-door.side) - rd.cell
 		rd.doors.append(reverse_door)
 		
 	#for p in mst.get_points():
@@ -165,19 +165,19 @@ func are_all_rooms_wall_connected()->bool:
 	
 func get_door_options(room1:Room, room2:Room)->Array:
 	var ret=[]
-	var room1_cells=get_cells_adjacent_to_neighbor(room1, room2)
-	var room2_cells=get_cells_adjacent_to_neighbor(room2, room1)
+	var room2_cells=get_adjacent_neighbor_cells(room1, room2)
+	var room1_cells=get_adjacent_neighbor_cells(room2, room1)
 	for c1 in room1_cells:
 		for c2 in room2_cells:
 			for dir in [Vector2i.UP,Vector2i.DOWN,Vector2i.LEFT,Vector2i.RIGHT]:
 				if c1 - dir == c2:
 					var door:Door = Door.new()
-					door.cell=c1
+					door.cell=room1.cell-c1
 					door.side=dir
 					ret.append(door)
 	return ret
 	
-func get_cells_adjacent_to_neighbor(room:Room, neighbor:Room)->Array:
+func get_adjacent_neighbor_cells(room:Room, neighbor:Room)->Array:
 	var ret=[]
 	for cell in room.get_cells():
 		var cells = get_adjacent_cells(cell).filter(func(c): return c in neighbor.get_cells())

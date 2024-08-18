@@ -23,11 +23,17 @@ func _ready() -> void:
 	
 
 func start(from_global_position: Vector2) -> void:
-	if _other_is_dragging() or Globals.map_mode == Types.MapMode.Doors:
+	if _other_is_dragging():
 		return
 		
 	is_about_to_drag = true
 	start_position = from_global_position
+	
+
+func _start() -> void:
+	is_about_to_drag = false
+	is_dragging = true
+	started.emit()
 	
 
 func drop() -> void:
@@ -50,9 +56,7 @@ func _input(event: InputEvent) -> void:
 	
 	if event is InputEventMouseMotion:
 		if is_about_to_drag:
-			is_about_to_drag = false
-			is_dragging = true
-			started.emit()
+			_start()
 		
 		if is_dragging:
 			dragged.emit(get_global_mouse_position())

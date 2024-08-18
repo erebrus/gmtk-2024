@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bakmp3c63fsg6"]
+[gd_scene load_steps=8 format=3 uid="uid://bakmp3c63fsg6"]
 
 [ext_resource type="Script" path="res://src/map/map_screen.gd" id="1_fitck"]
 [ext_resource type="PackedScene" uid="uid://bq6sff2no7cjn" path="res://src/map/dungeon/map_dungeon.tscn" id="1_uj5lt"]
 [ext_resource type="PackedScene" uid="uid://ds2geaj03qxer" path="res://src/map/room/map_room.tscn" id="2_2ptas"]
-[ext_resource type="PackedScene" uid="uid://btojqqgajj37t" path="res://src/map/door/map_door.tscn" id="3_gjdh2"]
+[ext_resource type="PackedScene" uid="uid://br78wlhmv1luf" path="res://src/map/landmark/landmark_button.tscn" id="3_3yg1q"]
+[ext_resource type="PackedScene" uid="uid://c3miu0x2th1wn" path="res://src/map/room/room_button.tscn" id="6_3ekrt"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_plko2"]
 
@@ -12,8 +13,6 @@ font_size = 48
 
 [node name="MapScreen" type="Node"]
 script = ExtResource("1_fitck")
-RoomScene = ExtResource("2_2ptas")
-DoorScene = ExtResource("3_gjdh2")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 9
@@ -39,12 +38,12 @@ toggle_mode = true
 button_group = SubResource("ButtonGroup_plko2")
 text = "Doors"
 
-[node name="StuffRadio" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-visible = false
+[node name="LandmarksRadio" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 toggle_mode = true
 button_group = SubResource("ButtonGroup_plko2")
-text = "Stuff"
+text = "Landmarks"
 
 [node name="RoomsContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -64,25 +63,47 @@ layout_mode = 2
 text = "Drag&Drop rooms of the correct size where you remember seeing them"
 autowrap_mode = 3
 
-[node name="Room1x1" type="Button" parent="MarginContainer/VBoxContainer/RoomsContainer/VBoxContainer"]
-unique_name_in_owner = true
+[node name="1x1" parent="MarginContainer/VBoxContainer/RoomsContainer/VBoxContainer" instance=ExtResource("6_3ekrt")]
 layout_mode = 2
-text = "1x1"
+mouse_filter = 1
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+dungeon_path = NodePath("../../../../../MapContainer/MapDungeon")
 
-[node name="Room2x1" type="Button" parent="MarginContainer/VBoxContainer/RoomsContainer/VBoxContainer"]
-unique_name_in_owner = true
+[node name="2x1" parent="MarginContainer/VBoxContainer/RoomsContainer/VBoxContainer" instance=ExtResource("6_3ekrt")]
+custom_minimum_size = Vector2(128, 64)
 layout_mode = 2
-text = "2x1"
+mouse_filter = 1
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+room_size = Vector2i(2, 1)
+dungeon_path = NodePath("../../../../../MapContainer/MapDungeon")
 
-[node name="Room1x2" type="Button" parent="MarginContainer/VBoxContainer/RoomsContainer/VBoxContainer"]
-unique_name_in_owner = true
+[node name="1x2" parent="MarginContainer/VBoxContainer/RoomsContainer/VBoxContainer" instance=ExtResource("6_3ekrt")]
+custom_minimum_size = Vector2(64, 128)
 layout_mode = 2
-text = "1x2"
+mouse_filter = 1
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+room_size = Vector2i(1, 2)
+dungeon_path = NodePath("../../../../../MapContainer/MapDungeon")
 
-[node name="Room2x2" type="Button" parent="MarginContainer/VBoxContainer/RoomsContainer/VBoxContainer"]
-unique_name_in_owner = true
+[node name="2x2" parent="MarginContainer/VBoxContainer/RoomsContainer/VBoxContainer" instance=ExtResource("6_3ekrt")]
+custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
-text = "2x2"
+mouse_filter = 1
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+room_size = Vector2i(2, 2)
+dungeon_path = NodePath("../../../../../MapContainer/MapDungeon")
 
 [node name="DoorsContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -103,6 +124,42 @@ layout_mode = 2
 text = "Click on a wall to place or remove a door. There can only be one door leading outside!"
 autowrap_mode = 3
 
+[node name="LandmarksContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/LandmarksContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/LandmarksContainer/VBoxContainer"]
+layout_mode = 2
+text = "Landmarks"
+
+[node name="Desc" type="Label" parent="MarginContainer/VBoxContainer/LandmarksContainer/VBoxContainer"]
+custom_minimum_size = Vector2(160, 10)
+layout_mode = 2
+text = "Drag these landmarks to the room where you found them"
+autowrap_mode = 3
+
+[node name="LandmarkButton" parent="MarginContainer/VBoxContainer/LandmarksContainer/VBoxContainer" instance=ExtResource("3_3yg1q")]
+layout_mode = 2
+landmark_type = 1
+dungeon_path = NodePath("../../../../../MapContainer/MapDungeon")
+
+[node name="LandmarkButton2" parent="MarginContainer/VBoxContainer/LandmarksContainer/VBoxContainer" instance=ExtResource("3_3yg1q")]
+layout_mode = 2
+region_rect = Rect2(64, 0, 64, 64)
+landmark_type = 2
+dungeon_path = NodePath("../../../../../MapContainer/MapDungeon")
+
+[node name="LandmarkButton3" parent="MarginContainer/VBoxContainer/LandmarksContainer/VBoxContainer" instance=ExtResource("3_3yg1q")]
+layout_mode = 2
+region_rect = Rect2(128, 0, 64, 64)
+landmark_type = 3
+dungeon_path = NodePath("../../../../../MapContainer/MapDungeon")
+
 [node name="EvaluateButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Evaluate"
@@ -119,6 +176,7 @@ theme_override_constants/margin_right = 40
 [node name="MapDungeon" parent="MapContainer" instance=ExtResource("1_uj5lt")]
 unique_name_in_owner = true
 position = Vector2(-644, 34)
+RoomScene = ExtResource("2_2ptas")
 
 [node name="EvaluationPopup" type="MarginContainer" parent="."]
 unique_name_in_owner = true
@@ -169,6 +227,7 @@ text = "Continue"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/RoomsRadio" to="." method="_on_map_mode_toggled" binds= [0]]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/DoorsRadio" to="." method="_on_map_mode_toggled" binds= [1]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/LandmarksRadio" to="." method="_on_map_mode_toggled" binds= [2]]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/EvaluateButton" to="." method="_on_evaluate_button_pressed"]
 [connection signal="pressed" from="EvaluationPopup/PanelContainer/VBoxContainer/HBoxContainer/RetryButton" to="." method="_on_retry_button_pressed"]
 [connection signal="pressed" from="EvaluationPopup/PanelContainer/VBoxContainer/HBoxContainer/ContinueButton2" to="." method="_on_continue_button_pressed"]

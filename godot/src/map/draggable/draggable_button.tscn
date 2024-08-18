@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://e68aoe7c8va"]
+
+[ext_resource type="Script" path="res://src/map/draggable/draggable_button.gd" id="1_s5c11"]
+[ext_resource type="PackedScene" uid="uid://b38lu5l8p5qxf" path="res://src/map/draggable/draggable.tscn" id="2_h6750"]
+
+[node name="DraggableButton" type="NinePatchRect"]
+mouse_filter = 0
+script = ExtResource("1_s5c11")
+
+[node name="Draggable" parent="." instance=ExtResource("2_h6750")]

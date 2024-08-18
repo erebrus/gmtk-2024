@@ -3,7 +3,8 @@ extends Node
 
 enum MapMode {
 	Rooms,
-	Doors
+	Doors,
+	Landmarks
 }
 
 enum Traps {

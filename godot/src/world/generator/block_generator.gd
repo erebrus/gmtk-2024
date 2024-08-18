@@ -189,7 +189,7 @@ func get_door_options(room1:Room, room2:Room)->Array:
 			for dir in [Vector2i.UP,Vector2i.DOWN,Vector2i.LEFT,Vector2i.RIGHT]:
 				if c1 + dir == c2:
 					var door:Door = Door.new()
-					door.cell=room1.cell-c1
+					door.cell=c1 - room1.cell
 					door.side=dir
 					ret.append(door)
 	return ret

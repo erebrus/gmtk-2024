@@ -64,4 +64,4 @@ func _on_map_mode_toggled(map_mode: Types.MapMode) -> void:
 func _on_map_changed() -> void:
 	Logger.info("Map changed. Evaluating...")
 	var score = dungeon.evaluate()
-	Logger.info("Score: %s" % score)
+	Logger.info("Score: %s/%s" % [score, target_dungeon.max_score])

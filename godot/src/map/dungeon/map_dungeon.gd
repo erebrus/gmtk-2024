@@ -43,8 +43,17 @@ func evaluate() -> float:
 			var drawn_room = find_room(cell)
 			var target_room = dungeon.get_room_for_cell(cell)
 			
-			if target_room != null and drawn_room != null:
-				score += drawn_room.evaluate(target_room)
+			if target_room != null:
+				if drawn_room != null:
+					var result = drawn_room.evaluate(target_room)
+					Logger.info("PASS: Room at cell %s: %s" % [cell, result])
+					score += result
+				else:
+					Logger.info("FAIL: No room at %s" % cell)
+			else:
+				pass
+				# TODO: penalize somehow for extra rooms?
+			
 			
 	return score
 	

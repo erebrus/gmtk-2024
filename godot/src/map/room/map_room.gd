@@ -55,24 +55,26 @@ func activate_door(cell: Vector2i, side: Vector2i, start_door: bool = false) -> 
 	
 
 func evaluate(target: Room) -> float:
-	Logger.info("Evaluation: Room exists!")
 	var score = Globals.SCORE_ROOM_EXISTS
 	
-	if target.size == size:
-		Logger.info("Evaluation: Room is the right size!")
-	score += Globals.SCORE_ROOM_SIZE
+	score += _handle_result(target.size == size, Globals.SCORE_ROOM_SIZE, "Room is the right size")
 	
 	var door_spots = 2 * size.x + 2 * size.y
 	var score_per_door = Globals.SCORE_DOORS / door_spots
 	
 	for drawn_door in doors:
-		if drawn_door.has_door == target.has_door(drawn_door.cell, drawn_door.side):
-			Logger.info("Evaluation: Door at %s: %s!" % [drawn_door.cell, drawn_door.has_door])
-			score += score_per_door
+		var valid_door = drawn_door.has_door == target.has_door(drawn_door.cell, drawn_door.side)
+		score += _handle_result(valid_door, score_per_door, "Door at %s: %s" % [drawn_door, drawn_door.has_door])
 		
 	# TODO: landmarks
 	
 	return score
+	
+
+func _handle_result(result: bool, score: float, msg: String) -> float:
+	var result_str = "PASS" if result else "FAIL"
+	Logger.info("\t%s: %s -> %s" % [result_str, msg, score])
+	return score if result else 0.0
 	
 
 func _add_door(cell: Vector2i, side: Vector2i) -> void:

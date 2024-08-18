@@ -52,7 +52,7 @@ func door_at(global_cell: Vector2i, side: Vector2i) -> Door:
 	var local_cell = global_cell - cell
 	var door = _find_door(local_cell, side)
 	assert(door != null, "Could not find door at %s facing %s" % [global_cell, side])
-	return null
+	return door
 	
 
 func has_door(local_cell: Vector2i, side: Vector2i) -> bool:

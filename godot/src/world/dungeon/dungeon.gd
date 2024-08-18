@@ -15,6 +15,11 @@ var start_door: Door:
 		return start_room.doors.front()
 	
 
+var max_score: float:
+	get:
+		return rooms_by_cell.keys().size() * 0.9 # TODO: change when there's landmarks!
+	
+
 var rooms_by_cell: Dictionary
 
 func build() -> bool:

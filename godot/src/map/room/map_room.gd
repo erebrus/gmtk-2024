@@ -77,16 +77,16 @@ func _handle_result(result: bool, score: float, msg: String) -> float:
 	return score if result else 0.0
 	
 
-func _add_door(cell: Vector2i, side: Vector2i) -> void:
+func _add_door(door_cell: Vector2i, side: Vector2i) -> void:
 	var door: MapDoor = DoorScene.instantiate()
-	door.place(cell, side)
+	door.place(door_cell, side)
 	doors.append(door)
 	door_container.add_child(door)
 	
 
-func _find_door(cell: Vector2i, side: Vector2i) -> MapDoor:
+func _find_door(door_cell: Vector2i, side: Vector2i) -> MapDoor:
 	for door in doors:
-		if door.cell == cell and door.side == side:
+		if door.cell == door_cell and door.side == side:
 			return door
 	return null
 	

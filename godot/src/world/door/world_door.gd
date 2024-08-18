@@ -39,5 +39,5 @@ func _ready() -> void:
 	$CollisionShape2D.disabled = false
 	
 
-func _on_body_entered(body):
+func _on_body_entered(_body):
 	door_entered.emit()

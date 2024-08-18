@@ -75,10 +75,10 @@ func get_room_pixel_size() -> Vector2:
 	return size * Globals.TILE_SIZE * Globals.TILES_PER_ROOM
 
 
-func _add_door(cell: Vector2i, side: Vector2i) -> void:
+func _add_door(door_cell: Vector2i, side: Vector2i) -> void:
 	var door = DoorScene.instantiate()
 	door.room = self
-	door.cell = cell
+	door.cell = door_cell
 	door.side = side
 	doors.append(door)
 	

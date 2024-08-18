@@ -16,6 +16,7 @@ func _ready() -> void:
 
 func enter(dungeon: Dungeon) -> void:
 	Globals.dungeon = dungeon
+	assert(dungeon.build())
 	_build(dungeon)
 	
 	var room = rooms.front()

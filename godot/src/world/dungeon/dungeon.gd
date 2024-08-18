@@ -20,6 +20,16 @@ var max_score: float:
 		return rooms_by_cell.keys().size() * 0.9 # TODO: change when there's landmarks!
 	
 
+var found_landmarks: Array[Landmark]:
+	get:
+		var list: Array[Landmark]
+		for room in rooms:
+			#if room.landmark != null and room.landmark.found: # TODO: only found landmarks!
+			if room.landmark != null:
+				list.append(room.landmark)
+		return list
+	
+
 var rooms_by_cell: Dictionary
 
 func build() -> bool:

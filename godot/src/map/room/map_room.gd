@@ -1,5 +1,8 @@
 class_name MapRoom extends Area2D
 
+signal dropped
+
+
 @export var size: Vector2i:
 	set(value):
 		if value.x < 1 or value.y < 1:
@@ -13,6 +16,8 @@ class_name MapRoom extends Area2D
 
 var dungeon: MapDungeon
 var cell: Vector2i
+	
+
 var is_start_room:= false
 var doors: Array[MapDoor]
 var drag_cell: Vector2i
@@ -105,6 +110,10 @@ func _calculate_size() -> void:
 func _move_to(to_global_position: Vector2) -> void:
 	var drop_cell = dungeon.cell_from_global_position(to_global_position)
 	cell = drop_cell - drag_cell
+	_move_to_cell()
+	
+
+func _move_to_cell() -> void:
 	var drop_position = dungeon.cell_to_global_position(cell)
 	global_position = drop_position + size * Globals.MAP_CELL_SIZE * 0.5
 	
@@ -122,12 +131,16 @@ func _on_dropped(to_global_position: Vector2) -> void:
 	_move_to(to_global_position)
 	Logger.info("Dropped room at cell %s (%s)" % [cell, to_global_position])
 	modulate.a = 1
+	dropped.emit()
 	Events.map_changed.emit()
 	
 
 func _on_input_event(_viewport, event: InputEvent, _shape_idx) -> void:
 	if is_start_room:
 		return
+	if Globals.map_mode != Types.MapMode.Rooms:
+		return
+	
 	if event is InputEventMouseButton:
 		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 			draggable.start(global_position)

@@ -2,23 +2,34 @@ class_name MapDungeon extends Node2D
 
 const GRID_SIZE = Vector2i(10, 10)
 
+
+@export_category("Scenes")
+@export var RoomScene: PackedScene
+
 var dungeon: Dungeon
+var grid_cell_offset: Vector2i
 var grid_offset: Vector2
 var rooms: Array[MapRoom]
 
 
 func _ready() -> void:
+	assert(RoomScene != null)
+	
 	dungeon = Globals.dungeon
-	var offset_cells: Vector2 = (GRID_SIZE - dungeon.size) / 2
-	grid_offset = global_position + offset_cells * Globals.MAP_CELL_SIZE
+	grid_cell_offset = (GRID_SIZE - dungeon.size) / 2
+	grid_offset = global_position + Vector2(grid_cell_offset) * Globals.MAP_CELL_SIZE
+	_add_start_room()
 	
 
 func add_room(room: MapRoom) -> void:
+	room.visible = false
 	rooms.append(room)
 	room.dungeon = self
+	room.dropped.connect(_on_room_dropped.bind(room))
 	add_child(room)
-	room.global_position = cell_to_global_position(room.cell) + room.size * Globals.MAP_CELL_SIZE * 0.5
-	# FIXME find free space
+	await get_tree().create_timer(0.1).timeout
+	if is_instance_valid(room):
+		room.visible = true
 	
 
 func cell_from_global_position(global: Vector2) -> Vector2i:
@@ -65,9 +76,23 @@ func find_room(cell: Vector2i) -> MapRoom:
 	return null
 	
 
-#func _input(event) -> void:
-	#var room: MapRoom
-	#
-	#if event is InputEventMouseMotion:
-		#Logger.info("cell: %s" % cell_from_global_position(get_global_mouse_position()))
+func _add_start_room() -> void:
+	var start_room = dungeon.rooms.front()
+	var room: MapRoom = RoomScene.instantiate()
+	room.size = start_room.size
+	room.cell = start_room.cell
+	room.is_start_room = true
+	add_room(room)
+	room._move_to_cell()
+	
+	var start_door = start_room.doors.front()
+	room.activate_door(start_door.cell, start_door.side, true)
+	
+
+func _on_room_dropped(room: MapRoom) -> void:
+	var grid_cell = room.cell + grid_cell_offset
+	if grid_cell.x < 0 or grid_cell.x >= GRID_SIZE.x or grid_cell.y < 0 or grid_cell.y >= GRID_SIZE.y:
+		Logger.info("Deleting room dropped outside of grid %s" % room.cell)
+		rooms.erase(room)
+		room.queue_free()
 	

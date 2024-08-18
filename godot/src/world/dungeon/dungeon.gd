@@ -3,6 +3,18 @@ class_name Dungeon extends Resource
 @export var size:= Vector2i(4,4)
 @export var rooms: Array[Room]
 
+
+var start_room: Room:
+	get:
+		assert(not rooms.is_empty())
+		return rooms.front()
+	
+var start_door: Door:
+	get:
+		assert(not start_room.doors.is_empty())
+		return start_room.doors.front()
+	
+
 var rooms_by_cell: Dictionary
 
 func build() -> bool:
@@ -53,8 +65,6 @@ func _check_room_doors(room: Room) -> bool:
 	
 
 func _check_start_room_leads_outside() -> bool:
-	var start_room = rooms.front()
-	var start_door = start_room.doors.front()
 	var target_cell = start_room.cell + start_door.cell + start_door.side
 	
 	if rooms_by_cell.has(target_cell):

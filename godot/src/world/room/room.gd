@@ -21,7 +21,7 @@ func get_cells()->Array:
 		for y in range(size.y):
 			ret.append(cell+Vector2i(x,y))
 	return ret
-			
+	
 
 func door_at(global_cell: Vector2i, side: Vector2i) -> Door:
 	var local_cell = global_cell - cell

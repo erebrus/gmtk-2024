@@ -16,6 +16,7 @@ texture = ExtResource("1_h6t70")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_i2uhm")
+disabled = true
 
 [node name="PlayerPosition" type="Marker2D" parent="."]
 unique_name_in_owner = true

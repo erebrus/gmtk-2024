@@ -26,6 +26,9 @@ var last_direction:Vector2 = Vector2.UP:
 var in_animation:bool = false
 #@onready var hp:float = max_hp
 
+func _ready():
+	Globals.player = self
+	
 
 func _control(delta:float) -> void:
 	if Input.is_action_just_pressed("dash"):

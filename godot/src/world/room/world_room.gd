@@ -20,9 +20,11 @@ var doors: Array[WorldDoor]
 
 func _ready() -> void:
 	assert(DoorScene != null)
+	Logger.info("Room ready. Player Position %s" % Globals.player.global_position)
 	
 
 func build(room_data: Room) -> void:
+	Logger.info("Building room. Player Position %s" % Globals.player.global_position)
 	walls = %Walls
 	tile_size = walls.tile_set.tile_size
 	cell = room_data.cell
@@ -34,12 +36,12 @@ func build(room_data: Room) -> void:
 		_add_door(door_data.cell, door_data.side)
 	
 
-func door_at(global_cell: Vector2i, side: Vector2i) -> WorldDoor:
-	var local_cell = global_cell - cell
-	for door in doors:
-		if local_cell == door.cell and side == door.side:
-			return door
-	assert(false, "Could not find door at %s facing %s" % [global_cell, side])
+func get_door(door: Door) -> WorldDoor:
+	for d in doors:
+		if d.cell == door.cell and d.side == door.side:
+			return d
+	
+	assert(false, "Could not find door  %s" % door)
 	return null
 	
 

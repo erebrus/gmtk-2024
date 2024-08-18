@@ -8,7 +8,6 @@ var cell: Vector2i
 var side: Vector2i
 
 var room: WorldRoom
-var target: WorldDoor
 
 
 var target_cell: Vector2i:
@@ -37,5 +36,9 @@ func _ready() -> void:
 			position.x += (Globals.TILES_PER_ROOM - 1) * Globals.TILE_SIZE
 			position.y += (Globals.TILES_PER_ROOM - 1) * 0.5 * Globals.TILE_SIZE
 	
+	$CollisionShape2D.disabled = false
+	
+
 func _on_body_entered(body):
+	Logger.info("Player entered door. In Animation %s. Global Position %s. Door Global Position %s" % [body.in_animation, body.global_position, global_position])
 	door_entered.emit()

@@ -78,3 +78,6 @@ func _on_area_entered(area: Area2D) -> void:
 	if door.has_door:
 		has_door = true
 	
+
+func _to_string():
+	return "%s -> %s" % [cell, cell+side]

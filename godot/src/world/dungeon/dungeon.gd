@@ -24,6 +24,8 @@ func build() -> bool:
 		if not _map_room_cells(room):
 			return false
 		
+		if not room.build():
+			return false
 	
 	for room in rooms:
 		if not _check_room_doors(room):

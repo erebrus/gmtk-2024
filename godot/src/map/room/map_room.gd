@@ -20,6 +20,7 @@ var cell: Vector2i
 
 var is_start_room:= false
 var doors: Array[MapDoor]
+var landmarks: Array[MapLandmark]
 var drag_cell: Vector2i
 
 
@@ -57,6 +58,18 @@ func activate_door(cell: Vector2i, side: Vector2i, start_door: bool = false) -> 
 	assert(door != null)
 	door.has_door = true
 	door.is_start_door = start_door
+	
+
+func add_landmark(landmark: MapLandmark) -> void:
+	if landmarks.has(landmark):
+		return
+	
+	landmarks.append(landmark)
+	landmark.room = self
+	
+
+func remove_landmark(landmark: MapLandmark) -> void:
+	landmarks.erase(landmark)
 	
 
 func evaluate(target: Room) -> float:
@@ -131,6 +144,9 @@ func _on_dropped(to_global_position: Vector2) -> void:
 	_move_to(to_global_position)
 	Logger.info("Dropped room at cell %s (%s)" % [cell, to_global_position])
 	modulate.a = 1
+	for landmark in landmarks:
+		landmark.cell = dungeon.cell_from_global_position(landmark.global_position)
+	
 	dropped.emit()
 	Events.map_changed.emit()
 	

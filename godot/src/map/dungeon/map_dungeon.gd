@@ -32,6 +32,17 @@ func add_room(room: MapRoom) -> void:
 		room.visible = true
 	
 
+func add_landmark(landmark: MapLandmark) -> void:
+	landmark.visible = false
+	landmark.dungeon = self
+	landmark.dropped.connect(_on_landmark_dropped.bind(landmark))
+	add_child(landmark)
+	
+	await get_tree().create_timer(0.1).timeout
+	if is_instance_valid(landmark):
+		landmark.visible = true
+	
+
 func cell_from_global_position(global: Vector2) -> Vector2i:
 	if global.x < grid_offset.x:
 		global.x -= Globals.MAP_CELL_SIZE
@@ -89,10 +100,35 @@ func _add_start_room() -> void:
 	room.activate_door(start_door.cell, start_door.side, true)
 	
 
+func _is_cell_outside_grid(cell: Vector2i) -> bool:
+	var grid_cell = cell + grid_cell_offset
+	return  grid_cell.x < 0 or grid_cell.x >= GRID_SIZE.x or grid_cell.y < 0 or grid_cell.y >= GRID_SIZE.y
+	
+
 func _on_room_dropped(room: MapRoom) -> void:
-	var grid_cell = room.cell + grid_cell_offset
-	if grid_cell.x < 0 or grid_cell.x >= GRID_SIZE.x or grid_cell.y < 0 or grid_cell.y >= GRID_SIZE.y:
+	if _is_cell_outside_grid(room.cell):
 		Logger.info("Deleting room dropped outside of grid %s" % room.cell)
 		rooms.erase(room)
 		room.queue_free()
 	
+
+func _on_landmark_dropped(landmark: MapLandmark) -> void:
+	if landmark.room != null and is_instance_valid(landmark.room):
+		landmark.room.remove_landmark(landmark)
+	
+	if _is_cell_outside_grid(landmark.cell):
+		_delete_landmark(landmark)
+		return
+		
+	var room = find_room(landmark.cell)
+	if room == null:
+		_delete_landmark(landmark)
+		return
+	
+	room.add_landmark(landmark)
+	landmark.reparent(room)
+	
+
+func _delete_landmark(landmark: MapLandmark) -> void:
+	Logger.info("Deleting landmark dropped outside of room %s" % landmark.cell)
+	landmark.queue_free()

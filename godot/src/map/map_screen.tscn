@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bakmp3c63fsg6"]
+[gd_scene load_steps=8 format=3 uid="uid://bakmp3c63fsg6"]
 
 [ext_resource type="Script" path="res://src/map/map_screen.gd" id="1_fitck"]
 [ext_resource type="PackedScene" uid="uid://bq6sff2no7cjn" path="res://src/map/dungeon/map_dungeon.tscn" id="1_uj5lt"]
 [ext_resource type="PackedScene" uid="uid://ds2geaj03qxer" path="res://src/map/room/map_room.tscn" id="2_2ptas"]
+[ext_resource type="PackedScene" uid="uid://br78wlhmv1luf" path="res://src/map/landmark/landmark_button.tscn" id="3_3yg1q"]
 [ext_resource type="PackedScene" uid="uid://c3miu0x2th1wn" path="res://src/map/room/room_button.tscn" id="6_3ekrt"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_plko2"]
@@ -141,6 +142,23 @@ custom_minimum_size = Vector2(160, 10)
 layout_mode = 2
 text = "Drag these landmarks to the room where you found them"
 autowrap_mode = 3
+
+[node name="LandmarkButton" parent="MarginContainer/VBoxContainer/LandmarksContainer/VBoxContainer" instance=ExtResource("3_3yg1q")]
+layout_mode = 2
+landmark_type = 1
+dungeon_path = NodePath("../../../../../MapContainer/MapDungeon")
+
+[node name="LandmarkButton2" parent="MarginContainer/VBoxContainer/LandmarksContainer/VBoxContainer" instance=ExtResource("3_3yg1q")]
+layout_mode = 2
+region_rect = Rect2(64, 0, 64, 64)
+landmark_type = 2
+dungeon_path = NodePath("../../../../../MapContainer/MapDungeon")
+
+[node name="LandmarkButton3" parent="MarginContainer/VBoxContainer/LandmarksContainer/VBoxContainer" instance=ExtResource("3_3yg1q")]
+layout_mode = 2
+region_rect = Rect2(128, 0, 64, 64)
+landmark_type = 3
+dungeon_path = NodePath("../../../../../MapContainer/MapDungeon")
 
 [node name="EvaluateButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2

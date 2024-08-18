@@ -1,8 +1,18 @@
 class_name MapLandmark extends Area2D
 
+signal dropped
+
+
+var landmark_type: Types.Landmarks:
+	set(value):
+		if value == landmark_type:
+			return
+		landmark_type = value
+		$Sprite2D.frame = (landmark_type-1)
 
 var dungeon: MapDungeon
 var cell: Vector2i
+var room: MapRoom
 
 
 @onready var draggable: Draggable = $Draggable
@@ -27,6 +37,7 @@ func _on_dropped(to_global_position: Vector2) -> void:
 	_move_to(to_global_position)
 	Logger.info("Dropped room at cell %s (%s)" % [cell, to_global_position])
 	modulate.a = 1
+	dropped.emit()
 	Events.map_changed.emit()
 	
 

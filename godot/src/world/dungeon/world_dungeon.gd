@@ -26,12 +26,12 @@ func enter(dungeon: Dungeon) -> void:
 func _enter_room(door: WorldDoor) -> void:
 	Logger.info("Entering room: %s" % door.room)
 	
-	if current_room != null:
-		remove_child(current_room)
 	current_room = door.room
+	
 	door.room.request_ready()
 	add_child.call_deferred(door.room)
 	await door.room.ready
+	Globals.player.in_animation = false
 	room_loaded.emit(door.player_position)
 	
 
@@ -62,7 +62,22 @@ func _build(data: Dungeon) -> void:
 	
 
 func _on_door_entered(door: WorldDoor) -> void:
+	_exit_door.call_deferred(door)
+	
+
+func _exit_door(door: WorldDoor) -> void:
+	if Globals.player.in_animation:
+		return
+	
+	Globals.player.in_animation = true
+	Globals.player.global_position = Vector2(10000, 10000)
+	if current_room != null:
+		remove_child(current_room)
+	
 	room_exited.emit()
+	
+	await get_tree().create_timer(0.1)
+	
 	if door.target == null:
 		Logger.info("Exit found!")
 		Globals.go_to_map()

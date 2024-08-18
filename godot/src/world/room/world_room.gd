@@ -20,6 +20,7 @@ var doors: Array[WorldDoor]
 
 func _ready() -> void:
 	assert(DoorScene != null)
+	position = Vector2.ZERO
 	
 
 func build(room_data: Room) -> void:

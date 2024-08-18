@@ -24,4 +24,3 @@ func _on_room_loaded(player_position: Vector2i) -> void:
 
 func _on_room_exited() -> void:
 	blackout_overlay.show()
-	

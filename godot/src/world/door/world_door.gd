@@ -37,5 +37,14 @@ func _ready() -> void:
 			position.x += (Globals.TILES_PER_ROOM - 1) * Globals.TILE_SIZE
 			position.y += (Globals.TILES_PER_ROOM - 1) * 0.5 * Globals.TILE_SIZE
 	
+
+func _enter_tree():
+	$CollisionShape2D.disabled = false
+	
+
+func _exit_tree():
+	$CollisionShape2D.disabled = true
+	
+
 func _on_body_entered(body):
 	door_entered.emit()

@@ -22,6 +22,7 @@ var map_mode:= Types.MapMode.Rooms:
 			map_mode = value
 			Events.map_mode_changed.emit()
 	
+var player: Player
 var dungeon: Dungeon
 
 var music_on:=true:

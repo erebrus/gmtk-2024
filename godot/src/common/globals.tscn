@@ -1,12 +1,28 @@
-[gd_scene load_steps=2 format=3 uid="uid://rumvotveqal5"]
+[gd_scene load_steps=5 format=3 uid="uid://rumvotveqal5"]
 
 [ext_resource type="Script" path="res://src/common/globals.gd" id="1_noqpm"]
+[ext_resource type="AudioStream" uid="uid://cb3drja7mjr8" path="res://assets/music/Explorer_loop.mp3" id="2_tpy4y"]
+[ext_resource type="AudioStream" uid="uid://dnqcew0qcjn1u" path="res://assets/music/Fighter_loop.mp3" id="3_fona3"]
+[ext_resource type="AudioStream" uid="uid://b213y0w2u7nil" path="res://assets/music/Puzzler_loop.mp3" id="4_u0o4r"]
 
 [node name="Globals" type="Node"]
 script = ExtResource("1_noqpm")
 
-[node name="game_music" type="AudioStreamPlayer" parent="."]
+[node name="explore_music" type="AudioStreamPlayer" parent="."]
 process_mode = 3
+stream = ExtResource("2_tpy4y")
+bus = &"Music"
+
+[node name="fighter_music" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("3_fona3")
+bus = &"Music"
+
+[node name="puzzle_music" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("4_u0o4r")
+bus = &"Music"
 
 [node name="menu_music" type="AudioStreamPlayer" parent="."]
 process_mode = 3
+bus = &"Music"

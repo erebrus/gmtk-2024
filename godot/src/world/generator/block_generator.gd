@@ -78,8 +78,11 @@ func generate() -> void:
 	for room in dungeon.rooms:
 		Logger.info("%s" % room)
 	
-	
+	if not are_all_rooms_door_connected():
+		Logger.error("Missing connections!!")
 	Logger.info("***************************")
+
+
 func create_doors():
 	var room_positions:=[]
 	for room in dungeon.rooms:
@@ -170,6 +173,30 @@ func get_coverage()->float:
 		
 	return cells_used/ float(size.x * size.y)
 	
+
+func get_door_connected_rooms(room:Room)->Array:
+	var ret:=[]
+	for door in room.doors:
+		var other_pos := room.cell+door.cell+door.side
+		var other = dungeon.get_room_for_cell(other_pos)
+		assert(other)
+		ret.append(other)
+		
+	return ret
+
+
+func are_all_rooms_door_connected()->bool:
+	var checked_rooms=[]
+	var rooms_to_check=[dungeon.rooms[0]]
+	while not rooms_to_check.is_empty():
+		var current_room=rooms_to_check.pop_front()
+		checked_rooms.append(current_room)
+		var new_rooms = get_door_connected_rooms(current_room)
+		for nr in new_rooms:
+			if nr and not nr in checked_rooms and not nr in rooms_to_check:
+				rooms_to_check.append(nr)
+		
+	return checked_rooms.size() == dungeon.rooms.size()	
 func are_all_rooms_wall_connected()->bool:
 	var checked_rooms=[]
 	var rooms_to_check=[dungeon.rooms[0]]
@@ -285,7 +312,7 @@ func print():
 		Logger.info(row)
 
 func segment_adds_loop(new_segment:Vector2i, astar:AStar2D)->bool:
-	return not astar.get_id_path(new_segment.x, new_segment.y).is_empty
+	return not astar.get_id_path(new_segment.x, new_segment.y).is_empty()
 	
 func get_mst()->Array[Vector2i]:
 	var astar=AStar2D.new()

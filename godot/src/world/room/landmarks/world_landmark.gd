@@ -8,7 +8,8 @@ func _on_area_2d_body_entered(_body: Node2D) -> void:
 	data.found = true
 	Events.on_landmark_found.emit(data)
 	$Area2D.collision_mask=0
-	$Area2D/CollisionShape2D.disabled = true
+	$Area2D/CollisionShape2D.set_deferred("disabled", true)
+
 
 func update_state():
 	if data.found:

@@ -6,7 +6,7 @@ class_name Room extends Resource
 @export var doors: Array[Door]
 
 @export var trap:Types.Traps
-@export var landmark:Types.Landmarks
+@export var landmark:Landmark
 @export var hint:bool
 
 func _to_string() -> String:

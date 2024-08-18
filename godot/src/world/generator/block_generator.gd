@@ -28,6 +28,7 @@ func generate() -> void:
 		valid_room_sizes.append(Vector2i(2,2))
 		
 	dungeon = Dungeon.new()
+	dungeon.size = size
 	init_matrix()
 
 	Logger.info("Generating rooms")
@@ -63,7 +64,9 @@ func generate() -> void:
 		var room:Room = dungeon.rooms.pick_random()
 		while room.landmark or room.trap:
 			room = dungeon.rooms.pick_random()
-		room.landmark = randi_range(1,Types.Landmarks.size())
+		
+		room.landmark = Landmark.new()
+		room.landmark.type = randi_range(1,Types.Landmarks.size())
 	
 	Logger.info("Generating traps")
 	for i in range(round(dungeon.rooms.size()*trap_ratio)):

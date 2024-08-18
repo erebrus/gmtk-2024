@@ -2,11 +2,14 @@ class_name MapDoor extends Area2D
 
 var cell: Vector2i
 var side: Vector2i
-
+var is_start_door:= false
 
 var has_door:= false:
 	set(value):
-		has_door = value
+		if is_start_door:
+			has_door = true
+		else:
+			has_door = value
 		_toggle_door()
 
 

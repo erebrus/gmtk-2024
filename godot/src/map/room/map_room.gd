@@ -13,6 +13,7 @@ class_name MapRoom extends Area2D
 
 var dungeon: MapDungeon
 var cell: Vector2i
+var is_start_room:= false
 var doors: Array[MapDoor]
 var drag_cell: Vector2i
 
@@ -38,10 +39,11 @@ func _ready() -> void:
 		_add_door(Vector2i(size.x - 1, y), Vector2i.RIGHT)
 	
 
-func activate_door(cell: Vector2i, side: Vector2i) -> void:
+func activate_door(cell: Vector2i, side: Vector2i, start_door: bool = false) -> void:
 	var door = _find_door(cell, side)
 	assert(door != null)
 	door.has_door = true
+	door.is_start_door = start_door
 	
 
 func _add_door(cell: Vector2i, side: Vector2i) -> void:
@@ -92,6 +94,8 @@ func _on_dropped(to_global_position: Vector2) -> void:
 	
 
 func _on_input_event(_viewport, event: InputEvent, _shape_idx) -> void:
+	if is_start_room:
+		return
 	if event is InputEventMouseButton:
 		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 			draggable.start(global_position)

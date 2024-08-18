@@ -139,7 +139,7 @@ func is_hint_position_valid(pos:Vector2)-> bool:
 	if pos.x > get_room_pixel_size().x - Globals.HINT_SIZE  or pos.y > get_room_pixel_size().y - Globals.HINT_SIZE:
 		return false
 
-	if landmark and landmark.global_position.distance_to(pos)< Globals.LANDMARK_SIZE*.2:
+	if landmark and landmark.global_position.distance_to(pos)< Globals.LANDMARK_SIZE * 2:
 		return false
 	return true
 

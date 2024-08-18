@@ -143,7 +143,7 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D"]
-collision_mask = 3
+collision_mask = 11
 script = ExtResource("1_ousdh")
 
 [node name="Sprite" type="Sprite2D" parent="."]
@@ -168,7 +168,7 @@ anim_player = NodePath("../AnimationPlayer")
 
 [node name="wall_rc" type="RayCast2D" parent="."]
 target_position = Vector2(0, -50)
-collision_mask = 2
+collision_mask = 10
 
 [node name="xsm" type="Node" parent="."]
 script = ExtResource("3_gvos8")

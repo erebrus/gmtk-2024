@@ -29,9 +29,12 @@ var in_animation:bool = false
 func _ready():
 	Globals.player = self
 	
-	Events.on_transition_state_change.connect(func(state): in_animation=state)
+	Events.on_transition_state_change.connect(_on_transition_state_change)
 	
-
+func _on_transition_state_change(state:bool):
+	in_animation=state
+	collision_layer=0 if state else 1
+	
 func _control(delta:float) -> void:
 	if Input.is_action_just_pressed("dash"):
 		_do_dash()

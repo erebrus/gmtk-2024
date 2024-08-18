@@ -22,6 +22,7 @@ Types="*res://src/common/types.gd"
 Events="*res://src/common/events.gd"
 Globals="*res://src/common/globals.tscn"
 HyperLog="*res://addons/hyperlog/hyperlog.tscn"
+SceneManager="*res://addons/scene_manager/SceneManager.tscn"
 
 [display]
 
@@ -31,7 +32,7 @@ window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/gs_logger/plugin.cfg", "res://addons/hyperlog/plugin.cfg", "res://addons/xsm/plugin.cfg")
+enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/gs_logger/plugin.cfg", "res://addons/hyperlog/plugin.cfg", "res://addons/scene_manager/plugin.cfg", "res://addons/xsm/plugin.cfg")
 
 [input]
 

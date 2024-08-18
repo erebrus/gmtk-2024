@@ -55,12 +55,12 @@ func start_game():
 	fade_music(menu_music,1)
 	await get_tree().create_timer(1).timeout
 	
-	get_tree().change_scene_to_file(GAME_SCENE_PATH)
+	SceneManager.change_scene(GAME_SCENE_PATH)
 	fade_in_music(game_music)
 	
 
 func go_to_map():
-	get_tree().change_scene_to_file.call_deferred(MAP_SCENE_PATH)
+	SceneManager.change_scene(MAP_SCENE_PATH)
 	
 
 func _init_logger():

@@ -20,11 +20,9 @@ var doors: Array[WorldDoor]
 
 func _ready() -> void:
 	assert(DoorScene != null)
-	Logger.info("Room ready. Player Position %s" % Globals.player.global_position)
 	
 
 func build(room_data: Room) -> void:
-	Logger.info("Building room. Player Position %s" % Globals.player.global_position)
 	walls = %Walls
 	tile_size = walls.tile_set.tile_size
 	cell = room_data.cell

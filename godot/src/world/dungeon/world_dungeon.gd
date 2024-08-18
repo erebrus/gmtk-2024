@@ -35,12 +35,12 @@ func _enter_room(room_data: Room, door_data: Door) -> void:
 	
 
 func _create_door(room_data: Room, door_data: Door) -> WorldDoor:
-	var room: WorldRoom = RoomScene.instantiate()
-	room.build(room_data)
-	room.door_entered.connect(_on_door_entered)
-	add_child.call_deferred(room)
+	current_room = RoomScene.instantiate()
+	current_room.build(room_data)
+	current_room.door_entered.connect(_on_door_entered)
+	add_child.call_deferred(current_room)
 	
-	return room.get_door(door_data)
+	return current_room.get_door(door_data)
 	
 	
 func _on_door_entered(door: WorldDoor) -> void:

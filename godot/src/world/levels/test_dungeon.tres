@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Dungeon" load_steps=9 format=3 uid="uid://cqwv1i3l7vw8e"]
+[gd_resource type="Resource" script_class="Dungeon" load_steps=12 format=3 uid="uid://cqwv1i3l7vw8e"]
 
 [ext_resource type="Script" path="res://src/world/room/room.gd" id="1_0yjn3"]
 [ext_resource type="Script" path="res://src/world/door/door.gd" id="2_g7oqn"]
@@ -28,11 +28,30 @@ script = ExtResource("2_g7oqn")
 cell = Vector2i(0, 0)
 side = Vector2i(0, 1)
 
+[sub_resource type="Resource" id="Resource_2jxsd"]
+script = ExtResource("2_g7oqn")
+cell = Vector2i(1, 0)
+side = Vector2i(0, 1)
+
 [sub_resource type="Resource" id="Resource_n5s8f"]
 script = ExtResource("1_0yjn3")
 cell = Vector2i(0, -1)
 size = Vector2i(2, 1)
-doors = Array[ExtResource("2_g7oqn")]([SubResource("Resource_dkxl8")])
+doors = Array[ExtResource("2_g7oqn")]([SubResource("Resource_dkxl8"), SubResource("Resource_2jxsd")])
+trap = 0
+landmark = 0
+hint = false
+
+[sub_resource type="Resource" id="Resource_3n4r7"]
+script = ExtResource("2_g7oqn")
+cell = Vector2i(0, 0)
+side = Vector2i(0, -1)
+
+[sub_resource type="Resource" id="Resource_e2seu"]
+script = ExtResource("1_0yjn3")
+cell = Vector2i(1, 0)
+size = Vector2i(1, 1)
+doors = Array[ExtResource("2_g7oqn")]([SubResource("Resource_3n4r7")])
 trap = 0
 landmark = 0
 hint = false
@@ -40,4 +59,4 @@ hint = false
 [resource]
 script = ExtResource("2_sjm52")
 size = Vector2i(4, 4)
-rooms = Array[ExtResource("1_0yjn3")]([SubResource("Resource_mpyki"), SubResource("Resource_n5s8f")])
+rooms = Array[ExtResource("1_0yjn3")]([SubResource("Resource_mpyki"), SubResource("Resource_n5s8f"), SubResource("Resource_e2seu")])

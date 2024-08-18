@@ -4,18 +4,21 @@
 [ext_resource type="Texture2D" uid="uid://cp1qxxfawp5ar" path="res://assets/gfx/map/door.png" id="2_21kk0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1sdqe"]
-size = Vector2(24, 14)
+size = Vector2(24, 28)
 
 [node name="MapDoor" type="Area2D"]
-collision_layer = 128
-collision_mask = 0
+collision_layer = 132
+collision_mask = 4
 script = ExtResource("1_7x5si")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_21kk0")
+hframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1)
+position = Vector2(0, -6)
 shape = SubResource("RectangleShape2D_1sdqe")
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
 [connection signal="input_event" from="." to="." method="_on_input_event"]

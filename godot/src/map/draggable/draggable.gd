@@ -8,9 +8,9 @@ signal dropped(to_global_position: Vector2)
 const GROUP = &"draggable"
 
 
+var is_about_to_drag = false
 var is_dragging = false
 var start_position: Vector2
-var mouse_offset: Vector2
 var is_valid_position: Callable = func(x): return true
 
 
@@ -22,15 +22,12 @@ func _ready() -> void:
 	Events.map_mode_changed.connect(drop)
 	
 
-func start(from_global_position: Vector2) -> bool:
+func start(from_global_position: Vector2) -> void:
 	if _other_is_dragging() or Globals.map_mode == Types.MapMode.Doors:
-		return false
+		return
 		
-	is_dragging = true
+	is_about_to_drag = true
 	start_position = from_global_position
-	mouse_offset = get_global_mouse_position() - global_position
-	started.emit()
-	return is_dragging
 	
 
 func drop() -> void:
@@ -38,32 +35,32 @@ func drop() -> void:
 		return
 	
 	is_dragging = false
-	if is_valid_position.call(mouse_position()):
-		dropped.emit(mouse_position())
+	if is_valid_position.call(get_global_mouse_position()):
+		dropped.emit(get_global_mouse_position())
 	else:
 		dropped.emit(start_position)
 	
 
-func mouse_position() -> Vector2:
-	return get_global_mouse_position() - mouse_offset
-	
-
 func _input(event: InputEvent) -> void:
-	if not is_dragging:
-		return
+	if event is InputEventMouseButton and not event.pressed:
+		if is_about_to_drag:
+			is_about_to_drag = false
+		if is_dragging:
+			drop()
 	
 	if event is InputEventMouseMotion:
-		dragged.emit(get_global_mouse_position() - mouse_offset)
+		if is_about_to_drag:
+			is_about_to_drag = false
+			is_dragging = true
+			started.emit()
 		
-	
-	if event is InputEventMouseButton:
-		if not event.pressed:
-			drop()
+		if is_dragging:
+			dragged.emit(get_global_mouse_position())
 	
 
 func _other_is_dragging() -> bool:
 	for draggable in get_tree().get_nodes_in_group(GROUP):
-		if draggable.is_dragging:
+		if draggable.is_dragging or draggable.is_about_to_drag:
 			return true
 	return false
 	

@@ -22,6 +22,7 @@ var max_score: float:
 
 var rooms_by_cell: Dictionary
 
+
 func build() -> bool:
 	rooms_by_cell.clear()
 	
@@ -81,6 +82,14 @@ func _check_start_room_leads_outside() -> bool:
 	
 
 func get_room_for_cell(cell:Vector2i)->Room:
+	if rooms_by_cell.is_empty():
+		for room in rooms:
+			for x in room.size.x:
+				for y in room.size.y:
+					var room_cell = room.cell + Vector2i(x,y)
+					if room_cell == cell:
+						return room
+		
 	if rooms_by_cell.has(cell):
 		return rooms_by_cell[cell]
 	return null;

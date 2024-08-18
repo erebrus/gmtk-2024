@@ -17,7 +17,7 @@ func _to_string() -> String:
 		size.x,
 		size.y,
 		cell,
-		trap, landmark, hint,
+		trap, landmark, hint != null,
 		doors
 	]
 

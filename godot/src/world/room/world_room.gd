@@ -7,7 +7,10 @@ signal door_entered(door: WorldDoor)
 		#Vector2i.ONE*Globals.TILES_PER_ROOM*Globals.TILE_SIZE/2.0
 	#]
 #}
-const LANDMARK_SCENES = [preload("res://src/world/room/landmarks/world_landmark.tscn")]
+const LANDMARK_SCENES = [
+		preload("res://src/world/room/landmarks/fountain_landmark.tscn"),
+		preload("res://src/world/room/landmarks/bones_landmark.tscn")		
+		]
 const HINT_SCENE = preload("res://src/world/room/hint/world_hint.tscn")
 @export var cell: Vector2i
 @export var size: Vector2i
@@ -112,7 +115,7 @@ func _build_hint(hint_data:Hint):
 	hint.global_position = hint_data.position
 					
 func _build_landmark(landmark_data:Landmark):
-	landmark = LANDMARK_SCENES[0].instantiate()
+	landmark = LANDMARK_SCENES[landmark_data.type].instantiate()
 	landmark.data = landmark_data
 	add_child(landmark)
 	if not landmark_data.built:

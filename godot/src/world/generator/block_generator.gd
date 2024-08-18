@@ -66,7 +66,7 @@ func generate() -> void:
 			room = dungeon.rooms.pick_random()
 		
 		room.landmark = Landmark.new()
-		room.landmark.type = randi_range(1,Types.Landmarks.size())
+		room.landmark.type = randi() % Types.Landmarks.size()
 	
 	Logger.info("Generating traps")
 	for i in range(round(dungeon.rooms.size()*trap_ratio)):

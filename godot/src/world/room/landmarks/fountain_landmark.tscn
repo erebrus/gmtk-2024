@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://djyevwl33jbhg"]
+
+[ext_resource type="PackedScene" uid="uid://do1fi5d3bnnyo" path="res://src/world/room/landmarks/world_landmark.tscn" id="1_enlv0"]
+[ext_resource type="Texture2D" uid="uid://di8gdyx823nrm" path="res://assets/gfx/world/fountain.png" id="2_eyt6n"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oj8yk"]
+size = Vector2(96, 64)
+
+[node name="FountainLandmark" instance=ExtResource("1_enlv0")]
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_eyt6n")
+
+[node name="Polygon2D" parent="." index="1"]
+visible = false
+
+[node name="CollisionShape2D" parent="." index="2"]
+shape = SubResource("RectangleShape2D_oj8yk")
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+visible = false

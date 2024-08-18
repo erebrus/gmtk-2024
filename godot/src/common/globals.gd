@@ -1,6 +1,8 @@
 extends Node
 
 const GAME_SCENE_PATH = "res://src/main.tscn"
+const MAP_SCENE_PATH = "res://src/map/map_screen.tscn"
+
 const TILES_PER_ROOM = 19 
 const TILE_SIZE = 32
 const MAP_CELL_SIZE = 64
@@ -19,7 +21,8 @@ var map_mode:= Types.MapMode.Rooms:
 		if value != map_mode:
 			map_mode = value
 			Events.map_mode_changed.emit()
-
+	
+var dungeon: Dungeon
 
 var music_on:=true:
 	set(v):
@@ -52,8 +55,12 @@ func start_game():
 	fade_music(menu_music,1)
 	await get_tree().create_timer(1).timeout
 	
-	get_tree().change_scene_to_file(GAME_SCENE_PATH)
+	SceneManager.change_scene(GAME_SCENE_PATH)
 	fade_in_music(game_music)
+	
+
+func go_to_map():
+	SceneManager.change_scene(MAP_SCENE_PATH)
 	
 
 func _init_logger():

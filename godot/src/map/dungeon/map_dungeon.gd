@@ -1,10 +1,14 @@
 class_name MapDungeon extends Node2D
 
+const GRID_SIZE = Vector2i(10, 10)
 
+var dungeon: Dungeon
 var grid_offset: Vector2
 
 func _ready() -> void:
-	grid_offset = global_position + Vector2(2, 2) * Globals.MAP_CELL_SIZE # TODO: grid offset from map size
+	dungeon = Globals.dungeon
+	var offset_cells: Vector2 = (GRID_SIZE - dungeon.size) / 2
+	grid_offset = global_position + offset_cells * Globals.MAP_CELL_SIZE
 	
 
 func add_room(room: MapRoom) -> void:

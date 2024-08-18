@@ -33,4 +33,5 @@ doors = Array[ExtResource("2_g7oqn")]([SubResource("Resource_dkxl8")])
 
 [resource]
 script = ExtResource("2_sjm52")
+size = Vector2i(4, 4)
 rooms = Array[ExtResource("1_0yjn3")]([SubResource("Resource_mpyki"), SubResource("Resource_n5s8f")])

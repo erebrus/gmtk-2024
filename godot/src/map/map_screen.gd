@@ -6,6 +6,9 @@ extends Node
 @export var DoorScene: PackedScene
 
 
+var target_dungeon: Dungeon
+
+
 @onready var dungeon: MapDungeon = %MapDungeon
 
 @onready var rooms_radio = %RoomsRadio
@@ -19,12 +22,27 @@ func _ready() -> void:
 	assert(RoomScene != null)
 	assert(DoorScene != null)
 	
+	target_dungeon = Globals.dungeon
 	rooms_radio.button_pressed = true
 	
 	%Room1x1.pressed.connect(_add_room_pressed.bind(Vector2i(1,1)))
 	%Room2x1.pressed.connect(_add_room_pressed.bind(Vector2i(2,1)))
 	%Room1x2.pressed.connect(_add_room_pressed.bind(Vector2i(1,2)))
 	%Room2x2.pressed.connect(_add_room_pressed.bind(Vector2i(2,2)))
+	
+	_add_start_room()
+	
+
+func _add_start_room() -> void:
+	var start_room = target_dungeon.rooms.front()
+	var room: MapRoom = RoomScene.instantiate()
+	room.size = start_room.size
+	room.cell = start_room.cell
+	room.is_start_room = true
+	dungeon.add_room(room)
+	
+	var start_door = start_room.doors.front()
+	room.activate_door(start_door.cell, start_door.side, true)
 	
 
 func _add_room_pressed(size: Vector2i) -> void:

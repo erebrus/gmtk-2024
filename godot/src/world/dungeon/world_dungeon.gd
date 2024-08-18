@@ -15,6 +15,7 @@ func _ready() -> void:
 	
 
 func enter(dungeon: Dungeon) -> void:
+	Globals.dungeon = dungeon
 	_build(dungeon)
 	
 	var room = rooms.front()
@@ -65,6 +66,7 @@ func _on_door_entered(door: WorldDoor) -> void:
 	room_exited.emit()
 	if door.target == null:
 		Logger.info("Exit found!")
+		Globals.go_to_map()
 	else:
 		Logger.info("Room entered")
 		_enter_room(door.target)

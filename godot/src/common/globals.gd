@@ -8,6 +8,7 @@ const TILES_PER_ROOM = 19
 const TILE_SIZE = 32
 const MAP_CELL_SIZE = 64
 const LANDMARK_SIZE = 64
+const HINT_SIZE = 32
 
 const SCORE_ROOM_EXISTS = 0.4
 const SCORE_ROOM_SIZE = 0.3

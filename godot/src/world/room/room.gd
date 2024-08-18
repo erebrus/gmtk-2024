@@ -7,7 +7,7 @@ class_name Room extends Resource
 
 @export var trap:Types.Traps
 @export var landmark:Landmark
-@export var hint:bool
+@export var hint:Hint
 
 var doors_by_cell: Dictionary
 

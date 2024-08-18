@@ -8,7 +8,7 @@ signal door_entered(door: WorldDoor)
 	#]
 #}
 const LANDMARK_SCENES = [preload("res://src/world/room/landmarks/world_landmark.tscn")]
-
+const HINT_SCENE = preload("res://src/world/room/hint/world_hint.tscn")
 @export var cell: Vector2i
 @export var size: Vector2i
 
@@ -22,9 +22,9 @@ var walls: TileMapLayer
 var tile_size: Vector2i
 var doors: Array[WorldDoor]
 
-var landmark
-var hint
-var trap
+var landmark:Node2D
+var hint:Node2D
+var trap:Node2D
 
 func _ready() -> void:
 	assert(DoorScene != null)
@@ -42,8 +42,8 @@ func build(room_data: Room) -> void:
 		_build_landmark(room_data.landmark)
 	#if room_data.trap:
 		#_build_trap(room_data.trap)
-	#if room_data.hint:
-		#_build_hint()
+	if room_data.hint:
+		_build_hint(room_data.hint)
 	for door_data in room_data.doors:
 		_add_door(door_data.cell, door_data.side)
 		
@@ -85,7 +85,28 @@ func _add_door(cell: Vector2i, side: Vector2i) -> void:
 	door.door_entered.connect(_on_door_entered.bind(door))
 	
 	%Doors.add_child(door)
-	
+
+
+func _build_hint(hint_data:Hint):
+	hint = HINT_SCENE.instantiate()
+	add_child(hint)
+	if not hint_data.built:
+		var pos:= (get_room_pixel_size()-Vector2.ONE*Globals.HINT_SIZE*2)*randf()+Vector2.ONE*Globals.HINT_SIZE 
+		var attempt := 0
+		while not is_hint_position_valid(pos):
+			attempt +=1	
+			pos = (get_room_pixel_size()-Vector2.ONE*Globals.HINT_SIZE*2)*randf()+Vector2.ONE*Globals.HINT_SIZE 
+			if attempt > 100:
+				Logger.error("Failed to add hint after 100 attempts. Setting middle of the room.")
+				hint.position = get_room_pixel_size()/2.0
+				return
+		if attempt > 10:
+			Logger.info("Added hint after %d" % attempt)			
+		hint_data.position = pos
+		hint_data.built = true
+		
+	hint.global_position = hint_data.position
+					
 func _build_landmark(landmark_data:Landmark):
 	landmark = LANDMARK_SCENES[0].instantiate()
 	add_child(landmark)
@@ -106,6 +127,17 @@ func _build_landmark(landmark_data:Landmark):
 		
 	landmark.global_position = landmark_data.position
 		
+func is_hint_position_valid(pos:Vector2)-> bool:
+	if pos.x < Globals.HINT_SIZE  or pos.y < Globals.HINT_SIZE:
+		return false
+	
+	if pos.x > get_room_pixel_size().x - Globals.HINT_SIZE  or pos.y > get_room_pixel_size().y - Globals.HINT_SIZE:
+		return false
+
+	if landmark and landmark.global_position.distance_to(pos)< Globals.LANDMARK_SIZE*.2:
+		return false
+	return true
+
 func is_landmark_position_valid(pos:Vector2)-> bool:
 	if pos.x < Globals.LANDMARK_SIZE  or pos.y < Globals.LANDMARK_SIZE:
 		return false

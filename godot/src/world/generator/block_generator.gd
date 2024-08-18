@@ -57,7 +57,7 @@ func generate() -> void:
 		var room:Room = dungeon.rooms.pick_random()
 		while room.hint:
 			room = dungeon.rooms.pick_random()
-		room.hint = true
+		room.hint = Hint.new()
 			
 	Logger.info("Generating landmarks")
 	for i in range(round(dungeon.rooms.size()*landmark_ratio)):

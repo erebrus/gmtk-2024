@@ -29,12 +29,21 @@ func _on_update(_delta: float) -> void:
 			change_state("walk")
 	
 
+#func _update_sprite():
+	#if owner.last_direction.y < 0:
+		#owner.sprite.rotation=0
+	#elif owner.last_direction.y > 0:
+		#owner.sprite.rotation=PI
+	#elif owner.last_direction.x < 0:
+		#owner.sprite.rotation=-PI/2
+	#elif owner.last_direction.x > 0:
+		#owner.sprite.rotation=PI/2
+
 func _update_sprite():
-	if owner.last_direction.y < 0:
-		owner.sprite.rotation=0
-	elif owner.last_direction.y > 0:
-		owner.sprite.rotation=PI
-	elif owner.last_direction.x < 0:
-		owner.sprite.rotation=-PI/2
-	elif owner.last_direction.x > 0:
-		owner.sprite.rotation=PI/2
+
+	if owner.last_direction.x==0 or owner.last_direction.y==0:
+		owner.anim_player.current_animation="idle"
+	else:
+		owner.anim_player.current_animation="idle_diag"
+	owner.update_sprite()
+		

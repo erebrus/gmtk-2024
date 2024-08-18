@@ -20,7 +20,7 @@ func _on_enter(_args) -> void:
 		owner.anim_player.play("dash")	
 	else:
 		owner.anim_player.play("dash_diag")	
-	_update_sprite()
+	owner.update_sprite()
 	owner.sfx_dash.play()
 	await tween.finished
 	owner.in_animation=false
@@ -31,30 +31,3 @@ func _on_enter(_args) -> void:
 func _on_update(_delta: float) -> void:
 	if dash_done:
 		change_state("idle")
-
-
-func _update_sprite():
-
-	if owner.last_direction.x==0 or owner.last_direction.y==0:
-		if owner.last_direction.y < 0:
-			owner.sprite.rotation=0
-		elif owner.last_direction.y > 0:
-			owner.sprite.rotation=PI
-		elif owner.last_direction.x < 0:
-			owner.sprite.rotation=-PI/2
-		elif owner.last_direction.x > 0:
-			owner.sprite.rotation=PI/2
-	else:
-		owner.sprite.rotation=0
-		if owner.last_direction.x < -.5 and owner.last_direction.y < -.5:
-			owner.sprite.flip_h=false
-			owner.sprite.flip_v=false
-		elif owner.last_direction.x > .5 and owner.last_direction.y > .5:
-			owner.sprite.flip_h=true
-			owner.sprite.flip_v=true
-		elif owner.last_direction.x < -.5 and owner.last_direction.y > .5:
-			owner.sprite.flip_h=false
-			owner.sprite.flip_v=true
-		elif owner.last_direction.x > .5 and owner.last_direction.y < -.5:
-			owner.sprite.flip_h=true
-			owner.sprite.flip_v=false

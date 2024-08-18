@@ -47,16 +47,31 @@ func _physics_process(delta: float) -> void:
 	#if not in_animation:
 		#_update_sprite()
 	
+func update_sprite():
 
-func _update_sprite():
-	if last_direction.y < 0:
-		sprite.rotation=0
-	elif last_direction.y > 0:
-		sprite.rotation=PI
-	elif last_direction.x < 0:
+	if last_direction.x==0 or last_direction.y==0:
+		if last_direction.y < 0:
+			sprite.rotation=0
+		elif last_direction.y > 0:
+			sprite.rotation=PI
+		elif last_direction.x < 0:
 			sprite.rotation=-PI/2
-	elif last_direction.x > 0:
+		elif last_direction.x > 0:
 			sprite.rotation=PI/2
+	else:
+		sprite.rotation=0
+		if last_direction.x < -.5 and last_direction.y < -.5:
+			sprite.flip_h=false
+			sprite.flip_v=false
+		elif last_direction.x > .5 and last_direction.y > .5:
+			sprite.flip_h=true
+			sprite.flip_v=true
+		elif last_direction.x < -.5 and last_direction.y > .5:
+			sprite.flip_h=false
+			sprite.flip_v=true
+		elif last_direction.x > .5 and last_direction.y < -.5:
+			sprite.flip_h=true
+			sprite.flip_v=false
 			
 func _do_dash()->void:
 	if not $DashTimer.is_stopped():

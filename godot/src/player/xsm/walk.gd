@@ -40,27 +40,6 @@ func _update_sprite():
 
 	if owner.last_direction.x==0 or owner.last_direction.y==0:
 		owner.anim_player.current_animation="walk"
-		if owner.last_direction.y < 0:
-			owner.sprite.rotation=0
-		elif owner.last_direction.y > 0:
-			owner.sprite.rotation=PI
-		elif owner.last_direction.x < 0:
-			owner.sprite.rotation=-PI/2
-		elif owner.last_direction.x > 0:
-			owner.sprite.rotation=PI/2
 	else:
 		owner.anim_player.current_animation="walk_diag"
-		owner.sprite.rotation=0
-		if owner.last_direction.x < -.5 and owner.last_direction.y < -.5:
-			owner.sprite.flip_h=false
-			owner.sprite.flip_v=false
-		elif owner.last_direction.x > .5 and owner.last_direction.y > .5:
-			owner.sprite.flip_h=true
-			owner.sprite.flip_v=true
-		elif owner.last_direction.x < -.5 and owner.last_direction.y > .5:
-			owner.sprite.flip_h=false
-			owner.sprite.flip_v=true
-		elif owner.last_direction.x > .5 and owner.last_direction.y < -.5:
-			owner.sprite.flip_h=true
-			owner.sprite.flip_v=false
-		
+	owner.update_sprite()

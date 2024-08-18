@@ -1,6 +1,6 @@
 class_name Dungeon extends Resource
 
-
+@export var size:= Vector2i(4,4)
 @export var rooms: Array[Room]
 
 #TODO optimize? maybe store map

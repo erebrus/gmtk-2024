@@ -11,6 +11,7 @@ class_name Room extends Resource
 
 var doors_by_cell: Dictionary
 
+var matrix=[]
 
 func _to_string() -> String:
 	return "%sx%s room at %s (%s,%s,%s). Doors:%s " % [
@@ -40,7 +41,49 @@ func build() -> bool:
 		doors_by_cell[door.cell][door.side] = door
 	
 	return true
+func print_content():
+	_build_tiles()
+	var tile_size:Vector2i=size*Globals.TILES_PER_ROOM
+	for y in range(tile_size.y):
+		var row=""
+		for x in range(tile_size.x):
+			row += " " if matrix[x][y]==0 else "X"
+		Logger.info(row)
+			
+func _build_tiles():
+	var start=Time.get_ticks_msec()
+	matrix = []
+	var tile_size:Vector2i=size*Globals.TILES_PER_ROOM
+	for x in range(tile_size.x):
+		var column = []
+		for y in range(tile_size.y):
+			column.append(0)
+		matrix.append(column)
 	
+	for x in range(tile_size.x):
+		for y in range(tile_size.y):
+			var rng = randf()
+			#for ri in range(Globals.TILE_RATIO.size()):
+			if rng < Globals.FOLLIAGE_RATIO:
+					matrix[x][y]=1
+					
+	for i in range(Globals.AUTOMATA_ITERS):
+		var cell:Vector2i = Vector2i.ONE +Vector2i(randi()%tile_size.x-2, randi()%tile_size.y-2)
+		if count_neighbor_tiles(cell, 0) > 4:
+			matrix[cell.x][cell.y] = 0
+		elif count_neighbor_tiles(cell, 0) < 4:
+			matrix[cell.x][cell.y] = 1
+	Logger.info("Room content in %ds" % (Time.get_ticks_msec()-start))
+			
+func count_neighbor_tiles(cell:Vector2i, type:int)->int:
+	var count:=0
+	for dx in range(-1,2):
+		for dy in range(-1,2):
+			if dx==0 and dy==0:
+				continue
+			if matrix[cell.x+dx][cell.y+dy] == type:
+				count += 1
+	return count
 
 func get_cells()->Array:
 	var ret := []

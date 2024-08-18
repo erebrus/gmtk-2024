@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bq6sff2no7cjn" path="res://src/map/dungeon/map_dungeon.tscn" id="1_uj5lt"]
 [ext_resource type="PackedScene" uid="uid://ds2geaj03qxer" path="res://src/map/room/map_room.tscn" id="2_2ptas"]
 [ext_resource type="PackedScene" uid="uid://br78wlhmv1luf" path="res://src/map/landmark/landmark_button.tscn" id="3_3yg1q"]
-[ext_resource type="PackedScene" uid="uid://c3miu0x2th1wn" path="res://src/map/room/room_button.tscn" id="6_3ekrt"]
+[ext_resource type="PackedScene" path="res://src/map/room/room_button.tscn" id="6_3ekrt"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_plko2"]
 

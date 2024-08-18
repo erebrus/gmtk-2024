@@ -9,7 +9,9 @@ const TILE_SIZE = 32
 const MAP_CELL_SIZE = 64
 const LANDMARK_SIZE = 64
 const HINT_SIZE = 32
-
+const AUTOMATA_ITERS=100
+const FOLLIAGE_RATIO=.45
+const TILE_RATIO=[.2,.5]
 const SCORE_ROOM_EXISTS = 0.4
 const SCORE_ROOM_SIZE = 0.3
 const SCORE_DOORS = 0.2

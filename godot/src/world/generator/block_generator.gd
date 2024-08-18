@@ -81,7 +81,7 @@ func generate() -> void:
 	if not are_all_rooms_door_connected():
 		Logger.error("Missing connections!!")
 	Logger.info("***************************")
-
+	#dungeon.rooms[0].print_content()
 
 func create_doors():
 	var room_positions:=[]

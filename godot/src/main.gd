@@ -33,9 +33,11 @@ func _on_room_loaded(player_position: Vector2i) -> void:
 	await get_tree().create_timer(0.2).timeout
 	blackout_overlay.hide()
 	
+	
 func _on_pre_room_load(room:Room):
-	var room_size:Vector2i = room.size*Globals.TILES_PER_ROOM*Globals.TILE_SIZE
-	%Camera2D.position = room_size/2
+	pass
+	#var room_size:Vector2i = room.size*Globals.TILES_PER_ROOM*Globals.TILE_SIZE
+	#%Camera2D.position = room_size/2
 	
 func _on_room_exited() -> void:
 	blackout_overlay.show()

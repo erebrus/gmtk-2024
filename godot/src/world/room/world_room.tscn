@@ -1,18 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://bbln7lq8cus1a"]
+[gd_scene load_steps=5 format=3 uid="uid://bbln7lq8cus1a"]
 
 [ext_resource type="Script" path="res://src/world/room/world_room.gd" id="1_kcxqi"]
-[ext_resource type="TileSet" uid="uid://drea805f102u" path="res://src/world/world.tres" id="2_pltg7"]
 [ext_resource type="PackedScene" uid="uid://def0jas8yr3ia" path="res://src/world/door/world_door.tscn" id="3_oj3tc"]
-[ext_resource type="TileSet" path="res://src/world/wall_tileset.tres" id="4_pot4l"]
+[ext_resource type="TileSet" uid="uid://bjvegefjc8lf0" path="res://src/world/wall_tileset.tres" id="4_pot4l"]
 [ext_resource type="TileSet" uid="uid://bdyvng51inp7m" path="res://src/world/floor_tileset.tres" id="5_xvlex"]
 
 [node name="WorldRoom" type="Node2D"]
 script = ExtResource("1_kcxqi")
 DoorScene = ExtResource("3_oj3tc")
-
-[node name="WallsOld" type="TileMapLayer" parent="."]
-unique_name_in_owner = true
-tile_set = ExtResource("2_pltg7")
 
 [node name="Floor" type="TileMapLayer" parent="."]
 unique_name_in_owner = true

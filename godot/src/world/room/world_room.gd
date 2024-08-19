@@ -112,25 +112,38 @@ func _build_walls() -> void:
 	for door in data.doors:
 		var pos:=Vector2i.ZERO
 		var delta:=Vector2i.ZERO
+		var transform:int
+		var transform2:int
 		match door.side:
 			Vector2i.UP:
 				pos.y = 0
 				pos.x = door.cell.x*Globals.TILES_PER_ROOM+ floor(Globals.TILES_PER_ROOM/2)
 				delta=Vector2i.RIGHT
+				transform = get_applied_transform(door.side*-1)
+				transform2 = get_applied_transform(door.side*-1)+flip_h+flip_v
 			Vector2i.DOWN:
 				pos.y=room_size.y-1
 				pos.x = door.cell.x*Globals.TILES_PER_ROOM+ floor(Globals.TILES_PER_ROOM/2)
 				delta=Vector2i.RIGHT
+				transform = get_applied_transform(door.side*-1)+flip_h
+				transform2 = get_applied_transform(door.side*-1)
 			Vector2i.LEFT:
 				pos.x=0
 				pos.y = door.cell.y*Globals.TILES_PER_ROOM+ floor(Globals.TILES_PER_ROOM/2)
 				delta=Vector2i.DOWN
+				transform = get_applied_transform(door.side*-1)+flip_v
+				transform2 = get_applied_transform(door.side*-1)
 			Vector2i.RIGHT:
 				pos.x=room_size.x-1
 				pos.y = door.cell.y*Globals.TILES_PER_ROOM+ floor(Globals.TILES_PER_ROOM/2)
 				delta=Vector2i.DOWN
-		walls.set_cell(pos,-1)
+				transform = get_applied_transform(door.side*-1)
+				transform2 = get_applied_transform(door.side*-1)-flip_v
+		walls.set_cell(pos,-1,)
 		walls.set_cell(pos+delta,-1)
+		walls.set_cell(pos-delta,0,Vector2i(8,11),transform)
+		walls.set_cell(pos+2*delta,0,Vector2i(8,11),transform2)
+		
 		#walls.set_cell(pos-delta,-1)
 	#walls.set_cells_terrain_connect(room_cells, 0, 0)
 

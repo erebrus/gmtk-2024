@@ -11,6 +11,7 @@ collision_layer = 0
 script = ExtResource("1_7ub7w")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("1_h6t70")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

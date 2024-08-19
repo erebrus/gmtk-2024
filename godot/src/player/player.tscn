@@ -23,8 +23,8 @@
 [ext_resource type="AudioStream" uid="uid://dudf7nwjvt7ug" path="res://assets/sfx/Dash-002.wav" id="16_tfqfn"]
 [ext_resource type="AudioStream" uid="uid://c7ffmkn58s2pd" path="res://assets/sfx/Dash-003.wav" id="17_23lva"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_1lsfu"]
-radius = 16.2788
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lpbj6"]
+height = 42.0
 
 [sub_resource type="Animation" id="Animation_hbkjn"]
 length = 0.001
@@ -273,7 +273,7 @@ hframes = 6
 vframes = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_1lsfu")
+shape = SubResource("CapsuleShape2D_lpbj6")
 
 [node name="DashTimer" type="Timer" parent="."]
 one_shot = true

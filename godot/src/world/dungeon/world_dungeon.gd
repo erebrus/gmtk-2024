@@ -27,7 +27,7 @@ func _enter_room(room_data: Room, door_data: Door) -> void:
 	
 	if current_room != null:
 		current_room.queue_free()
-	
+	Globals.current_room=room_data
 	await get_tree().create_timer(0.2).timeout
 	
 	var door = _create_door(room_data, door_data)
@@ -51,10 +51,12 @@ func _on_door_entered(door: WorldDoor) -> void:
 	var target_cell = door.target_cell
 	var target_room: Room = Globals.dungeon.get_room_for_cell(target_cell)
 	if target_room == null:
-		Logger.info("Exit found!")
-		Globals.go_to_map()
+		if Globals.debug_skip_eval:
+			Globals.next_level()
+		else:
+			Logger.info("Exit found!")
+			Globals.go_to_map()
 	else:
 		pre_room_load.emit(target_room)
 		var target_door = target_room.door_at(target_cell, -door.side)
 		_enter_room(target_room, target_door)
-	

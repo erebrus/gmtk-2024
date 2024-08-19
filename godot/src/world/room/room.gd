@@ -42,7 +42,7 @@ func build() -> bool:
 	
 	return true
 func print_content():
-	_build_tiles()
+	build_tiles()
 	var tile_size:Vector2i=size*Globals.TILES_PER_ROOM
 	for y in range(tile_size.y):
 		var row=""
@@ -50,7 +50,7 @@ func print_content():
 			row += " " if matrix[x][y]==0 else "X"
 		Logger.info(row)
 			
-func _build_tiles():
+func build_tiles():
 	var start=Time.get_ticks_msec()
 	matrix = []
 	var tile_size:Vector2i=size*Globals.TILES_PER_ROOM
@@ -73,7 +73,7 @@ func _build_tiles():
 			matrix[cell.x][cell.y] = 0
 		elif count_neighbor_tiles(cell, 0) < 4:
 			matrix[cell.x][cell.y] = 1
-	Logger.debug("Room content in %ds" % (Time.get_ticks_msec()-start))
+	Logger.info("Room content in %ds" % (Time.get_ticks_msec()-start))
 			
 func count_neighbor_tiles(cell:Vector2i, type:int)->int:
 	var count:=0

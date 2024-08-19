@@ -9,7 +9,9 @@ signal door_entered(door: WorldDoor)
 #}
 const LANDMARK_SCENES = [
 		preload("res://src/world/room/landmarks/fountain_landmark.tscn"),
-		preload("res://src/world/room/landmarks/bones_landmark.tscn")		
+		preload("res://src/world/room/landmarks/bones_landmark.tscn")		,
+		preload("res://src/world/room/landmarks/pink_button_landmark.tscn"),
+		preload("res://src/world/room/landmarks/green_button_landmark.tscn")		
 		]
 const HINT_SCENE = preload("res://src/world/room/hint/world_hint.tscn")
 @export var cell: Vector2i
@@ -79,7 +81,7 @@ func get_door(door: Door) -> WorldDoor:
 	
 func _build_floor() -> void:
 	if not data.matrix:
-		data._build_tiles()
+		data.build_tiles()
 		
 	var room_size = Globals.TILES_PER_ROOM * size
 	for x in room_size.x:
@@ -88,8 +90,10 @@ func _build_floor() -> void:
 			match data.matrix[x][y]:
 				0:
 					tile_type = Vector2(7,8)
-				1:
-					tile_type = Vector2(randi_range(8,11),8)
+				_:
+					if data.matrix[x][y] is int and data.matrix[x][y]==1:
+						data.matrix[x][y] = Vector2(randi_range(8,11),8)
+					tile_type = data.matrix[x][y]
 			floor.set_cell(Vector2i(x,y),0,tile_type)
 		
 func _build_walls() -> void:

@@ -1,9 +1,8 @@
 extends Node
 
 @export var current_dungeon: Dungeon
-@export var levels: Array[BlockGenerator]
 @export var use_test_level:bool = true
-@export var debug_skip_eval:bool = false
+
 
 @onready var dungeon: WorldDungeon = %WorldDungeon
 @onready var blackout_overlay: Control = %BlackoutOverlay
@@ -14,10 +13,19 @@ func _ready() -> void:
 	dungeon.room_exited.connect(_on_room_exited)
 	dungeon.room_loaded.connect(_on_room_loaded)
 	dungeon.pre_room_load.connect(_on_pre_room_load)
+	Events.timer_timeout.connect(func():Globals.do_game_over())
+	
 	if not use_test_level:
-		levels[0].generate()
-		current_dungeon = levels[0].dungeon
+		Globals.levels[Globals.current_level].generate()
+		current_dungeon = Globals.levels[Globals.current_level].dungeon
+		current_dungeon.complete_gen()
 	dungeon.enter(current_dungeon)
+	var time = Globals.levels[Globals.current_level].time
+	if time > 0:
+		%Timer.time=time
+		%Timer.visible=true
+		%Timer.start()
+
 	
 
 func _on_room_loaded(player_position: Vector2i) -> void:
@@ -25,9 +33,11 @@ func _on_room_loaded(player_position: Vector2i) -> void:
 	await get_tree().create_timer(0.2).timeout
 	blackout_overlay.hide()
 	
+	
 func _on_pre_room_load(room:Room):
-	var room_size:Vector2i = room.size*Globals.TILES_PER_ROOM*Globals.TILE_SIZE
-	%Camera2D.position = room_size/2
+	pass
+	#var room_size:Vector2i = room.size*Globals.TILES_PER_ROOM*Globals.TILE_SIZE
+	#%Camera2D.position = room_size/2
 	
 func _on_room_exited() -> void:
 	blackout_overlay.show()

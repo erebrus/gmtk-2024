@@ -4,7 +4,7 @@ class_name BlockGenerator extends Resource
 @export var hint_ratio := .2
 @export var trap_ratio := .1
 @export var landmark_ratio := .4
-
+@export var time := 30.0
 
 @export var max_attempts := 50
 @export var min_coverage := .5
@@ -114,13 +114,6 @@ func create_doors():
 	start_door.side=Vector2i.DOWN
 	start_door.exit=true
 	dungeon.rooms[0].doors.push_front(start_door)
-	#for p in mst.get_points():
-		#var ro = dungeon.get_room_for_cell(p)
-		#assert(ro)
-		#for c in mst.get_point_connections(p):
-			#var rd = dungeon.get_room_for_cell(mst.get_point_position(c))
-			#assert(rd)
-			
 	
 	
 func remove_room(room:Room):
@@ -167,18 +160,6 @@ func init_matrix():
 			column.append(null)
 		matrix.append(column)
 		
-			
-#func is_room_wall_connected(room:Room)->bool:
-	#var adjcent_cells:=[]
-	#for cell in room.get_cells():
-		#var neighbors = get_adjacent_cells(cell)
-		#for neighbor in neighbors:
-			#if not neighbor in room.get_cells() and not neighbor in adjcent_cells:
-				#adjcent_cells.append(neighbor)
-	#for neighbor in adjcent_cells:
-		#if matrix[neighbor.x][neighbor.y]!=null:
-			#return true
-	#return false
 
 func get_coverage()->float:
 	var cells_used:float = 0
@@ -377,39 +358,7 @@ func get_mst()->Array[Vector2i]:
 	for i in range(extra_count):
 		ret.append(available_segments.pop_front())
 	return ret
-#func find_mst(nodes):
-	## Prim's algorithm
-	## Given an array of positions (nodes), generates a minimum
-	## spanning tree
-	## Returns an AStar object
-#
-	## Initialize the AStar and add the first point
-	#var path = AStar2D.new()
-	#path.add_point(path.get_available_point_id(), nodes.pop_front())
-#
-	## Repeat until no more nodes remain
-	#while nodes:
-		#var min_dist = INF  # Minimum distance found so far
-		#var min_p = null  # Position of that node
-		#var p = null  # Current position
-		## Loop through the points in the path
-		#for p1 in path.get_points():
-			#p1 = path.get_point_position(p1)
-			## Loop through the remaining nodes in the given array
-			#for p2 in nodes:
-				## If the node is closer, make it the closest
-				#if p1.distance_to(p2) < min_dist:
-					#min_dist = p1.distance_to(p2)
-					#min_p = p2
-					#p = p1
-		## Insert the resulting node into the path and add
-		## its connection
-		#var n = path.get_available_point_id()
-		#path.add_point(n, min_p)
-		#path.connect_points(path.get_closest_point(p), n)
-		## Remove the node from the array so it isn't visited again
-		#nodes.erase(min_p)
-	#return path
+
 static func generate_door(cell:Vector2i, side:Vector2i)->Door:
 		var door:Door = Door.new()
 		door.cell = cell
@@ -427,4 +376,3 @@ class RoomCell:
 	var cell:Vector2i
 	func _init(new_cell:Vector2i) -> void:
 		self.cell = new_cell
-#func get_empty_cells() -> Array

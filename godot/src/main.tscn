@@ -75,3 +75,21 @@ text = "Exit maze?
 Press E to confirm
 Press Esc to cancel"
 horizontal_alignment = 1
+
+[node name="Tutorial" type="Label" parent="HUD"]
+unique_name_in_owner = true
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = -143.0
+offset_right = 1.0
+offset_bottom = -116.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+theme = ExtResource("7_gnx7q")
+theme_override_font_sizes/font_size = 16
+text = "Explore and memorize the maze, so you can map it at scale afterwards."
+horizontal_alignment = 1

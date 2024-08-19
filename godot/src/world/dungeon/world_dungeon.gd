@@ -36,6 +36,16 @@ func _enter_room(room_data: Room, door_data: Door) -> void:
 	await door.room.ready
 	room_loaded.emit(door.player_position)
 	Events.on_transition_state_change.emit(false)
+	if Globals.dungeon.start_room!=room_data:
+		if not Globals.done_tutorial_steps.has(Types.TutorialSteps.GOAL):
+			Events.tutorial_requested.emit(Types.TutorialSteps.GOAL)
+		elif room_data.size!=Vector2i.ONE:
+			Events.tutorial_requested.emit(Types.TutorialSteps.SIZE)
+		elif room_data.landmark:
+			Events.tutorial_requested.emit(Types.TutorialSteps.LANDMARK)
+	elif Globals.dungeon.get_explored_room_count()>1:
+		Events.tutorial_requested.emit(Types.TutorialSteps.RETURN)
+		
 	
 
 func _create_door(room_data: Room, door_data: Door) -> WorldDoor:

@@ -23,3 +23,6 @@ signal timer_countdown()
 
 @warning_ignore("unused_signal")
 signal confirmation_requested(door:WorldDoor)
+
+@warning_ignore("unused_signal")
+signal tutorial_requested(step:Types.TutorialSteps)

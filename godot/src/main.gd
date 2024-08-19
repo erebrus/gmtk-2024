@@ -19,6 +19,9 @@ func _ready() -> void:
 	Events.on_hint_found.connect(update_hud)
 	Events.on_landmark_found.connect(func(_x):update_hud())
 	Events.confirmation_requested.connect(_on_confirmation_requested)
+	Events.tutorial_requested.connect(_on_tutorial_requested)
+	
+	
 	if not use_test_level:
 		if Globals.last_dungeon:
 			current_dungeon=Globals.last_dungeon
@@ -34,7 +37,10 @@ func _ready() -> void:
 		%Timer.time=time
 		%Timer.visible=true
 		%Timer.start()
-
+		Events.tutorial_requested.emit(Types.TutorialSteps.TIME)
+	await get_tree().process_frame
+	await get_tree().create_timer(.5).timeout
+	Events.tutorial_requested.emit(Types.TutorialSteps.MOVE)
 	
 func update_hud():
 	%Hud.update_rooms(Globals.dungeon.get_explored_room_count(), Globals.dungeon.rooms.size())
@@ -49,6 +55,7 @@ func _on_room_loaded(player_position: Vector2i) -> void:
 	
 func _on_pre_room_load(_room:Room):
 	update_hud()
+	%Tutorial.visible = false
 
 	
 func _on_room_exited() -> void:
@@ -73,3 +80,13 @@ func _unhandled_input(_event: InputEvent) -> void:
 			%Player.in_animation = false
 			%Confirmation.visible = false		
 			%WorldDungeon._enter_room(Globals.current_room, last_door)	
+
+func _on_tutorial_requested(step:Types.TutorialSteps):
+	if Globals.done_tutorial_steps.has(step):
+		return
+	Globals.done_tutorial_steps.append(step)
+	%Tutorial.text=Types.TUTORIAL_TEXT[step]
+	%Tutorial.visible = true
+
+	
+		

@@ -27,7 +27,7 @@ func _on_update(_delta: float) -> void:
 	owner.velocity = direction * speed
 	if direction != Vector2.ZERO:
 		if direction != Vector2.ZERO and direction!=owner.last_direction:
-			Logger.info("new direction %s" % [direction])
+			Logger.debug("new direction %s" % [direction])
 			owner.last_direction = direction
 			_update_sprite()
 	else:

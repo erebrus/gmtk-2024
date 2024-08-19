@@ -10,7 +10,7 @@ class_name Room extends Resource
 @export var hint:Hint
 
 var doors_by_cell: Dictionary
-
+var explored:=false
 var matrix
 
 func _to_string() -> String:

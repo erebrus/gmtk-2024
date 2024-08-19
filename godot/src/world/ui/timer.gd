@@ -9,7 +9,7 @@ var time:int:
 		update_ui()
 		
 var countdown_time=-1
-
+var counting_down := false
 func start():
 	timer.start()
 
@@ -21,7 +21,10 @@ func _on_timer_timeout() -> void:
 	if time < 0:
 		Events.timer_timeout.emit()
 		timer.stop()
-	elif time < countdown_time:
+	elif time < countdown_time and not counting_down:
 		Events.timer_countdown.emit()
 		Globals.cross_fade_dungeon_music()
+		counting_down=true
+	if counting_down:
+		$sfx_tick.play()
 	update_ui()

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://ke11ig8kybdh"]
+
+[ext_resource type="PackedScene" uid="uid://lymosj5ypp7p" path="res://src/world/room/landmarks/pink_button_landmark.tscn" id="1_g2j3i"]
+[ext_resource type="Texture2D" uid="uid://b05nin8rvcqh6" path="res://assets/gfx/world/button-green.png" id="2_dfpea"]
+
+[node name="GreenButtonLandmark" instance=ExtResource("1_g2j3i")]
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_dfpea")

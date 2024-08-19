@@ -77,6 +77,8 @@ func update_sprite():
 	$CollisionShape2D.rotation=last_direction.angle()+PI/2
 	$CollisionShape2D.position=last_direction*5
 	if last_direction.x==0 or last_direction.y==0:
+		sprite.flip_h=false
+		sprite.flip_v=false
 		if last_direction.y < 0:
 			sprite.rotation=0
 		elif last_direction.y > 0:

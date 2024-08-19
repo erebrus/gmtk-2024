@@ -110,3 +110,29 @@ func has_room_for_cell(cell:Vector2i)->bool:
 func complete_gen():
 	for room in rooms:
 		room.build_tiles()
+
+func get_explored_room_count()->int:
+	var count:=0
+	for room in rooms:
+			if room.explored:
+				count += 1
+	return count
+	
+func get_landmarks_count(only_found:=false)->int:
+	var count:=0
+	for room in rooms:
+		if room.landmark:
+			if not only_found or room.landmark.found:
+				count += 1
+	return count
+			
+func get_hint_count(only_found:=false)->int:
+	var count:=0
+	for room in rooms:
+		if room.hint:
+			if not only_found or room.hint.found:
+				count += 1
+	return count
+	
+			
+	

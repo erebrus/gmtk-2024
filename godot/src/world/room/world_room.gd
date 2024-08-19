@@ -9,7 +9,9 @@ signal door_entered(door: WorldDoor)
 #}
 const LANDMARK_SCENES = [
 		preload("res://src/world/room/landmarks/fountain_landmark.tscn"),
-		preload("res://src/world/room/landmarks/bones_landmark.tscn")		
+		preload("res://src/world/room/landmarks/bones_landmark.tscn")		,
+		preload("res://src/world/room/landmarks/pink_button_landmark.tscn"),
+		preload("res://src/world/room/landmarks/green_button_landmark.tscn")		
 		]
 const HINT_SCENE = preload("res://src/world/room/hint/world_hint.tscn")
 @export var cell: Vector2i
@@ -82,16 +84,48 @@ func _build_floor() -> void:
 		data.build_tiles()
 		
 	var room_size = Globals.TILES_PER_ROOM * size
-	for x in room_size.x:
-		for y in room_size.y:
+	for x in range(-8,room_size.x+8):
+		for y in range(-8,room_size.y+8):
 			var tile_type:Vector2i 
-			match data.matrix[x][y]:
-				0:
-					tile_type = Vector2(7,8)
-				1:
-					tile_type = Vector2(randi_range(8,11),8)
+			if x>=0 and x< room_size.x and y>=0 and y<room_size.y:
+				match data.matrix[x][y]:
+					0:
+						tile_type = Vector2(7,8)
+					_:
+						if data.matrix[x][y] is int and data.matrix[x][y]==1:
+							data.matrix[x][y] = Vector2(randi_range(8,11),8)
+						tile_type = data.matrix[x][y]
+			else:
+				tile_type=Vector2i(5,8)
 			floor.set_cell(Vector2i(x,y),0,tile_type)
+	#
+	for door in data.doors:
+		var pos:=Vector2i.ZERO
+		var delta:=Vector2i.ZERO
+		match door.side:
+			Vector2i.UP:
+				pos.y = 0
+				pos.x = door.cell.x*Globals.TILES_PER_ROOM+ floor(Globals.TILES_PER_ROOM/2.0)
+				delta=Vector2i.RIGHT
+			Vector2i.DOWN:
+				pos.y=room_size.y-1
+				pos.x = door.cell.x*Globals.TILES_PER_ROOM+ floor(Globals.TILES_PER_ROOM/2.0)
+				delta=Vector2i.RIGHT
+			Vector2i.LEFT:
+				pos.x=0
+				pos.y = door.cell.y*Globals.TILES_PER_ROOM+ floor(Globals.TILES_PER_ROOM/2.0)
+				delta=Vector2i.DOWN
+			Vector2i.RIGHT:
+				pos.x=room_size.x-1
+				pos.y = door.cell.y*Globals.TILES_PER_ROOM+ floor(Globals.TILES_PER_ROOM/2.0)
+				delta=Vector2i.DOWN
+				
+		for i in range(8):
+			floor.set_cell(pos+door.side*i,0,Vector2(7,8))
+			floor.set_cell(pos+delta+door.side*i,0,Vector2(7,8))
+	#
 		
+	
 func _build_walls() -> void:
 	Logger.info("Creating room of size %s" % size)
 	
@@ -176,7 +210,7 @@ func _build_hint(hint_data:Hint):
 	hint.data = hint_data
 	add_child(hint)
 	if not hint_data.built:
-		var pos:= (get_room_pixel_size()-Vector2.ONE*Globals.HINT_SIZE*2)*randf()+Vector2.ONE*Globals.HINT_SIZE 
+		var pos:Vector2i= (get_room_pixel_size()-Vector2.ONE*Globals.HINT_SIZE*2)*randf()+Vector2.ONE*Globals.HINT_SIZE 
 		var attempt := 0
 		while not is_hint_position_valid(pos):
 			attempt +=1	
@@ -197,7 +231,7 @@ func _build_landmark(landmark_data:Landmark):
 	landmark.data = landmark_data
 	add_child(landmark)
 	if not landmark_data.built:
-		var pos:= (get_room_pixel_size()-Vector2.ONE*Globals.LANDMARK_SIZE*2)*randf()+Vector2.ONE*Globals.LANDMARK_SIZE 
+		var pos:Vector2i= (get_room_pixel_size()-Vector2.ONE*Globals.LANDMARK_SIZE*2)*randf()+Vector2.ONE*Globals.LANDMARK_SIZE 
 		var attempt := 0
 		while not is_landmark_position_valid(pos):
 			attempt += 1

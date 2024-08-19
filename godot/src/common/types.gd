@@ -15,6 +15,9 @@ enum Traps {
 enum Landmarks {
 	FOUNTAIN, 
 	BONES,
+	BUTTON_RED,
+	BUTTON_GREEN,
+	
 }
 
 const LANDMARK_TEXTURES = {

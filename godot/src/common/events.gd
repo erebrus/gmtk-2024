@@ -20,3 +20,6 @@ signal timer_timeout()
 
 @warning_ignore("unused_signal")
 signal timer_countdown()
+
+@warning_ignore("unused_signal")
+signal confirmation_requested(door:WorldDoor)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bg6f5xhsa624e"]
+[gd_scene load_steps=17 format=3 uid="uid://bg6f5xhsa624e"]
 
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_ousdh"]
 [ext_resource type="Script" path="res://src/player/xsm/idle.gd" id="2_i5jnq"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://src/player/xsm/xsm.gd" id="3_gvos8"]
 [ext_resource type="Script" path="res://src/player/xsm/walk.gd" id="3_sawg0"]
 [ext_resource type="Script" path="res://src/player/xsm/dash.gd" id="4_7nurc"]
+[ext_resource type="FontFile" uid="uid://uv8v0a8cdime" path="res://assets/fonts/Kenney Pixel Square.ttf" id="7_t1cm2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1lsfu"]
 radius = 16.2788
@@ -181,6 +182,16 @@ script = ExtResource("3_sawg0")
 
 [node name="dash" type="Node" parent="xsm"]
 script = ExtResource("4_7nurc")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = -67.0
+offset_top = -89.0
+offset_right = 96.0
+offset_bottom = -65.0
+theme_override_fonts/font = ExtResource("7_t1cm2")
+theme_override_font_sizes/font_size = 16
+text = "Found landmark"
 
 [node name="sfx" type="Node2D" parent="."]
 

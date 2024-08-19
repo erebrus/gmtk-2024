@@ -14,5 +14,4 @@ enum Traps {
 enum Landmarks {
 	FOUNTAIN, 
 	BONES,
-
 }

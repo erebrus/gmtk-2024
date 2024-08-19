@@ -32,8 +32,15 @@ var in_animation:bool = false
 func _ready():
 	Globals.player = self
 	Events.on_hint_found.connect(func():sfx_hint.play())
-	Events.on_landmark_found.connect(func(landmark):sfx_landmark.play())
+	Events.on_landmark_found.connect(_on_landmark_found)
 	#Events.on_transition_state_change.connect(_on_transition_state_change)
+	
+func _on_landmark_found(landmark):
+	sfx_landmark.play()
+	$Label.visible = true
+	$Label.modulate=Color(1,1,1,1)
+	var tween=get_tree().create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
+	tween.tween_property($Label,"modulate",Color(1,1,1,0),2)
 	
 func _on_transition_state_change(state:bool):
 	in_animation=state

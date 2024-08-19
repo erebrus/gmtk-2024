@@ -67,5 +67,4 @@ func _on_continue_button_pressed():
 
 
 func _on_retry_button_pressed():
-	# TODO: retry same level
-	Globals.start_game()
+	Globals.retry_level()

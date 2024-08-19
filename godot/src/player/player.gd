@@ -35,7 +35,7 @@ func _ready():
 	Events.on_landmark_found.connect(_on_landmark_found)
 	#Events.on_transition_state_change.connect(_on_transition_state_change)
 	
-func _on_landmark_found(landmark):
+func _on_landmark_found(_landmark):
 	sfx_landmark.play()
 	$Label.visible = true
 	$Label.modulate=Color(1,1,1,1)

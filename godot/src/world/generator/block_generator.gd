@@ -1,4 +1,10 @@
-class_name BlockGenerator extends DungeonGenerator
+class_name BlockGenerator extends Resource
+
+@export var size:Vector2i = Vector2i(4,4)
+@export var hint_ratio := .2
+@export var trap_ratio := .1
+@export var landmark_ratio := .4
+
 
 @export var max_attempts := 50
 @export var min_coverage := .5
@@ -9,6 +15,8 @@ class_name BlockGenerator extends DungeonGenerator
 @export var s2x2_count := 1
 @export var block_limit := false
 @export var cycle_factor := .1
+
+var dungeon:Dungeon
 var matrix=[]
 
 	
@@ -84,6 +92,7 @@ func generate() -> void:
 	#dungeon.rooms[0].print_content()
 
 func create_doors():
+	
 	var room_positions:=[]
 	for room in dungeon.rooms:
 		room_positions.append(room.cell)
@@ -99,7 +108,12 @@ func create_doors():
 		# dest room abs cell -(ori room cell
 		reverse_door.cell = ((ro.cell+door.cell)+door.side) - rd.cell
 		rd.doors.append(reverse_door)
-		
+	
+	var start_door:Door = Door.new()
+	start_door.cell=Vector2i.ZERO
+	start_door.side=Vector2i.DOWN
+	start_door.exit=true
+	dungeon.rooms[0].doors.push_front(start_door)
 	#for p in mst.get_points():
 		#var ro = dungeon.get_room_for_cell(p)
 		#assert(ro)
@@ -177,6 +191,8 @@ func get_coverage()->float:
 func get_door_connected_rooms(room:Room)->Array:
 	var ret:=[]
 	for door in room.doors:
+		if door.exit:
+			continue
 		var other_pos := room.cell+door.cell+door.side
 		var other = dungeon.get_room_for_cell(other_pos)
 		assert(other)
@@ -258,9 +274,9 @@ func get_room_position(room_size:Vector2i)->RoomCell:
 			return RoomCell.new(cell)
 	return null
 	
-func does_room_fit(size:Vector2i, cell:Vector2i)-> bool:
-	for x in range(size.x):
-		for y in range(size.y):
+func does_room_fit(room_size:Vector2i, cell:Vector2i)-> bool:
+	for x in range(room_size.x):
+		for y in range(room_size.y):
 			var new_cell:=cell+Vector2i(x,y)
 			if not is_cell_in_dungeon(new_cell) or matrix[new_cell.x][new_cell.y] != null:
 				return false
@@ -394,7 +410,18 @@ func get_mst()->Array[Vector2i]:
 		## Remove the node from the array so it isn't visited again
 		#nodes.erase(min_p)
 	#return path
-	
+static func generate_door(cell:Vector2i, side:Vector2i)->Door:
+		var door:Door = Door.new()
+		door.cell = cell
+		door.side = side
+		return door
+		
+static func generate_room_for_spec(room_size:Vector2i, position:Vector2i)->Room:
+	var room:Room = Room.new()
+	room.size=room_size
+	room.cell=position
+	return room
+
 	
 class RoomCell:
 	var cell:Vector2i

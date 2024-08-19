@@ -1,13 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://cclfrrtwylx1n"]
 
 [ext_resource type="Script" path="res://src/world/generator/generator_tester.gd" id="1_drh67"]
-[ext_resource type="Script" path="res://src/world/generator/block_generator.gd" id="2_dlca5"]
+[ext_resource type="Resource" uid="uid://b6kt3wsao7exm" path="res://src/world/levels/generator_level0.tres" id="2_jdnxs"]
 
 [node name="GeneratorTester" type="Node2D"]
 script = ExtResource("1_drh67")
-
-[node name="Generator" type="Node" parent="."]
-script = ExtResource("2_dlca5")
+generator = ExtResource("2_jdnxs")
 
 [node name="RoomContainer" type="Node2D" parent="."]
 

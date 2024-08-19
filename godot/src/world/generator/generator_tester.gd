@@ -18,12 +18,12 @@ var room_scene:PackedScene= preload("res://src/map/room/map_room.tscn")
 @onready var trap_text_edit: TextEdit = $CanvasLayer/Panel/VBoxContainer/GridContainer/TrapTextEdit
 @onready var landmark_text_edit: TextEdit = $CanvasLayer/Panel/VBoxContainer/GridContainer/LandmarkTextEdit
 
-@onready var generator: BlockGenerator = $Generator
+@export var generator:BlockGenerator
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_update_ui()
-	seed(1)
+#	seed(1)
 	
 	generate()
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://ds07utbkl8c3s"]
 
 [ext_resource type="Script" path="res://src/world/ui/timer.gd" id="1_unu0a"]
-[ext_resource type="FontFile" uid="uid://cy65mmcj4asfu" path="res://assets/fonts/Kenney Pixel.ttf" id="2_f1pvg"]
+[ext_resource type="FontFile" uid="uid://caqw07j3maojx" path="res://assets/fonts/cellar.ttf" id="2_8ttr5"]
 
 [node name="Timer" type="Control"]
 layout_mode = 3
@@ -24,8 +24,8 @@ theme_override_constants/margin_top = 10
 [node name="Label" type="Label" parent="MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_f1pvg")
-theme_override_font_sizes/font_size = 48
+theme_override_fonts/font = ExtResource("2_8ttr5")
+theme_override_font_sizes/font_size = 24
 text = "200"
 
 [node name="sfx_tick" type="AudioStreamPlayer" parent="."]

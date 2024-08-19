@@ -6,7 +6,6 @@
 [ext_resource type="Script" path="res://src/player/xsm/xsm.gd" id="3_gvos8"]
 [ext_resource type="Script" path="res://src/player/xsm/walk.gd" id="3_sawg0"]
 [ext_resource type="Script" path="res://src/player/xsm/dash.gd" id="4_7nurc"]
-[ext_resource type="FontFile" uid="uid://uv8v0a8cdime" path="res://assets/fonts/Kenney Pixel Square.ttf" id="7_t1cm2"]
 [ext_resource type="AudioStream" uid="uid://dt8u35ra6ugau" path="res://assets/sfx/Footsteps-001.wav" id="8_7n07j"]
 [ext_resource type="AudioStream" uid="uid://dmyx4f7g40lcm" path="res://assets/sfx/Hint-001.wav" id="8_lddbf"]
 [ext_resource type="Texture2D" uid="uid://kavod7skr3q8" path="res://assets/gfx/world/nRmVV.png" id="8_os85y"]
@@ -16,6 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://c2knpprx6ybcx" path="res://assets/sfx/Hurt .wav" id="10_k2u5i"]
 [ext_resource type="AudioStream" uid="uid://bqb4csiux00v5" path="res://assets/sfx/Footsteps-004.wav" id="11_bxakr"]
 [ext_resource type="AudioStream" uid="uid://nn5pr07albnt" path="res://assets/sfx/Hurt-001.wav" id="11_yc2a3"]
+[ext_resource type="FontFile" uid="uid://caqw07j3maojx" path="res://assets/fonts/cellar.ttf" id="12_jufat"]
 [ext_resource type="AudioStream" uid="uid://cs35nf40jhdv4" path="res://assets/sfx/Footsteps-005.wav" id="12_vqm48"]
 [ext_resource type="AudioStream" uid="uid://ci1m7glwycff4" path="res://assets/sfx/Hurt-002.wav" id="12_xh2mh"]
 [ext_resource type="AudioStream" uid="uid://c3bfpv41r2cyr" path="res://assets/sfx/Landmark-001.wav" id="13_ooimc"]
@@ -311,7 +311,7 @@ offset_left = -67.0
 offset_top = -89.0
 offset_right = 96.0
 offset_bottom = -65.0
-theme_override_fonts/font = ExtResource("7_t1cm2")
+theme_override_fonts/font = ExtResource("12_jufat")
 theme_override_font_sizes/font_size = 16
 text = "Found landmark"
 

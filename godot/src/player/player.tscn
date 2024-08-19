@@ -8,8 +8,8 @@
 [ext_resource type="Script" path="res://src/player/xsm/dash.gd" id="4_7nurc"]
 [ext_resource type="FontFile" uid="uid://uv8v0a8cdime" path="res://assets/fonts/Kenney Pixel Square.ttf" id="7_t1cm2"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_1lsfu"]
-radius = 16.2788
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lpbj6"]
+height = 42.0
 
 [sub_resource type="Animation" id="Animation_hbkjn"]
 length = 0.001
@@ -153,7 +153,7 @@ hframes = 6
 vframes = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_1lsfu")
+shape = SubResource("CapsuleShape2D_lpbj6")
 
 [node name="DashTimer" type="Timer" parent="."]
 one_shot = true

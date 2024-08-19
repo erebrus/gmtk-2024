@@ -17,7 +17,7 @@ func _ready() -> void:
 	dungeon.pre_room_load.connect(_on_pre_room_load)
 	Events.timer_timeout.connect(func():Globals.do_game_over())
 	Events.on_hint_found.connect(update_hud)
-	Events.on_landmark_found.connect(func(x):update_hud())
+	Events.on_landmark_found.connect(func(_x):update_hud())
 	Events.confirmation_requested.connect(_on_confirmation_requested)
 	if not use_test_level:
 		if Globals.last_dungeon:
@@ -46,7 +46,7 @@ func _on_room_loaded(player_position: Vector2i) -> void:
 	blackout_overlay.hide()
 	
 	
-func _on_pre_room_load(room:Room):
+func _on_pre_room_load(_room:Room):
 	update_hud()
 
 	
@@ -64,7 +64,7 @@ func _on_confirmation_requested(door:WorldDoor):
 		if door_data.cell == door.cell and door_data.side == door.side:
 			last_door = door_data
 	
-func _unhandled_input(event: InputEvent) -> void:
+func _unhandled_input(_event: InputEvent) -> void:
 	if %Confirmation.visible:
 		if Input.is_action_just_pressed("action"):
 			Globals.go_to_map()

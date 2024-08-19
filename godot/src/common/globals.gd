@@ -138,14 +138,14 @@ func cross_fade_music(from:AudioStreamPlayer, to:AudioStreamPlayer, duration:=1)
 	tween.tween_property(from,"volume_db",-60 , duration)
 	tween.parallel().tween_property(to,"volume_db",MUSIC_VOLUME, duration).set_ease(Tween.EASE_OUT)
 	
-func fade_in_music(node:AudioStreamPlayer, duration := 1):
+func fade_in_music(node:AudioStreamPlayer, duration := 1.0):
 	var tween = get_tree().create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	node.volume_db=-20
 	node.play()
 	tween.tween_property(node,"volume_db",0 , duration)
 	
 
-func fade_music(node:AudioStreamPlayer, duration := 1):
+func fade_music(node:AudioStreamPlayer, duration := 1.0):
 	var tween = get_tree().create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	tween.tween_property(node,"volume_db",-20 , duration)
 	await tween.finished

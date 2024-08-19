@@ -79,7 +79,15 @@ func evaluate(target: Room, score: MapScore) -> void:
 		var valid_door = drawn_door.has_door == target.has_door(drawn_door.cell, drawn_door.side)
 		score.check_doors(valid_door)
 	
-	# TODO: landmarks
+	var found_landmark:= false
+	for drawn_landmark in landmarks:
+		if target.landmark != null:
+			var is_same = target.landmark.type == drawn_landmark.landmark_type
+			if is_same:
+				found_landmark = true
+			score.check_special(is_same)
+	if not found_landmark and target.landmark != null:
+		score.check_special(false)
 	
 
 func _add_door(door_cell: Vector2i, side: Vector2i) -> void:

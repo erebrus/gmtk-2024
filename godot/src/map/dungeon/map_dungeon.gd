@@ -72,8 +72,7 @@ func evaluate() -> MapScore:
 				else:
 					score.check_room_exists(false)
 			else:
-				pass
-				# TODO: penalize somehow for extra rooms?
+				score.check_room_exists(false)
 			
 	score.calculate_totals()
 	return score

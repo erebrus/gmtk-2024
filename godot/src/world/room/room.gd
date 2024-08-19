@@ -11,7 +11,7 @@ class_name Room extends Resource
 
 var doors_by_cell: Dictionary
 
-var matrix=[]
+var matrix
 
 func _to_string() -> String:
 	return "%sx%s room at %s (%s,%s,%s). Doors:%s " % [
@@ -73,7 +73,7 @@ func _build_tiles():
 			matrix[cell.x][cell.y] = 0
 		elif count_neighbor_tiles(cell, 0) < 4:
 			matrix[cell.x][cell.y] = 1
-	Logger.info("Room content in %ds" % (Time.get_ticks_msec()-start))
+	#Logger.info("Room content in %ds" % (Time.get_ticks_msec()-start))
 			
 func count_neighbor_tiles(cell:Vector2i, type:int)->int:
 	var count:=0

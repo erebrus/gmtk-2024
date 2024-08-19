@@ -7,8 +7,8 @@
 [ext_resource type="Script" path="res://src/player/xsm/walk.gd" id="3_sawg0"]
 [ext_resource type="Script" path="res://src/player/xsm/dash.gd" id="4_7nurc"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_g2p6n"]
-size = Vector2(64, 64)
+[sub_resource type="CircleShape2D" id="CircleShape2D_1lsfu"]
+radius = 16.2788
 
 [sub_resource type="Animation" id="Animation_hbkjn"]
 length = 0.001
@@ -152,7 +152,7 @@ hframes = 6
 vframes = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_g2p6n")
+shape = SubResource("CircleShape2D_1lsfu")
 
 [node name="DashTimer" type="Timer" parent="."]
 one_shot = true

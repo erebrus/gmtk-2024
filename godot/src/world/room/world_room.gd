@@ -20,7 +20,7 @@ const HINT_SCENE = preload("res://src/world/room/hint/world_hint.tscn")
 
 @export var DoorScene: PackedScene
 
-
+var floor: TileMapLayer
 var walls: TileMapLayer
 var tile_size: Vector2i
 var doors: Array[WorldDoor]
@@ -29,18 +29,33 @@ var landmark:Node2D
 var hint:Node2D
 var trap:Node2D
 
+var data:Room
+
+
+var flip_h := TileSetAtlasSource.TRANSFORM_FLIP_H
+var flip_v := TileSetAtlasSource.TRANSFORM_FLIP_V
+var transpose := TileSetAtlasSource.TRANSFORM_TRANSPOSE
+var tile_transforms := {
+	Vector2i.UP : [0],
+	Vector2i.RIGHT : [flip_h, transpose],
+	Vector2i.DOWN : [flip_v, flip_h],
+	Vector2i.LEFT : [flip_v, transpose],
+	
+}
 func _ready() -> void:
 	assert(DoorScene != null)
 	
 
 func build(room_data: Room) -> void:
+	data = room_data
 	walls = %Walls
+	floor = $"%Floor"
 	tile_size = walls.tile_set.tile_size
 	cell = room_data.cell
 	size = room_data.size
 	
 	_build_walls()
-	
+	_build_floor()
 	if room_data.landmark:
 		_build_landmark(room_data.landmark)
 	#if room_data.trap:
@@ -61,19 +76,69 @@ func get_door(door: Door) -> WorldDoor:
 	assert(false, "Could not find door  %s" % door)
 	return null
 	
-
+func _build_floor() -> void:
+	if not data.matrix:
+		data._build_tiles()
+		
+	var room_size = Globals.TILES_PER_ROOM * size
+	for x in room_size.x:
+		for y in room_size.y:
+			var tile_type:Vector2i 
+			match data.matrix[x][y]:
+				0:
+					tile_type = Vector2(7,8)
+				1:
+					tile_type = Vector2(randi_range(8,11),8)
+			floor.set_cell(Vector2i(x,y),0,tile_type)
+		
 func _build_walls() -> void:
 	Logger.info("Creating room of size %s" % size)
 	
 	var room_size = Globals.TILES_PER_ROOM * size
 	
 	var room_cells: Array[Vector2i]
-	for w in room_size.x:
-		for h in room_size.y:
-			room_cells.append(Vector2i(w,h))
+	for w in range(1,room_size.x-1):
+		walls.set_cell(Vector2i(w,0),0,Vector2i(randi_range(9,15),11),get_applied_transform(Vector2.DOWN))
+		walls.set_cell(Vector2i(w,room_size.y-1),0,Vector2i(randi_range(9,15),11),get_applied_transform(Vector2.UP))
+	for h in range(1,room_size.y-1):
+		walls.set_cell(Vector2i(0,h),0,Vector2i(randi_range(9,15),11),get_applied_transform(Vector2.RIGHT))
+		walls.set_cell(Vector2i(room_size.x-1,h),0,Vector2i(randi_range(9,15),11),get_applied_transform(Vector2.LEFT))
+
+	walls.set_cell(Vector2i(room_size.x-1, room_size.y-1),0,Vector2i(17,11),0)
+	walls.set_cell(Vector2i(0, room_size.y-1),0,Vector2i(17,11),get_applied_transform(Vector2.RIGHT))
+	walls.set_cell(Vector2i(room_size.x-1, 0),0,Vector2i(17,11),get_applied_transform(Vector2.LEFT))
+	walls.set_cell(Vector2i(0, 0),0,Vector2i(17,11),get_applied_transform(Vector2.DOWN))
 	
-	walls.set_cells_terrain_connect(room_cells, 0, 0)
-	
+	for door in data.doors:
+		var pos:=Vector2i.ZERO
+		var delta:=Vector2i.ZERO
+		match door.side:
+			Vector2i.UP:
+				pos.y = 0
+				pos.x = door.cell.x*Globals.TILES_PER_ROOM+ floor(Globals.TILES_PER_ROOM/2)
+				delta=Vector2i.RIGHT
+			Vector2i.DOWN:
+				pos.y=room_size.y-1
+				pos.x = door.cell.x*Globals.TILES_PER_ROOM+ floor(Globals.TILES_PER_ROOM/2)
+				delta=Vector2i.RIGHT
+			Vector2i.LEFT:
+				pos.x=0
+				pos.y = door.cell.y*Globals.TILES_PER_ROOM+ floor(Globals.TILES_PER_ROOM/2)
+				delta=Vector2i.DOWN
+			Vector2i.RIGHT:
+				pos.x=room_size.x-1
+				pos.y = door.cell.y*Globals.TILES_PER_ROOM+ floor(Globals.TILES_PER_ROOM/2)
+				delta=Vector2i.DOWN
+		walls.set_cell(pos,-1)
+		walls.set_cell(pos+delta,-1)
+		#walls.set_cell(pos-delta,-1)
+	#walls.set_cells_terrain_connect(room_cells, 0, 0)
+
+func get_applied_transform(direction:Vector2i):
+	var ret :=0
+	for i in tile_transforms[direction]:
+		ret += i
+	return ret
 func get_room_pixel_size() -> Vector2:
 	return size * Globals.TILE_SIZE * Globals.TILES_PER_ROOM
 

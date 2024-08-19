@@ -1,0 +1,22 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://bdyvng51inp7m"]
+
+[ext_resource type="Texture2D" uid="uid://ccm7ywedm2pfk" path="res://assets/gfx/world/tiles.png" id="1_kxi8q"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jglcc"]
+texture = ExtResource("1_kxi8q")
+texture_region_size = Vector2i(32, 32)
+7:8/0 = 0
+8:8/0 = 0
+9:8/0 = 0
+10:8/0 = 0
+11:8/0 = 0
+12:8/0 = 0
+13:8/0 = 0
+14:8/0 = 0
+15:8/0 = 0
+17:8/0 = 0
+17:7/0 = 0
+
+[resource]
+tile_size = Vector2i(32, 32)
+sources/0 = SubResource("TileSetAtlasSource_jglcc")

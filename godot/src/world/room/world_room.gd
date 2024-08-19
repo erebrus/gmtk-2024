@@ -90,8 +90,10 @@ func _build_floor() -> void:
 			match data.matrix[x][y]:
 				0:
 					tile_type = Vector2(7,8)
-				1:
-					tile_type = Vector2(randi_range(8,11),8)
+				_:
+					if data.matrix[x][y] is int and data.matrix[x][y]==1:
+						data.matrix[x][y] = Vector2(randi_range(8,11),8)
+					tile_type = data.matrix[x][y]
 			floor.set_cell(Vector2i(x,y),0,tile_type)
 		
 func _build_walls() -> void:

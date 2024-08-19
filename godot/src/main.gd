@@ -14,7 +14,8 @@ func _ready() -> void:
 	dungeon.room_loaded.connect(_on_room_loaded)
 	dungeon.pre_room_load.connect(_on_pre_room_load)
 	Events.timer_timeout.connect(func():Globals.do_game_over())
-	
+	Events.on_hint_found.connect(update_hud)
+	Events.on_landmark_found.connect(func(x):update_hud())
 	if not use_test_level:
 		if Globals.last_dungeon:
 			current_dungeon=Globals.last_dungeon
@@ -23,6 +24,7 @@ func _ready() -> void:
 			current_dungeon = Globals.levels[Globals.current_level].dungeon
 			current_dungeon.complete_gen()
 	dungeon.enter(current_dungeon)
+	update_hud()
 	var time = Globals.levels[Globals.current_level].time
 	if time > 0:
 		%Timer.time=time
@@ -30,7 +32,11 @@ func _ready() -> void:
 		%Timer.start()
 
 	
-
+func update_hud():
+	%Hud.update_rooms(Globals.dungeon.get_explored_room_count(), Globals.dungeon.rooms.size())
+	%Hud.update_landmarks(Globals.dungeon.get_landmarks_count(true), Globals.dungeon.get_landmarks_count(false))
+	%Hud.update_cheeses(Globals.dungeon.get_hint_count(true), Globals.dungeon.get_hint_count(false))
+	
 func _on_room_loaded(player_position: Vector2i) -> void:
 	player.position = player_position
 	await get_tree().create_timer(0.2).timeout
@@ -38,9 +44,8 @@ func _on_room_loaded(player_position: Vector2i) -> void:
 	
 	
 func _on_pre_room_load(room:Room):
-	pass
-	#var room_size:Vector2i = room.size*Globals.TILES_PER_ROOM*Globals.TILE_SIZE
-	#%Camera2D.position = room_size/2
+	update_hud()
+
 	
 func _on_room_exited() -> void:
 	blackout_overlay.show()

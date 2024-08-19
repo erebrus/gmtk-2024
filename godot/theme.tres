@@ -1,0 +1,8 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dp62bc2khcy14"]
+
+[ext_resource type="FontFile" uid="uid://caqw07j3maojx" path="res://assets/fonts/cellar.ttf" id="1_cgpmc"]
+
+[resource]
+default_font = ExtResource("1_cgpmc")
+default_font_size = 12
+Label/fonts/font = ExtResource("1_cgpmc")

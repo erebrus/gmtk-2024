@@ -96,12 +96,15 @@ func _build_floor() -> void:
 							data.matrix[x][y] = Vector2(randi_range(8,11),8)
 						tile_type = data.matrix[x][y]
 			else:
-				tile_type=Vector2i(5,8)
+				tile_type=Vector2i(5,8) if randf() > .25 else Vector2(randi_range(8,12),12)
+				
 			floor.set_cell(Vector2i(x,y),0,tile_type)
 	#
+
 	for door in data.doors:
 		var pos:=Vector2i.ZERO
 		var delta:=Vector2i.ZERO
+		
 		match door.side:
 			Vector2i.UP:
 				pos.y = 0

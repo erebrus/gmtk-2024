@@ -72,27 +72,14 @@ func remove_landmark(landmark: MapLandmark) -> void:
 	landmarks.erase(landmark)
 	
 
-func evaluate(target: Room) -> float:
-	var score = Globals.SCORE_ROOM_EXISTS
-	
-	score += _handle_result(target.size == size, Globals.SCORE_ROOM_SIZE, "Room is the right size")
-	
-	var door_spots = 2 * size.x + 2 * size.y
-	var score_per_door = Globals.SCORE_DOORS / door_spots
-	
+func evaluate(target: Room, score: MapScore) -> void:
+	score.check_room_exists(true)
+	score.check_room_size(target.size == size)
 	for drawn_door in doors:
 		var valid_door = drawn_door.has_door == target.has_door(drawn_door.cell, drawn_door.side)
-		score += _handle_result(valid_door, score_per_door, "Door at %s: %s" % [drawn_door, drawn_door.has_door])
-		
+		score.check_doors(valid_door)
+	
 	# TODO: landmarks
-	
-	return score
-	
-
-func _handle_result(result: bool, score: float, msg: String) -> float:
-	var result_str = "PASS" if result else "FAIL"
-	Logger.info("\t%s: %s -> %s" % [result_str, msg, score])
-	return score if result else 0.0
 	
 
 func _add_door(door_cell: Vector2i, side: Vector2i) -> void:

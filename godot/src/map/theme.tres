@@ -1,0 +1,14 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://bj1p8xiasxxdc"]
+
+[ext_resource type="FontFile" uid="uid://cy65mmcj4asfu" path="res://assets/fonts/Kenney Pixel.ttf" id="1_mi11k"]
+
+[resource]
+default_font = ExtResource("1_mi11k")
+default_font_size = 16
+HeaderLarge/colors/font_color = Color(0.447059, 0.764706, 0.635294, 1)
+HeaderLarge/font_sizes/font_size = 48
+HeaderMedium/colors/font_color = Color(0.803922, 0.619608, 0.247059, 1)
+HeaderMedium/font_sizes/font_size = 32
+HeaderSmall/colors/font_color = Color(0.654902, 0.576471, 0.94902, 1)
+HeaderSmall/font_sizes/font_size = 16
+Label/colors/font_color = Color(0.654902, 0.576471, 0.94902, 1)

@@ -57,26 +57,25 @@ func cell_to_global_position(cell: Vector2i) -> Vector2:
 	return grid_offset + Vector2(cell) * Globals.MAP_CELL_SIZE
 	
 
-func evaluate() -> float:
-	var score = 0.0
+func evaluate() -> MapScore:
+	var score = MapScore.new()
 	for x in dungeon.size.x:
 		for y in dungeon.size.y:
 			var cell = Vector2i(x, y)
 			var drawn_room = find_room(cell)
 			var target_room = dungeon.get_room_for_cell(cell)
-			
+			Logger.debug("CELL %s" % cell)
 			if target_room != null:
 				if drawn_room != null:
-					var result = drawn_room.evaluate(target_room)
-					Logger.info("PASS: Room at cell %s: %s" % [cell, result])
-					score += result
+					score.check_room_exists(true)
+					drawn_room.evaluate(target_room, score)
 				else:
-					Logger.info("FAIL: No room at %s" % cell)
+					score.check_room_exists(false)
 			else:
 				pass
 				# TODO: penalize somehow for extra rooms?
 			
-			
+	score.calculate_totals()
 	return score
 	
 

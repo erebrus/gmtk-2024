@@ -5,6 +5,8 @@ extends Node
 signal map_mode_changed
 @warning_ignore("unused_signal")
 signal map_changed
+@warning_ignore("unused_signal")
+signal map_scored(score: MapScore)
 
 @warning_ignore("unused_signal")
 signal on_transition_state_change(value:bool)

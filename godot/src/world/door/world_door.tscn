@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dnsrv4wp1rvk8" path="res://assets/gfx/world/door.png" id="1_h6t70"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i2uhm"]
-size = Vector2(64, 14)
+size = Vector2(72, 14)
 
 [node name="Door" type="Area2D"]
 collision_layer = 0

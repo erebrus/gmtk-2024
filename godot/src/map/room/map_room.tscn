@@ -38,4 +38,10 @@ visible = false
 
 [node name="Draggable" parent="." instance=ExtResource("3_3l3pu")]
 
+[node name="DragSFX" type="AudioStreamPlayer2D" parent="."]
+bus = &"Sfx"
+
+[node name="DropSFX" type="AudioStreamPlayer2D" parent="."]
+bus = &"Sfx"
+
 [connection signal="input_event" from="." to="." method="_on_input_event"]

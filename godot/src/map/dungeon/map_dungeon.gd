@@ -1,6 +1,6 @@
 class_name MapDungeon extends Node2D
 
-const GRID_SIZE = Vector2i(10, 10)
+const GRID_SIZE = Vector2i(8, 8)
 
 
 @export_category("Scenes")

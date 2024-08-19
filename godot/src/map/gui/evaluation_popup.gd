@@ -22,6 +22,8 @@ extends PanelContainer
 	"S"= 0,
 }
 
+var time:= 0
+
 
 func _ready() -> void:
 	Events.map_scored.connect(_on_map_scored)
@@ -47,10 +49,14 @@ func _on_map_scored(score: MapScore) -> void:
 	
 	%ScoreLabel.text = _grade(score.total)
 	
+	if score.total > min_accuracy[passing_grade]:
+		$SuccessSFX.play()
+		%ContinueButton.show()
+	else:
+		$FailureSFX.play()
+		%ContinueButton.hide()
 	
-	# TODO hide continue button is score is not high enough
-	
-	pass
+	time = bonus_time[_grade(score.total)]
 	
 
 func _grade(score: float) -> String:
@@ -62,9 +68,11 @@ func _grade(score: float) -> String:
 	
 
 func _on_continue_button_pressed():
+	Events.button_clicked.emit()
 	# TODO add bonus time
 	Globals.next_level() 
 
 
 func _on_retry_button_pressed():
+	Events.button_clicked.emit()
 	Globals.retry_level()

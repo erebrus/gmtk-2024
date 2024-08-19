@@ -113,3 +113,7 @@ text = "Retry"
 unique_name_in_owner = true
 layout_mode = 2
 text = "Continue"
+
+[node name="SuccessSFX" type="AudioStreamPlayer" parent="."]
+
+[node name="FailureSFX" type="AudioStreamPlayer" parent="."]

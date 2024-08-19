@@ -22,6 +22,7 @@ func _ready() -> void:
 	if not use_test_level:
 		if Globals.last_dungeon:
 			current_dungeon=Globals.last_dungeon
+			current_dungeon.reset()
 		else:	
 			Globals.levels[Globals.current_level].generate()
 			current_dungeon = Globals.levels[Globals.current_level].dungeon

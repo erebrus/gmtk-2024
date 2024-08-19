@@ -134,5 +134,9 @@ func get_hint_count(only_found:=false)->int:
 				count += 1
 	return count
 	
+	
+func reset():
+	for room in rooms:
+		room.reset()
 			
 	

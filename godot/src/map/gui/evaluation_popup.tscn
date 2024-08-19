@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://d26khfur8dgqb"]
+[gd_scene load_steps=4 format=3 uid="uid://d26khfur8dgqb"]
 
+[ext_resource type="Theme" uid="uid://bj1p8xiasxxdc" path="res://src/map/theme.tres" id="1_dmbyo"]
 [ext_resource type="Script" path="res://src/map/gui/evaluation_popup.gd" id="1_l2vvr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r80xs"]
@@ -22,6 +23,7 @@ grow_horizontal = 0
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme = ExtResource("1_dmbyo")
 theme_override_styles/panel = SubResource("StyleBoxFlat_r80xs")
 script = ExtResource("1_l2vvr")
 
@@ -69,6 +71,17 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "A"
+horizontal_alignment = 2
+
+[node name="CheeseLabel" type="Label" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "CHEESE"
+
+[node name="CheeseScore" type="Label" parent="VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "+"
 horizontal_alignment = 2
 
 [node name="Spacer1" type="Control" parent="VBoxContainer"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bakmp3c63fsg6"]
+[gd_scene load_steps=13 format=3 uid="uid://bakmp3c63fsg6"]
 
 [ext_resource type="Script" path="res://src/map/map_screen.gd" id="1_fitck"]
 [ext_resource type="Theme" uid="uid://bj1p8xiasxxdc" path="res://src/map/theme.tres" id="1_ouo8q"]
@@ -7,7 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://br78wlhmv1luf" path="res://src/map/landmark/landmark_button.tscn" id="3_3yg1q"]
 [ext_resource type="Texture2D" uid="uid://te22pr8l07ek" path="res://assets/gfx/ui/icons/skull.png" id="5_cght2"]
 [ext_resource type="PackedScene" uid="uid://c3miu0x2th1wn" path="res://src/map/room/room_button.tscn" id="6_3ekrt"]
+[ext_resource type="Texture2D" uid="uid://bif5hcahyl5xr" path="res://assets/gfx/ui/icons/button-pink.png" id="6_lsfjl"]
 [ext_resource type="PackedScene" uid="uid://d26khfur8dgqb" path="res://src/map/gui/evaluation_popup.tscn" id="7_tovqu"]
+[ext_resource type="Texture2D" uid="uid://bp32cer6x0cq1" path="res://assets/gfx/ui/icons/button-green.png" id="7_wgqf0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mjx1d"]
 content_margin_left = 62.0
@@ -24,6 +26,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 2.0
+offset_right = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -185,6 +189,18 @@ texture = ExtResource("5_cght2")
 landmark_type = 1
 dungeon_path = NodePath("../../../../../../MapContainer/MapDungeon")
 
+[node name="LandmarkButton3" parent="BuildPanel/VBoxContainer/LandmarksPanel/VBoxContainer/LandmarkContainer" instance=ExtResource("3_3yg1q")]
+layout_mode = 2
+texture = ExtResource("6_lsfjl")
+landmark_type = 2
+dungeon_path = NodePath("../../../../../../MapContainer/MapDungeon")
+
+[node name="LandmarkButton4" parent="BuildPanel/VBoxContainer/LandmarksPanel/VBoxContainer/LandmarkContainer" instance=ExtResource("3_3yg1q")]
+layout_mode = 2
+texture = ExtResource("7_wgqf0")
+landmark_type = 3
+dungeon_path = NodePath("../../../../../../MapContainer/MapDungeon")
+
 [node name="EvaluateButton" type="Button" parent="BuildPanel/VBoxContainer"]
 layout_mode = 2
 text = "Evaluate"
@@ -201,7 +217,7 @@ theme_override_constants/margin_right = 40
 
 [node name="MapDungeon" parent="MapContainer" instance=ExtResource("1_uj5lt")]
 unique_name_in_owner = true
-position = Vector2(-644, 34)
+position = Vector2(-818, 96)
 RoomScene = ExtResource("2_2ptas")
 
 [node name="EvaluationPopup" parent="." instance=ExtResource("7_tovqu")]

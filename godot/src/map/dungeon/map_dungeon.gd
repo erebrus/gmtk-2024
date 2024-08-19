@@ -71,7 +71,7 @@ func evaluate() -> MapScore:
 					drawn_room.evaluate(target_room, score)
 				else:
 					score.check_room_exists(false)
-			else:
+			elif drawn_room != null:
 				score.check_room_exists(false)
 			
 	score.calculate_totals()

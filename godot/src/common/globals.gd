@@ -35,8 +35,12 @@ var map_mode:= Types.MapMode.Rooms:
 			Events.map_mode_changed.emit()
 
 var dungeon: Dungeon
+var current_room: Room
 var player: Player
 var current_level:=0
+var current_hints:=0
+var last_landmarks:={}
+
 @export var levels:Array[BlockGenerator]
 @export var debug_skip_eval:bool = false
 
@@ -83,7 +87,9 @@ func do_end():
 
 func start_game():
 	in_game=true
-
+	last_landmarks={}	
+	current_hints=0
+	
 	fade_music(puzzle_music,1)
 	fade_music(menu_music,1)
 	await get_tree().create_timer(.1).timeout

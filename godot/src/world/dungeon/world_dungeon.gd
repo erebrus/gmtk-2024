@@ -27,7 +27,7 @@ func _enter_room(room_data: Room, door_data: Door) -> void:
 	
 	if current_room != null:
 		current_room.queue_free()
-	
+	Globals.current_room=room_data
 	await get_tree().create_timer(0.2).timeout
 	
 	var door = _create_door(room_data, door_data)

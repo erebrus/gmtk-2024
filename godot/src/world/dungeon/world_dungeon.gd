@@ -53,10 +53,12 @@ func _on_door_entered(door: WorldDoor) -> void:
 	var target_cell = door.target_cell
 	var target_room: Room = Globals.dungeon.get_room_for_cell(target_cell)
 	if target_room == null:
-		if Globals.debug_skip_eval:			Globals.next_level()
+		if Globals.debug_skip_eval:			
+			Globals.next_level()
 		else:
 			Logger.info("Exit found!")
-			Globals.go_to_map()
+			Events.confirmation_requested.emit(door)
+			#Globals.go_to_map()
 	else:
 		target_room.explored = true
 		pre_room_load.emit(target_room)

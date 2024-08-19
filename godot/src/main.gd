@@ -8,6 +8,8 @@ extends Node
 @onready var blackout_overlay: Control = %BlackoutOverlay
 @onready var player: Player = %Player
 
+var last_door:Door
+
 func _ready() -> void:
 	blackout_overlay.show()
 	dungeon.room_exited.connect(_on_room_exited)
@@ -16,6 +18,7 @@ func _ready() -> void:
 	Events.timer_timeout.connect(func():Globals.do_game_over())
 	Events.on_hint_found.connect(update_hud)
 	Events.on_landmark_found.connect(func(x):update_hud())
+	Events.confirmation_requested.connect(_on_confirmation_requested)
 	if not use_test_level:
 		if Globals.last_dungeon:
 			current_dungeon=Globals.last_dungeon
@@ -50,3 +53,22 @@ func _on_pre_room_load(room:Room):
 func _on_room_exited() -> void:
 	blackout_overlay.show()
 	player.global_position = Vector2(-1000, -1000)
+
+
+func _on_confirmation_requested(door:WorldDoor):
+	%Player.in_animation = true
+	%Player.velocity = Vector2.ZERO
+	%Confirmation.visible = true
+	
+	for door_data in Globals.current_room.doors:
+		if door_data.cell == door.cell and door_data.side == door.side:
+			last_door = door_data
+	
+func _unhandled_input(event: InputEvent) -> void:
+	if %Confirmation.visible:
+		if Input.is_action_just_pressed("action"):
+			Globals.go_to_map()
+		elif Input.is_action_just_pressed("ui_cancel"):
+			%Player.in_animation = false
+			%Confirmation.visible = false		
+			%WorldDungeon._enter_room(Globals.current_room, last_door)	

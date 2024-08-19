@@ -210,7 +210,7 @@ func _build_hint(hint_data:Hint):
 	hint.data = hint_data
 	add_child(hint)
 	if not hint_data.built:
-		var pos:= (get_room_pixel_size()-Vector2.ONE*Globals.HINT_SIZE*2)*randf()+Vector2.ONE*Globals.HINT_SIZE 
+		var pos:Vector2i= (get_room_pixel_size()-Vector2.ONE*Globals.HINT_SIZE*2)*randf()+Vector2.ONE*Globals.HINT_SIZE 
 		var attempt := 0
 		while not is_hint_position_valid(pos):
 			attempt +=1	
@@ -231,7 +231,7 @@ func _build_landmark(landmark_data:Landmark):
 	landmark.data = landmark_data
 	add_child(landmark)
 	if not landmark_data.built:
-		var pos:= (get_room_pixel_size()-Vector2.ONE*Globals.LANDMARK_SIZE*2)*randf()+Vector2.ONE*Globals.LANDMARK_SIZE 
+		var pos:Vector2i= (get_room_pixel_size()-Vector2.ONE*Globals.LANDMARK_SIZE*2)*randf()+Vector2.ONE*Globals.LANDMARK_SIZE 
 		var attempt := 0
 		while not is_landmark_position_valid(pos):
 			attempt += 1

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cbbhfj0irlnxf"]
+[gd_scene load_steps=8 format=3 uid="uid://cbbhfj0irlnxf"]
 
 [ext_resource type="Script" path="res://src/main.gd" id="1_ffdrq"]
 [ext_resource type="Resource" uid="uid://cqwv1i3l7vw8e" path="res://src/world/levels/test_dungeon.tres" id="2_c52b4"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bg6f5xhsa624e" path="res://src/player/player.tscn" id="5_dfd4u"]
 [ext_resource type="PackedScene" uid="uid://ds07utbkl8c3s" path="res://src/world/ui/timer.tscn" id="5_kmppd"]
 [ext_resource type="PackedScene" uid="uid://b6awdjji6h3ny" path="res://src/world/ui/hud.tscn" id="6_iat6d"]
+[ext_resource type="Theme" uid="uid://dp62bc2khcy14" path="res://theme.tres" id="7_gnx7q"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_ffdrq")
@@ -51,3 +52,26 @@ visible = false
 
 [node name="Hud" parent="HUD" instance=ExtResource("6_iat6d")]
 unique_name_in_owner = true
+
+[node name="Confirmation" type="Label" parent="HUD"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -144.0
+offset_top = -224.0
+offset_right = 148.0
+offset_bottom = -107.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = ExtResource("7_gnx7q")
+theme_override_font_sizes/font_size = 16
+text = "Exit maze? 
+
+Press E to confirm
+Press Esc to cancel"
+horizontal_alignment = 1

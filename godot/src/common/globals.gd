@@ -70,8 +70,8 @@ func _ready():
 	_init_logger()
 
 	Logger.info("Starting menu music")
-	#fade_in_music(menu_music)
-	start_game()
+	fade_in_music(menu_music)
+	
 func next_level():
 	current_level += 1
 	last_dungeon=null

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="GMTK2024"
-run/main_scene="res://src/main.tscn"
+run/main_scene="res://src/start_screen/start_screen.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 boot_splash/bg_color=Color(0.188235, 0.054902, 0.109804, 1)
 boot_splash/show_image=false

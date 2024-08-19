@@ -65,7 +65,7 @@ func _ready():
 	_init_logger()
 	Logger.info("Starting menu music")
 	#fade_in_music(menu_music)
-	#start_game()
+	start_game()
 func next_level():
 	current_level += 1
 	if current_level<levels.size():
@@ -73,27 +73,31 @@ func next_level():
 	else:
 		do_end()
 
+func do_game_over():
+	Logger.info("Game over")
+	get_tree().quit()
+
 func do_end():
 	Logger.info("Finished game")
 	get_tree().quit()
 
 func start_game():
 	in_game=true
-	current_level = 0
-	fade_music(puzzle_music,.5)
+
+	fade_music(puzzle_music,1)
 	fade_music(menu_music,1)
-	await get_tree().create_timer(1).timeout
-	
+	await get_tree().create_timer(.1).timeout
 	SceneManager.change_scene(GAME_SCENE_PATH)
 	fade_in_music(explore_music)
 	play_music(fighter_music,-60)
 	
+	
 
 func go_to_map():
-	fade_music(explore_music)
-	fade_music(fighter_music)	
+	fade_music(explore_music,.5)
+	fade_music(fighter_music,.5)	
 	SceneManager.change_scene(MAP_SCENE_PATH)
-	
+	fade_in_music(puzzle_music)
 	
 
 func _init_logger():
@@ -107,6 +111,8 @@ func _init_logger():
 	file_appender.logger_level = Logger.LOG_LEVEL_DEBUG
 	Logger.info("Logger initialized.")
 
+func cross_fade_dungeon_music():
+	cross_fade_music(explore_music, fighter_music)
 #func _process(delta: float) -> void:
 	#if Input.is_action_just_pressed("ui_cancel"):
 		#cross_fade_music(explore_music, fighter_music)
@@ -116,7 +122,7 @@ func play_music(node:AudioStreamPlayer, volume :=MUSIC_VOLUME):
 		node.volume_db = volume
 		node.play()
 	
-func cross_fade_music(from:AudioStreamPlayer, to:AudioStreamPlayer, duration:=.5):
+func cross_fade_music(from:AudioStreamPlayer, to:AudioStreamPlayer, duration:=1):
 	var tween = get_tree().create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
 	tween.tween_property(from,"volume_db",-60 , duration)
 	tween.parallel().tween_property(to,"volume_db",MUSIC_VOLUME, duration).set_ease(Tween.EASE_OUT)

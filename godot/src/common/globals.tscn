@@ -13,7 +13,6 @@
 [node name="Globals" type="Node"]
 script = ExtResource("1_noqpm")
 levels = Array[ExtResource("2_71136")]([ExtResource("3_j0c4x"), ExtResource("4_x5skk"), ExtResource("5_vtw0y"), ExtResource("6_p6bt4")])
-debug_skip_eval = true
 
 [node name="explore_music" type="AudioStreamPlayer" parent="."]
 process_mode = 3

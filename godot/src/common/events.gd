@@ -12,3 +12,9 @@ signal on_transition_state_change(value:bool)
 signal on_hint_found()
 @warning_ignore("unused_signal")
 signal on_landmark_found(landmark:Landmark)
+
+@warning_ignore("unused_signal")
+signal timer_timeout()
+
+@warning_ignore("unused_signal")
+signal timer_countdown()

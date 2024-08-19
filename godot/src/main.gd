@@ -13,11 +13,19 @@ func _ready() -> void:
 	dungeon.room_exited.connect(_on_room_exited)
 	dungeon.room_loaded.connect(_on_room_loaded)
 	dungeon.pre_room_load.connect(_on_pre_room_load)
+	Events.timer_timeout.connect(func():Globals.do_game_over())
+	
 	if not use_test_level:
 		Globals.levels[Globals.current_level].generate()
 		current_dungeon = Globals.levels[Globals.current_level].dungeon
 		current_dungeon.complete_gen()
 	dungeon.enter(current_dungeon)
+	var time = Globals.levels[Globals.current_level].time
+	if time > 0:
+		%Timer.time=time
+		%Timer.visible=true
+		%Timer.start()
+
 	
 
 func _on_room_loaded(player_position: Vector2i) -> void:

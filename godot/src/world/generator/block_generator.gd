@@ -4,7 +4,7 @@ class_name BlockGenerator extends Resource
 @export var hint_ratio := .2
 @export var trap_ratio := .1
 @export var landmark_ratio := .4
-
+@export var time := 30.0
 
 @export var max_attempts := 50
 @export var min_coverage := .5

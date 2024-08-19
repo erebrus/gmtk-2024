@@ -34,9 +34,14 @@ var map_mode:= Types.MapMode.Rooms:
 			map_mode = value
 			Events.map_mode_changed.emit()
 
+var last_dungeon:Dungeon
 var dungeon: Dungeon
+var current_room: Room
 var player: Player
 var current_level:=0
+var current_hints:=0
+var last_landmarks:={}
+
 @export var levels:Array[BlockGenerator]
 @export var debug_skip_eval:bool = false
 
@@ -63,16 +68,20 @@ var sound_on:=true:
 
 func _ready():
 	_init_logger()
+
 	Logger.info("Starting menu music")
 	#fade_in_music(menu_music)
 	start_game()
 func next_level():
 	current_level += 1
+	last_dungeon=null
 	if current_level<levels.size():
 		start_game()	
 	else:
 		do_end()
-
+func retry_level():
+	start_game()
+	
 func do_game_over():
 	Logger.info("Game over")
 	get_tree().quit()
@@ -83,7 +92,9 @@ func do_end():
 
 func start_game():
 	in_game=true
-
+	last_landmarks={}	
+	current_hints=0
+	
 	fade_music(puzzle_music,1)
 	fade_music(menu_music,1)
 	await get_tree().create_timer(.1).timeout

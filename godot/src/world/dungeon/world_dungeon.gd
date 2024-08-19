@@ -17,6 +17,7 @@ func _ready() -> void:
 
 func enter(dungeon: Dungeon) -> void:
 	Globals.dungeon = dungeon
+	Globals.last_dungeon = dungeon.duplicate()
 	assert(dungeon.build())
 	pre_room_load.emit(dungeon.start_room)
 	_enter_room(dungeon.start_room, dungeon.start_door)
@@ -27,7 +28,7 @@ func _enter_room(room_data: Room, door_data: Door) -> void:
 	
 	if current_room != null:
 		current_room.queue_free()
-	
+	Globals.current_room=room_data
 	await get_tree().create_timer(0.2).timeout
 	
 	var door = _create_door(room_data, door_data)

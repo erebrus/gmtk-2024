@@ -3,6 +3,7 @@ class_name WorldDoor extends Area2D
 
 signal door_entered
 
+@onready var exit_sprite: Sprite2D = $ExitSprite
 
 var cell: Vector2i
 var side: Vector2i
@@ -19,7 +20,9 @@ var player_position: Vector2i:
 	get:
 		return $PlayerPosition.global_position
 	
-
+func set_exit(v:bool):
+	$ExitSprite.visible=v
+	
 func _ready() -> void:
 	rotation = Vector2(side).angle() + PI / 2
 	position = Vector2(cell) * Globals.TILES_PER_ROOM * Globals.TILE_SIZE + Vector2(0.5, 0.5) * Globals.TILE_SIZE

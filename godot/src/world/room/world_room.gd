@@ -66,7 +66,7 @@ func build(room_data: Room) -> void:
 	if room_data.hint:
 		_build_hint(room_data.hint)
 	for door_data in room_data.doors:
-		_add_door(door_data.cell, door_data.side)
+		_add_door(door_data.cell, door_data.side, door_data.exit)
 		
 	
 	
@@ -193,11 +193,12 @@ func get_room_pixel_size() -> Vector2:
 	return size * Globals.TILE_SIZE * Globals.TILES_PER_ROOM
 
 
-func _add_door(door_cell: Vector2i, side: Vector2i) -> void:
+func _add_door(door_cell: Vector2i, side: Vector2i, exit:=false) -> void:
 	var door = DoorScene.instantiate()
 	door.room = self
 	door.cell = door_cell
 	door.side = side
+	door.set_exit(exit)
 	doors.append(door)
 	
 	door.door_entered.connect(_on_door_entered.bind(door))

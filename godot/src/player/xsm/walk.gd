@@ -17,11 +17,11 @@ func _on_update(_delta: float) -> void:
 		return 
 	var direction:=Input.get_vector("move_left","move_right", "move_up", "move_down")
 	var speed:float = owner.walk_speed
-	if Input.is_action_pressed("sprint"):
+	if Input.is_action_pressed("slow"):		
+		owner.anim_player.speed_scale=.5
+	else:
 		speed = owner.run_speed
 		owner.anim_player.speed_scale=1
-	else:
-		owner.anim_player.speed_scale=.5
 		
 		
 	owner.velocity = direction * speed

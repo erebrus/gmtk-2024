@@ -187,5 +187,14 @@ script = ExtResource("4_7nurc")
 [node name="sfx_walk" type="AudioStreamPlayer2D" parent="sfx"]
 bus = &"Sfx"
 
+[node name="sfx_hint" type="AudioStreamPlayer2D" parent="sfx"]
+bus = &"Sfx"
+
+[node name="sfx_hurt" type="AudioStreamPlayer2D" parent="sfx"]
+bus = &"Sfx"
+
+[node name="sfx_landmark" type="AudioStreamPlayer2D" parent="sfx"]
+bus = &"Sfx"
+
 [node name="sfx_dash" type="AudioStreamPlayer2D" parent="sfx"]
 bus = &"Sfx"

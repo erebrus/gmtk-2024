@@ -14,7 +14,10 @@ class_name Player
 @onready var wall_rc: RayCast2D = $wall_rc
 
 @onready var sfx_walk: AudioStreamPlayer2D = $sfx/sfx_walk
+@onready var sfx_hint: AudioStreamPlayer2D = $sfx/sfx_hint
+@onready var sfx_hurt: AudioStreamPlayer2D = $sfx/sfx_hurt
 @onready var sfx_dash: AudioStreamPlayer2D = $sfx/sfx_dash
+@onready var sfx_landmark: AudioStreamPlayer2D = $sfx/sfx_landmark
 
 
 
@@ -28,7 +31,8 @@ var in_animation:bool = false
 
 func _ready():
 	Globals.player = self
-	
+	Events.on_hint_found.connect(func():sfx_hint.play())
+	Events.on_landmark_found.connect(func(landmark):sfx_landmark.play())
 	#Events.on_transition_state_change.connect(_on_transition_state_change)
 	
 func _on_transition_state_change(state:bool):

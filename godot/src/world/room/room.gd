@@ -132,3 +132,10 @@ func _is_valid_door(door_cell: Vector2i, door_side: Vector2i):
 			return door_cell.x == size.x - 1
 	
 	return false
+
+func reset():
+	explored=false
+	if hint:
+		hint.found = false
+	if landmark:
+		landmark.found = false

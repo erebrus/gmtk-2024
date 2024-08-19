@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://bakmp3c63fsg6"]
+[gd_scene load_steps=11 format=3 uid="uid://bakmp3c63fsg6"]
 
 [ext_resource type="Script" path="res://src/map/map_screen.gd" id="1_fitck"]
 [ext_resource type="Theme" uid="uid://bj1p8xiasxxdc" path="res://src/map/theme.tres" id="1_ouo8q"]
 [ext_resource type="PackedScene" uid="uid://bq6sff2no7cjn" path="res://src/map/dungeon/map_dungeon.tscn" id="1_uj5lt"]
 [ext_resource type="PackedScene" uid="uid://ds2geaj03qxer" path="res://src/map/room/map_room.tscn" id="2_2ptas"]
 [ext_resource type="PackedScene" uid="uid://br78wlhmv1luf" path="res://src/map/landmark/landmark_button.tscn" id="3_3yg1q"]
+[ext_resource type="Texture2D" uid="uid://te22pr8l07ek" path="res://assets/gfx/ui/icons/skull.png" id="5_cght2"]
 [ext_resource type="PackedScene" uid="uid://c3miu0x2th1wn" path="res://src/map/room/room_button.tscn" id="6_3ekrt"]
 [ext_resource type="PackedScene" uid="uid://d26khfur8dgqb" path="res://src/map/gui/evaluation_popup.tscn" id="7_tovqu"]
 
@@ -72,25 +73,25 @@ toggle_mode = true
 button_group = SubResource("ButtonGroup_plko2")
 text = "Landmarks"
 
-[node name="RoomsContainer" type="PanelContainer" parent="BuildPanel/VBoxContainer"]
+[node name="RoomsPanel" type="PanelContainer" parent="BuildPanel/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="BuildPanel/VBoxContainer/RoomsContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="BuildPanel/VBoxContainer/RoomsPanel"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="BuildPanel/VBoxContainer/RoomsContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="BuildPanel/VBoxContainer/RoomsPanel/VBoxContainer"]
 layout_mode = 2
 text = "Rooms"
 
-[node name="Desc" type="Label" parent="BuildPanel/VBoxContainer/RoomsContainer/VBoxContainer"]
+[node name="Desc" type="Label" parent="BuildPanel/VBoxContainer/RoomsPanel/VBoxContainer"]
 custom_minimum_size = Vector2(160, 10)
 layout_mode = 2
 text = "Drag&Drop rooms of the correct size where you remember seeing them"
 autowrap_mode = 3
 
-[node name="1x1" parent="BuildPanel/VBoxContainer/RoomsContainer/VBoxContainer" instance=ExtResource("6_3ekrt")]
+[node name="1x1" parent="BuildPanel/VBoxContainer/RoomsPanel/VBoxContainer" instance=ExtResource("6_3ekrt")]
 layout_mode = 2
 mouse_filter = 1
 patch_margin_left = 12
@@ -99,7 +100,7 @@ patch_margin_right = 12
 patch_margin_bottom = 12
 dungeon_path = NodePath("../../../../../MapContainer/MapDungeon")
 
-[node name="2x1" parent="BuildPanel/VBoxContainer/RoomsContainer/VBoxContainer" instance=ExtResource("6_3ekrt")]
+[node name="2x1" parent="BuildPanel/VBoxContainer/RoomsPanel/VBoxContainer" instance=ExtResource("6_3ekrt")]
 custom_minimum_size = Vector2(128, 64)
 layout_mode = 2
 mouse_filter = 1
@@ -110,7 +111,7 @@ patch_margin_bottom = 12
 room_size = Vector2i(2, 1)
 dungeon_path = NodePath("../../../../../MapContainer/MapDungeon")
 
-[node name="1x2" parent="BuildPanel/VBoxContainer/RoomsContainer/VBoxContainer" instance=ExtResource("6_3ekrt")]
+[node name="1x2" parent="BuildPanel/VBoxContainer/RoomsPanel/VBoxContainer" instance=ExtResource("6_3ekrt")]
 custom_minimum_size = Vector2(64, 128)
 layout_mode = 2
 mouse_filter = 1
@@ -121,7 +122,7 @@ patch_margin_bottom = 12
 room_size = Vector2i(1, 2)
 dungeon_path = NodePath("../../../../../MapContainer/MapDungeon")
 
-[node name="2x2" parent="BuildPanel/VBoxContainer/RoomsContainer/VBoxContainer" instance=ExtResource("6_3ekrt")]
+[node name="2x2" parent="BuildPanel/VBoxContainer/RoomsPanel/VBoxContainer" instance=ExtResource("6_3ekrt")]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 mouse_filter = 1
@@ -132,60 +133,57 @@ patch_margin_bottom = 12
 room_size = Vector2i(2, 2)
 dungeon_path = NodePath("../../../../../MapContainer/MapDungeon")
 
-[node name="DoorsContainer" type="PanelContainer" parent="BuildPanel/VBoxContainer"]
+[node name="DoorsPanel" type="PanelContainer" parent="BuildPanel/VBoxContainer"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="BuildPanel/VBoxContainer/DoorsContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="BuildPanel/VBoxContainer/DoorsPanel"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="BuildPanel/VBoxContainer/DoorsContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="BuildPanel/VBoxContainer/DoorsPanel/VBoxContainer"]
 layout_mode = 2
 text = "Doors"
 
-[node name="Desc" type="Label" parent="BuildPanel/VBoxContainer/DoorsContainer/VBoxContainer"]
+[node name="Desc" type="Label" parent="BuildPanel/VBoxContainer/DoorsPanel/VBoxContainer"]
 custom_minimum_size = Vector2(160, 10)
 layout_mode = 2
 text = "Click on a wall to place or remove a door. There can only be one door leading outside!"
 autowrap_mode = 3
 
-[node name="LandmarksContainer" type="PanelContainer" parent="BuildPanel/VBoxContainer"]
+[node name="LandmarksPanel" type="PanelContainer" parent="BuildPanel/VBoxContainer"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="BuildPanel/VBoxContainer/LandmarksContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="BuildPanel/VBoxContainer/LandmarksPanel"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="BuildPanel/VBoxContainer/LandmarksContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="BuildPanel/VBoxContainer/LandmarksPanel/VBoxContainer"]
 layout_mode = 2
 text = "Landmarks"
 
-[node name="Desc" type="Label" parent="BuildPanel/VBoxContainer/LandmarksContainer/VBoxContainer"]
+[node name="Desc" type="Label" parent="BuildPanel/VBoxContainer/LandmarksPanel/VBoxContainer"]
 custom_minimum_size = Vector2(160, 10)
 layout_mode = 2
 text = "Drag these landmarks to the room where you found them"
 autowrap_mode = 3
 
-[node name="LandmarkButton" parent="BuildPanel/VBoxContainer/LandmarksContainer/VBoxContainer" instance=ExtResource("3_3yg1q")]
+[node name="LandmarkContainer" type="GridContainer" parent="BuildPanel/VBoxContainer/LandmarksPanel/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
+
+[node name="LandmarkButton" parent="BuildPanel/VBoxContainer/LandmarksPanel/VBoxContainer/LandmarkContainer" instance=ExtResource("3_3yg1q")]
+layout_mode = 2
+dungeon_path = NodePath("../../../../../../MapContainer/MapDungeon")
+
+[node name="LandmarkButton2" parent="BuildPanel/VBoxContainer/LandmarksPanel/VBoxContainer/LandmarkContainer" instance=ExtResource("3_3yg1q")]
+layout_mode = 2
+texture = ExtResource("5_cght2")
 landmark_type = 1
-dungeon_path = NodePath("../../../../../MapContainer/MapDungeon")
-
-[node name="LandmarkButton2" parent="BuildPanel/VBoxContainer/LandmarksContainer/VBoxContainer" instance=ExtResource("3_3yg1q")]
-layout_mode = 2
-region_rect = Rect2(64, 0, 64, 64)
-landmark_type = 2
-dungeon_path = NodePath("../../../../../MapContainer/MapDungeon")
-
-[node name="LandmarkButton3" parent="BuildPanel/VBoxContainer/LandmarksContainer/VBoxContainer" instance=ExtResource("3_3yg1q")]
-layout_mode = 2
-region_rect = Rect2(128, 0, 64, 64)
-landmark_type = 3
-dungeon_path = NodePath("../../../../../MapContainer/MapDungeon")
+dungeon_path = NodePath("../../../../../../MapContainer/MapDungeon")
 
 [node name="EvaluateButton" type="Button" parent="BuildPanel/VBoxContainer"]
 layout_mode = 2

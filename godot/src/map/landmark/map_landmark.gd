@@ -5,10 +5,8 @@ signal dropped
 
 var landmark_type: Types.Landmarks:
 	set(value):
-		if value == landmark_type:
-			return
 		landmark_type = value
-		$Sprite2D.frame = (landmark_type-1)
+		$Sprite2D.texture = Types.LANDMARK_TEXTURES[landmark_type]
 
 var dungeon: MapDungeon
 var cell: Vector2i

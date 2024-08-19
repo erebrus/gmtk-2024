@@ -24,8 +24,7 @@ var found_landmarks: Array[Landmark]:
 	get:
 		var list: Array[Landmark]
 		for room in rooms:
-			#if room.landmark != null and room.landmark.found: # TODO: only found landmarks!
-			if room.landmark != null:
+			if room.landmark != null and room.landmark.found:
 				list.append(room.landmark)
 		return list
 	

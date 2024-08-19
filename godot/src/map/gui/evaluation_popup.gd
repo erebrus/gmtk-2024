@@ -22,8 +22,6 @@ extends PanelContainer
 	"S"= 0,
 }
 
-var score: MapScore
-
 
 func _ready() -> void:
 	Events.map_scored.connect(_on_map_scored)

@@ -1,5 +1,7 @@
 extends Control
 
+const LandmarkButton = preload("res://src/map/landmark/landmark_button.tscn")
+
 
 @export var evaluate_on_changed = false
 var target_dungeon: Dungeon
@@ -10,10 +12,11 @@ var target_dungeon: Dungeon
 @onready var landmarks_radio = %LandmarksRadio
 
 @onready var panels: Dictionary = {
-	Types.MapMode.Rooms: %RoomsContainer,
-	Types.MapMode.Doors: %DoorsContainer,
-	Types.MapMode.Landmarks: %LandmarksContainer
+	Types.MapMode.Rooms: %RoomsPanel,
+	Types.MapMode.Doors: %DoorsPanel,
+	Types.MapMode.Landmarks: %LandmarksPanel
 }
+@onready var landmark_container: Container = %LandmarkContainer
 
 func _ready() -> void:
 	Events.map_changed.connect(_on_map_changed)
@@ -21,6 +24,17 @@ func _ready() -> void:
 	rooms_radio.button_pressed = true
 	Globals.map_mode = Types.MapMode.Rooms
 	
+	
+	for button in landmark_container.get_children():
+		button.visible = _is_found_landmark(button.landmark_type)
+	
+
+func _is_found_landmark(type: Types.Landmarks) -> bool:
+	for landmark in target_dungeon.found_landmarks:
+		if landmark.type == type:
+			return true
+			
+	return false
 
 func _on_map_mode_toggled(map_mode: Types.MapMode) -> void:
 	if map_mode == Globals.map_mode:

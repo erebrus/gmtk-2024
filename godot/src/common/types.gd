@@ -11,7 +11,13 @@ enum Traps {
 	NONE,
 	TRAP1,
 	}
+
 enum Landmarks {
 	FOUNTAIN, 
 	BONES,
+}
+
+const LANDMARK_TEXTURES = {
+	Landmarks.FOUNTAIN: preload("res://assets/gfx/ui/icons/fountain.png"),
+	Landmarks.BONES: preload("res://assets/gfx/ui/icons/skull.png"),
 }

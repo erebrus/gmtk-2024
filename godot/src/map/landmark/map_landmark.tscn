@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://88dadohnwrnx"]
 
 [ext_resource type="Script" path="res://src/map/landmark/map_landmark.gd" id="1_b6r4m"]
-[ext_resource type="Texture2D" uid="uid://dl6ns20onu351" path="res://assets/gfx/map/landmarks.png" id="1_qpsn0"]
+[ext_resource type="Texture2D" uid="uid://te22pr8l07ek" path="res://assets/gfx/ui/icons/skull.png" id="2_q8p5x"]
 [ext_resource type="PackedScene" uid="uid://b38lu5l8p5qxf" path="res://src/map/draggable/draggable.tscn" id="3_2otrf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oqf47"]
@@ -11,8 +11,7 @@ radius = 24.0208
 script = ExtResource("1_b6r4m")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_qpsn0")
-hframes = 3
+texture = ExtResource("2_q8p5x")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_oqf47")

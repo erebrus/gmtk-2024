@@ -120,7 +120,7 @@ func _build_walls() -> void:
 				pos.x = door.cell.x*Globals.TILES_PER_ROOM+ floor(Globals.TILES_PER_ROOM/2)
 				delta=Vector2i.RIGHT
 				transform = get_applied_transform(door.side*-1)
-				transform2 = get_applied_transform(door.side*-1)+flip_h+flip_v
+				transform2 = get_applied_transform(door.side*-1)-flip_h
 			Vector2i.DOWN:
 				pos.y=room_size.y-1
 				pos.x = door.cell.x*Globals.TILES_PER_ROOM+ floor(Globals.TILES_PER_ROOM/2)

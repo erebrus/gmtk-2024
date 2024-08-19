@@ -1,6 +1,7 @@
 class_name WorldDungeon extends Node2D
 
 signal room_loaded(player_position: Vector2i)
+signal pre_room_load(room:Room)
 signal room_exited
 
 
@@ -17,7 +18,7 @@ func _ready() -> void:
 func enter(dungeon: Dungeon) -> void:
 	Globals.dungeon = dungeon
 	assert(dungeon.build())
-	
+	pre_room_load.emit(dungeon.start_room)
 	_enter_room(dungeon.start_room, dungeon.start_door)
 	
 
@@ -53,6 +54,7 @@ func _on_door_entered(door: WorldDoor) -> void:
 		Logger.info("Exit found!")
 		Globals.go_to_map()
 	else:
+		pre_room_load.emit(target_room)
 		var target_door = target_room.door_at(target_cell, -door.side)
 		_enter_room(target_room, target_door)
 	

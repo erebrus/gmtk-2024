@@ -19,6 +19,7 @@ func _ready() -> void:
 	Events.map_changed.connect(_on_map_changed)
 	target_dungeon = Globals.dungeon
 	rooms_radio.button_pressed = true
+	Globals.map_mode = Types.MapMode.Rooms
 	
 
 func _on_map_mode_toggled(map_mode: Types.MapMode) -> void:

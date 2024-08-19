@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bg6f5xhsa624e"]
+[gd_scene load_steps=18 format=3 uid="uid://bg6f5xhsa624e"]
 
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_ousdh"]
 [ext_resource type="Script" path="res://src/player/xsm/idle.gd" id="2_i5jnq"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://src/player/xsm/walk.gd" id="3_sawg0"]
 [ext_resource type="Script" path="res://src/player/xsm/dash.gd" id="4_7nurc"]
 [ext_resource type="FontFile" uid="uid://uv8v0a8cdime" path="res://assets/fonts/Kenney Pixel Square.ttf" id="7_t1cm2"]
+[ext_resource type="Texture2D" uid="uid://kavod7skr3q8" path="res://assets/gfx/world/nRmVV.png" id="8_os85y"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1lsfu"]
 radius = 16.2788
@@ -148,6 +149,7 @@ collision_mask = 11
 script = ExtResource("1_ousdh")
 
 [node name="Sprite" type="Sprite2D" parent="."]
+modulate = Color(0.683077, 0.683077, 0.683077, 1)
 texture = ExtResource("2_wx3e3")
 hframes = 6
 vframes = 6
@@ -209,3 +211,7 @@ bus = &"Sfx"
 
 [node name="sfx_dash" type="AudioStreamPlayer2D" parent="sfx"]
 bus = &"Sfx"
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+texture = ExtResource("8_os85y")
+texture_scale = 2.0

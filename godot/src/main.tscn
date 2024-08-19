@@ -11,6 +11,10 @@ script = ExtResource("1_ffdrq")
 current_dungeon = ExtResource("2_c52b4")
 use_test_level = false
 
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+position = Vector2(288, 552)
+color = Color(0, 0, 0, 1)
+
 [node name="WorldDungeon" parent="." instance=ExtResource("4_dmi0r")]
 unique_name_in_owner = true
 
@@ -37,6 +41,7 @@ grow_vertical = 2
 color = Color(0.188235, 0.054902, 0.109804, 1)
 
 [node name="HUD" type="CanvasLayer" parent="."]
+layer = 2
 
 [node name="Timer" parent="HUD" instance=ExtResource("5_kmppd")]
 unique_name_in_owner = true

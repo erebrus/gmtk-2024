@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bg6f5xhsa624e"]
+[gd_scene load_steps=43 format=4 uid="uid://bg6f5xhsa624e"]
 
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_ousdh"]
 [ext_resource type="Script" path="res://src/player/xsm/idle.gd" id="2_i5jnq"]
@@ -7,9 +7,9 @@
 [ext_resource type="Script" path="res://src/player/xsm/walk.gd" id="3_sawg0"]
 [ext_resource type="Script" path="res://src/player/xsm/dash.gd" id="4_7nurc"]
 [ext_resource type="FontFile" uid="uid://uv8v0a8cdime" path="res://assets/fonts/Kenney Pixel Square.ttf" id="7_t1cm2"]
-[ext_resource type="Texture2D" uid="uid://kavod7skr3q8" path="res://assets/gfx/world/nRmVV.png" id="8_os85y"]
 [ext_resource type="AudioStream" uid="uid://dt8u35ra6ugau" path="res://assets/sfx/Footsteps-001.wav" id="8_7n07j"]
 [ext_resource type="AudioStream" uid="uid://dmyx4f7g40lcm" path="res://assets/sfx/Hint-001.wav" id="8_lddbf"]
+[ext_resource type="Texture2D" uid="uid://kavod7skr3q8" path="res://assets/gfx/world/nRmVV.png" id="8_os85y"]
 [ext_resource type="AudioStream" uid="uid://t6j87v67xxwh" path="res://assets/sfx/Footsteps-002.wav" id="9_esg6s"]
 [ext_resource type="AudioStream" uid="uid://5cfr2gi51fjg" path="res://assets/sfx/Hint-002.wav" id="9_nd0h4"]
 [ext_resource type="AudioStream" uid="uid://crhkpyw0vxrke" path="res://assets/sfx/Footsteps-003.wav" id="10_ckj3u"]

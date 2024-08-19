@@ -84,42 +84,45 @@ func _build_floor() -> void:
 		data.build_tiles()
 		
 	var room_size = Globals.TILES_PER_ROOM * size
-	for x in room_size.x:
-		for y in room_size.y:
+	for x in range(-8,room_size.x+8):
+		for y in range(-8,room_size.y+8):
 			var tile_type:Vector2i 
-			match data.matrix[x][y]:
-				0:
-					tile_type = Vector2(7,8)
-				_:
-					if data.matrix[x][y] is int and data.matrix[x][y]==1:
-						data.matrix[x][y] = Vector2(randi_range(8,11),8)
-					tile_type = data.matrix[x][y]
+			if x>=0 and x< room_size.x and y>=0 and y<room_size.y:
+				match data.matrix[x][y]:
+					0:
+						tile_type = Vector2(7,8)
+					_:
+						if data.matrix[x][y] is int and data.matrix[x][y]==1:
+							data.matrix[x][y] = Vector2(randi_range(8,11),8)
+						tile_type = data.matrix[x][y]
+			else:
+				tile_type=Vector2i(5,8)
 			floor.set_cell(Vector2i(x,y),0,tile_type)
 	#
-	#for door in data.doors:
-		#var pos:=Vector2i.ZERO
-		#var delta:=Vector2i.ZERO
-		#match door.side:
-			#Vector2i.UP:
-				#pos.y = 0
-				#pos.x = door.cell.x*Globals.TILES_PER_ROOM+ floor(Globals.TILES_PER_ROOM/2.0)
-				#delta=Vector2i.RIGHT
-			#Vector2i.DOWN:
-				#pos.y=room_size.y-1
-				#pos.x = door.cell.x*Globals.TILES_PER_ROOM+ floor(Globals.TILES_PER_ROOM/2.0)
-				#delta=Vector2i.RIGHT
-			#Vector2i.LEFT:
-				#pos.x=0
-				#pos.y = door.cell.y*Globals.TILES_PER_ROOM+ floor(Globals.TILES_PER_ROOM/2.0)
-				#delta=Vector2i.DOWN
-			#Vector2i.RIGHT:
-				#pos.x=room_size.x-1
-				#pos.y = door.cell.y*Globals.TILES_PER_ROOM+ floor(Globals.TILES_PER_ROOM/2.0)
-				#delta=Vector2i.DOWN
-				#
-		#for i in range(4):
-			#floor.set_cell(pos+door.side*i,0,Vector2(7,8))
-			#floor.set_cell(pos+delta+door.side*i,0,Vector2(7,8))
+	for door in data.doors:
+		var pos:=Vector2i.ZERO
+		var delta:=Vector2i.ZERO
+		match door.side:
+			Vector2i.UP:
+				pos.y = 0
+				pos.x = door.cell.x*Globals.TILES_PER_ROOM+ floor(Globals.TILES_PER_ROOM/2.0)
+				delta=Vector2i.RIGHT
+			Vector2i.DOWN:
+				pos.y=room_size.y-1
+				pos.x = door.cell.x*Globals.TILES_PER_ROOM+ floor(Globals.TILES_PER_ROOM/2.0)
+				delta=Vector2i.RIGHT
+			Vector2i.LEFT:
+				pos.x=0
+				pos.y = door.cell.y*Globals.TILES_PER_ROOM+ floor(Globals.TILES_PER_ROOM/2.0)
+				delta=Vector2i.DOWN
+			Vector2i.RIGHT:
+				pos.x=room_size.x-1
+				pos.y = door.cell.y*Globals.TILES_PER_ROOM+ floor(Globals.TILES_PER_ROOM/2.0)
+				delta=Vector2i.DOWN
+				
+		for i in range(8):
+			floor.set_cell(pos+door.side*i,0,Vector2(7,8))
+			floor.set_cell(pos+delta+door.side*i,0,Vector2(7,8))
 	#
 		
 	

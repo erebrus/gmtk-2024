@@ -9,7 +9,9 @@ signal door_entered(door: WorldDoor)
 #}
 const LANDMARK_SCENES = [
 		preload("res://src/world/room/landmarks/fountain_landmark.tscn"),
-		preload("res://src/world/room/landmarks/bones_landmark.tscn")		
+		preload("res://src/world/room/landmarks/bones_landmark.tscn")		,
+		preload("res://src/world/room/landmarks/pink_button_landmark.tscn"),
+		preload("res://src/world/room/landmarks/green_button_landmark.tscn")		
 		]
 const HINT_SCENE = preload("res://src/world/room/hint/world_hint.tscn")
 @export var cell: Vector2i

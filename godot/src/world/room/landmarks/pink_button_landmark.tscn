@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://b8pyjydc33mqb"]
+
+[ext_resource type="PackedScene" uid="uid://do1fi5d3bnnyo" path="res://src/world/room/landmarks/world_landmark.tscn" id="1_bjchg"]
+[ext_resource type="Texture2D" uid="uid://c71eypknhgadd" path="res://assets/gfx/world/button-pink.png" id="2_htnty"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wm1qi"]
+radius = 16.0
+
+[node name="PinkButtonLandmark" instance=ExtResource("1_bjchg")]
+collision_layer = 0
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_htnty")
+
+[node name="Polygon2D" parent="." index="1"]
+visible = false
+
+[node name="CollisionShape2D" parent="." index="2"]
+shape = SubResource("CircleShape2D_wm1qi")
+disabled = true

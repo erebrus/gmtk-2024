@@ -95,7 +95,34 @@ func _build_floor() -> void:
 						data.matrix[x][y] = Vector2(randi_range(8,11),8)
 					tile_type = data.matrix[x][y]
 			floor.set_cell(Vector2i(x,y),0,tile_type)
+	#
+	#for door in data.doors:
+		#var pos:=Vector2i.ZERO
+		#var delta:=Vector2i.ZERO
+		#match door.side:
+			#Vector2i.UP:
+				#pos.y = 0
+				#pos.x = door.cell.x*Globals.TILES_PER_ROOM+ floor(Globals.TILES_PER_ROOM/2.0)
+				#delta=Vector2i.RIGHT
+			#Vector2i.DOWN:
+				#pos.y=room_size.y-1
+				#pos.x = door.cell.x*Globals.TILES_PER_ROOM+ floor(Globals.TILES_PER_ROOM/2.0)
+				#delta=Vector2i.RIGHT
+			#Vector2i.LEFT:
+				#pos.x=0
+				#pos.y = door.cell.y*Globals.TILES_PER_ROOM+ floor(Globals.TILES_PER_ROOM/2.0)
+				#delta=Vector2i.DOWN
+			#Vector2i.RIGHT:
+				#pos.x=room_size.x-1
+				#pos.y = door.cell.y*Globals.TILES_PER_ROOM+ floor(Globals.TILES_PER_ROOM/2.0)
+				#delta=Vector2i.DOWN
+				#
+		#for i in range(4):
+			#floor.set_cell(pos+door.side*i,0,Vector2(7,8))
+			#floor.set_cell(pos+delta+door.side*i,0,Vector2(7,8))
+	#
 		
+	
 func _build_walls() -> void:
 	Logger.info("Creating room of size %s" % size)
 	

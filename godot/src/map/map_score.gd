@@ -32,7 +32,6 @@ var extra: float
 var rooms: float
 var total: float
 
-
 func check_room_exists(value: bool) -> void:
 	_add_check("rooms_exist", value)
 	_log_result(value, "There is a room")
@@ -78,6 +77,13 @@ func has_special() -> bool:
 
 func has_extra() -> bool:
 	return _is_valid("extra")
+	
+
+func add(other: MapScore) -> void:
+	for score_name in correct_checks:
+		correct_checks[score_name] += other.correct_checks[score_name]
+		number_checks[score_name] += other.number_checks[score_name]
+	calculate_totals()
 	
 
 func _add_check(score_name: String, value: bool) -> void:

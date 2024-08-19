@@ -5,9 +5,9 @@
 [resource]
 script = ExtResource("1_srwqv")
 size = Vector2i(2, 3)
-hint_ratio = 0.1
-trap_ratio = 0.1
-landmark_ratio = 0.2
+hint_ratio = 0.0
+trap_ratio = 0.0
+landmark_ratio = 0.0
 time = 0.0
 max_attempts = 50
 min_coverage = 0.5

@@ -77,8 +77,7 @@ func _on_evaluate_button_pressed():
 	
 
 func _on_continue_button_pressed():
-	# TODO: go to next level
-	Globals.start_game()
+	Globals.next_level() 
 
 
 func _on_retry_button_pressed():

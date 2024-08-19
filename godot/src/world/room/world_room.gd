@@ -79,7 +79,7 @@ func get_door(door: Door) -> WorldDoor:
 	
 func _build_floor() -> void:
 	if not data.matrix:
-		data._build_tiles()
+		data.build_tiles()
 		
 	var room_size = Globals.TILES_PER_ROOM * size
 	for x in room_size.x:

@@ -1,9 +1,8 @@
 extends Node
 
 @export var current_dungeon: Dungeon
-@export var levels: Array[BlockGenerator]
 @export var use_test_level:bool = true
-@export var debug_skip_eval:bool = false
+
 
 @onready var dungeon: WorldDungeon = %WorldDungeon
 @onready var blackout_overlay: Control = %BlackoutOverlay
@@ -15,8 +14,9 @@ func _ready() -> void:
 	dungeon.room_loaded.connect(_on_room_loaded)
 	dungeon.pre_room_load.connect(_on_pre_room_load)
 	if not use_test_level:
-		levels[0].generate()
-		current_dungeon = levels[0].dungeon
+		Globals.levels[Globals.current_level].generate()
+		current_dungeon = Globals.levels[Globals.current_level].dungeon
+		current_dungeon.complete_gen()
 	dungeon.enter(current_dungeon)
 	
 

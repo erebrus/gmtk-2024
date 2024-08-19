@@ -1,19 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://cbbhfj0irlnxf"]
+[gd_scene load_steps=5 format=3 uid="uid://cbbhfj0irlnxf"]
 
 [ext_resource type="Script" path="res://src/main.gd" id="1_ffdrq"]
 [ext_resource type="Resource" uid="uid://cqwv1i3l7vw8e" path="res://src/world/levels/test_dungeon.tres" id="2_c52b4"]
-[ext_resource type="Script" path="res://src/world/generator/block_generator.gd" id="3_pyi1v"]
 [ext_resource type="PackedScene" uid="uid://bch5d7larrs4k" path="res://src/world/dungeon/world_dungeon.tscn" id="4_dmi0r"]
-[ext_resource type="Resource" uid="uid://b6kt3wsao7exm" path="res://src/world/levels/generator_level0.tres" id="4_me0ns"]
-[ext_resource type="Resource" uid="uid://cxu8w5cccrw0o" path="res://src/world/levels/generator_level1.tres" id="5_0yn6x"]
 [ext_resource type="PackedScene" uid="uid://bg6f5xhsa624e" path="res://src/player/player.tscn" id="5_dfd4u"]
-[ext_resource type="Resource" uid="uid://dis3ew344gbe6" path="res://src/world/levels/generator_level2.tres" id="6_aeh4p"]
-[ext_resource type="Resource" uid="uid://ipnhka1x1frl" path="res://src/world/levels/generator_level3.tres" id="7_4acmw"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_ffdrq")
 current_dungeon = ExtResource("2_c52b4")
-levels = Array[ExtResource("3_pyi1v")]([ExtResource("4_me0ns"), ExtResource("5_0yn6x"), ExtResource("6_aeh4p"), ExtResource("7_4acmw")])
 use_test_level = false
 
 [node name="WorldDungeon" parent="." instance=ExtResource("4_dmi0r")]

@@ -107,3 +107,7 @@ func get_room_for_cell(cell:Vector2i)->Room:
 
 func has_room_for_cell(cell:Vector2i)->bool:
 	return rooms_by_cell.has(cell)
+
+func complete_gen():
+	for room in rooms:
+		room.build_tiles()

@@ -1,5 +1,6 @@
 extends Node
 
+
 const MUSIC_VOLUME=-6
 const GAME_SCENE_PATH = "res://src/main.tscn"
 const MAP_SCENE_PATH = "res://src/map/map_screen.tscn"
@@ -32,9 +33,12 @@ var map_mode:= Types.MapMode.Rooms:
 		if value != map_mode:
 			map_mode = value
 			Events.map_mode_changed.emit()
-	
+
 var dungeon: Dungeon
 var player: Player
+var current_level:=0
+@export var levels:Array[BlockGenerator]
+@export var debug_skip_eval:bool = false
 
 var music_on:=true:
 	set(v):
@@ -62,10 +66,21 @@ func _ready():
 	Logger.info("Starting menu music")
 	#fade_in_music(menu_music)
 	#start_game()
+func next_level():
+	current_level += 1
+	if current_level<levels.size():
+		start_game()	
+	else:
+		do_end()
+
+func do_end():
+	Logger.info("Finished game")
+	get_tree().quit()
 
 func start_game():
 	in_game=true
-	
+	current_level = 0
+	fade_music(puzzle_music,.5)
 	fade_music(menu_music,1)
 	await get_tree().create_timer(1).timeout
 	
@@ -75,7 +90,10 @@ func start_game():
 	
 
 func go_to_map():
+	fade_music(explore_music)
+	fade_music(fighter_music)	
 	SceneManager.change_scene(MAP_SCENE_PATH)
+	
 	
 
 func _init_logger():

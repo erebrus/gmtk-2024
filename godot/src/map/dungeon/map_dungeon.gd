@@ -1,6 +1,6 @@
 class_name MapDungeon extends Node2D
 
-const GRID_SIZE = Vector2i(10, 10)
+const GRID_SIZE = Vector2i(8, 8)
 
 
 @export_category("Scenes")
@@ -71,6 +71,8 @@ func evaluate() -> MapScore:
 					drawn_room.evaluate(target_room, score)
 				else:
 					score.check_room_exists(false)
+					target_room.check_missing_room(score)
+					
 			elif drawn_room != null:
 				score.check_room_exists(false)
 			

@@ -37,6 +37,8 @@ var player: Player
 var current_level:=0
 var current_hints:=0
 var last_landmarks:={}
+var bonus_time:=0
+
 
 @export var levels:Array[BlockGenerator]
 @export var debug_skip_eval:bool = false

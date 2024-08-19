@@ -104,6 +104,13 @@ func has_door(local_cell: Vector2i, side: Vector2i) -> bool:
 	return _find_door(local_cell, side) != null
 	
 
+func check_missing_room(score: MapScore) -> void:
+	for door in doors:
+		score.check_doors(false)
+	if landmark != null:
+		score.check_special(false)
+	
+
 func _find_door(local_cell: Vector2i, side: Vector2i) -> Door:
 	if doors_by_cell.has(local_cell) and doors_by_cell[local_cell].has(side):
 		return doors_by_cell[local_cell][side]

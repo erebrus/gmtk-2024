@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://d26khfur8dgqb"]
+[gd_scene load_steps=6 format=3 uid="uid://d26khfur8dgqb"]
 
 [ext_resource type="Theme" uid="uid://bj1p8xiasxxdc" path="res://src/map/theme.tres" id="1_dmbyo"]
 [ext_resource type="Script" path="res://src/map/gui/evaluation_popup.gd" id="1_l2vvr"]
+[ext_resource type="AudioStream" uid="uid://bmqpb8vqfw5m" path="res://assets/music/Win Stinger.mp3" id="3_6iqmu"]
+[ext_resource type="AudioStream" uid="uid://dhvnvhhm2b32q" path="res://assets/music/Lose Stinger2.mp3" id="4_25h05"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r80xs"]
 content_margin_left = 30.0
@@ -113,3 +115,9 @@ text = "Retry"
 unique_name_in_owner = true
 layout_mode = 2
 text = "Continue"
+
+[node name="SuccessSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_6iqmu")
+
+[node name="FailureSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_25h05")

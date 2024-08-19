@@ -17,6 +17,7 @@ func _ready() -> void:
 
 func enter(dungeon: Dungeon) -> void:
 	Globals.dungeon = dungeon
+	Globals.last_dungeon = dungeon.duplicate()
 	assert(dungeon.build())
 	pre_room_load.emit(dungeon.start_room)
 	_enter_room(dungeon.start_room, dungeon.start_door)

@@ -16,9 +16,12 @@ func _ready() -> void:
 	Events.timer_timeout.connect(func():Globals.do_game_over())
 	
 	if not use_test_level:
-		Globals.levels[Globals.current_level].generate()
-		current_dungeon = Globals.levels[Globals.current_level].dungeon
-		current_dungeon.complete_gen()
+		if Globals.last_dungeon:
+			current_dungeon=Globals.last_dungeon
+		else:	
+			Globals.levels[Globals.current_level].generate()
+			current_dungeon = Globals.levels[Globals.current_level].dungeon
+			current_dungeon.complete_gen()
 	dungeon.enter(current_dungeon)
 	var time = Globals.levels[Globals.current_level].time
 	if time > 0:

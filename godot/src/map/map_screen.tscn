@@ -226,6 +226,10 @@ visible = false
 layout_mode = 1
 offset_left = -188.0
 
+[node name="ClickSFX" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+bus = &"Sfx"
+
 [connection signal="pressed" from="BuildPanel/VBoxContainer/HBoxContainer/RoomsRadio" to="." method="_on_map_mode_toggled" binds= [0]]
 [connection signal="pressed" from="BuildPanel/VBoxContainer/HBoxContainer/DoorsRadio" to="." method="_on_map_mode_toggled" binds= [1]]
 [connection signal="pressed" from="BuildPanel/VBoxContainer/HBoxContainer/LandmarksRadio" to="." method="_on_map_mode_toggled" binds= [2]]

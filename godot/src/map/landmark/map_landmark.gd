@@ -24,6 +24,7 @@ func _ready() -> void:
 	
 
 func _on_drag_started() -> void:
+	$DragSFX.play()
 	Logger.info("Started dragging landmark")
 	modulate.a = 0.5
 	
@@ -33,6 +34,7 @@ func _on_dragged(to_global_position: Vector2) -> void:
 	
 
 func _on_dropped(to_global_position: Vector2) -> void:
+	$DropSFX.play()
 	_move_to(to_global_position)
 	Logger.info("Dropped room at cell %s (%s)" % [cell, to_global_position])
 	modulate.a = 1

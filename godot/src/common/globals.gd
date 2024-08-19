@@ -38,6 +38,9 @@ var current_level:=0
 var current_hints:=0
 var last_landmarks:={}
 var done_tutorial_steps=[]
+var bonus_time:=0
+
+
 @export var levels:Array[BlockGenerator]
 @export var debug_skip_eval:bool = false
 

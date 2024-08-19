@@ -19,3 +19,9 @@ texture = ExtResource("2_q8p5x")
 shape = SubResource("RectangleShape2D_53x7o")
 
 [node name="Draggable" parent="." instance=ExtResource("3_2otrf")]
+
+[node name="DragSFX" type="AudioStreamPlayer2D" parent="."]
+bus = &"Sfx"
+
+[node name="DropSFX" type="AudioStreamPlayer2D" parent="."]
+bus = &"Sfx"

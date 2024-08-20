@@ -49,7 +49,7 @@ var music_on:=true:
 		music_on=v
 		Logger.info("music %s" % [music_on])
 		var sfx_index= AudioServer.get_bus_index("Music")
-		AudioServer.set_bus_volume_db(sfx_index, -9 if music_on else -100)
+		AudioServer.set_bus_volume_db(sfx_index, -10 if music_on else -100)
 	
 
 var sound_on:=true:

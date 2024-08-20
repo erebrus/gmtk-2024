@@ -87,7 +87,7 @@ func _on_evaluate_button_pressed():
 	Logger.info("Score: %s" % score)
 	Events.map_scored.emit(score)
 	
-	%SolutionDungeon.visible = true
+	%SolutionDungeon.visible = false
 	%SolutionOverlay.visible = true
 	
 
@@ -97,6 +97,6 @@ func _on_button_clicked() -> void:
 
 func _on_solution_overlay_gui_input(event:InputEvent):
 	if event.is_action_pressed("left_click"):
-		%SolutionDungeon.hide()
+		%SolutionDungeon.show()		
 	if event.is_action_released("left_click"):
-		%SolutionDungeon.show()
+		%SolutionDungeon.hide()

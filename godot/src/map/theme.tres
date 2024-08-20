@@ -1,10 +1,36 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://bj1p8xiasxxdc"]
+[gd_resource type="Theme" load_steps=10 format=3 uid="uid://bj1p8xiasxxdc"]
 
 [ext_resource type="FontFile" uid="uid://caqw07j3maojx" path="res://assets/fonts/cellar.ttf" id="1_2ysfu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0yh5k"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nyalk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g3vnt"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yf2t6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gf0by"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mp8ql"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_77njh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4wx0h"]
 
 [resource]
 default_font = ExtResource("1_2ysfu")
 default_font_size = 15
+Button/colors/font_color = Color(0.803922, 0.619608, 0.247059, 1)
+Button/colors/font_focus_color = Color(0.803922, 0.619608, 0.247059, 1)
+Button/colors/font_hover_color = Color(0.654902, 0.576471, 0.94902, 1)
+Button/colors/font_hover_pressed_color = Color(0.239216, 0.109804, 0.286275, 1)
+Button/colors/font_pressed_color = Color(0.239216, 0.109804, 0.286275, 1)
+Button/styles/disabled = SubResource("StyleBoxEmpty_0yh5k")
+Button/styles/focus = SubResource("StyleBoxEmpty_nyalk")
+Button/styles/hover = SubResource("StyleBoxEmpty_g3vnt")
+Button/styles/normal = SubResource("StyleBoxEmpty_yf2t6")
+Button/styles/pressed = SubResource("StyleBoxEmpty_gf0by")
 HeaderLarge/colors/font_color = Color(0.447059, 0.764706, 0.635294, 1)
 HeaderLarge/font_sizes/font_size = 45
 HeaderMedium/colors/font_color = Color(0.803922, 0.619608, 0.247059, 1)
@@ -12,3 +38,11 @@ HeaderMedium/font_sizes/font_size = 30
 HeaderSmall/colors/font_color = Color(0.654902, 0.576471, 0.94902, 1)
 HeaderSmall/font_sizes/font_size = 15
 Label/colors/font_color = Color(0.654902, 0.576471, 0.94902, 1)
+LineEdit/colors/caret_color = Color(0.447059, 0.764706, 0.635294, 1)
+LineEdit/colors/font_color = Color(0.447059, 0.764706, 0.635294, 1)
+LineEdit/colors/font_placeholder_color = Color(0.447059, 0.764706, 0.635294, 0.6)
+LineEdit/colors/font_selected_color = Color(0.447059, 0.764706, 0.635294, 1)
+LineEdit/colors/selection_color = Color(0.239216, 0.109804, 0.286275, 1)
+LineEdit/styles/focus = SubResource("StyleBoxEmpty_mp8ql")
+LineEdit/styles/normal = SubResource("StyleBoxEmpty_77njh")
+LineEdit/styles/read_only = SubResource("StyleBoxEmpty_4wx0h")

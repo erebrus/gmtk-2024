@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ubvcns0xn7a1"]
 
-[ext_resource type="Theme" path="res://src/map/theme.tres" id="1_ag3my"]
+[ext_resource type="Theme" uid="uid://bj1p8xiasxxdc" path="res://src/map/theme.tres" id="1_ag3my"]
 [ext_resource type="Script" path="res://src/leaderboard_row.gd" id="1_v7gqn"]
 
 [node name="LeaderboardRow" type="MarginContainer"]
@@ -14,7 +14,7 @@ layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
 clip_contents = true
-custom_minimum_size = Vector2(80, 70)
+custom_minimum_size = Vector2(80, 45)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -30,7 +30,7 @@ text_overrun_behavior = 1
 
 [node name="MarginContainer3" type="MarginContainer" parent="HBoxContainer"]
 clip_contents = true
-custom_minimum_size = Vector2(480, 70)
+custom_minimum_size = Vector2(480, 45)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -45,7 +45,7 @@ text_overrun_behavior = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer"]
 clip_contents = true
-custom_minimum_size = Vector2(100, 70)
+custom_minimum_size = Vector2(100, 45)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4

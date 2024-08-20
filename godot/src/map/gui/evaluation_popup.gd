@@ -72,7 +72,7 @@ func _on_map_scored(score: MapScore) -> void:
 	%ScoreLabel.text = "%d" % level_score
 	var tween := get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	
-	tween.tween_method(update_score_label,old_score, Globals.score.score,.5+round(float(level_score)/1000.0))
+	tween.tween_method(update_score_label,old_score, Globals.score.score,.5+round(float(level_score)/2000.0))
 
 func update_score_label(value:int):
 	%TotalScore.text = "%d" % value

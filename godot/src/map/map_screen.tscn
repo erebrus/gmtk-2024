@@ -125,7 +125,7 @@ dungeon_path = NodePath("../../../../MapContainer/MapDungeon")
 
 [node name="SpecialLabel" type="Label" parent="BuildPanel/VBoxContainer"]
 layout_mode = 2
-text = "Special ITEMS"
+text = "landmarks"
 
 [node name="LandmarkContainer" type="GridContainer" parent="BuildPanel/VBoxContainer"]
 unique_name_in_owner = true
@@ -196,6 +196,64 @@ layout_mode = 2
 size_flags_vertical = 8
 text = "Hold left mouse button to see the solution"
 horizontal_alignment = 1
+
+[node name="TipPanel" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -190.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/margin_top = 70
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TipPanel"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="TipPanel/VBoxContainer"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Add rooms and landmarks by dragging them to the map
+"
+autowrap_mode = 3
+
+[node name="Label2" type="Label" parent="TipPanel/VBoxContainer"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Move rooms by dragging them. Drag them outside of the map to remove them."
+autowrap_mode = 3
+
+[node name="Label3" type="Label" parent="TipPanel/VBoxContainer"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "move landmarks by holding shift while dragging them. Drag them outside a room to remove them."
+autowrap_mode = 3
+
+[node name="Label5" type="Label" parent="TipPanel/VBoxContainer"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Toggle doors by clicking on door slots. Do not forget exit doors."
+autowrap_mode = 3
+
+[node name="Spacer" type="MarginContainer" parent="TipPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label4" type="Label" parent="TipPanel/VBoxContainer"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Ensure map is to scale!"
+autowrap_mode = 3
 
 [node name="EvaluationPopup" parent="." instance=ExtResource("7_tovqu")]
 unique_name_in_owner = true

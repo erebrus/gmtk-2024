@@ -66,7 +66,7 @@ func _on_evaluate_button_pressed():
 	var score = dungeon.evaluate()
 	Logger.info("Score: %s" % score)
 	Events.map_scored.emit(score)
-	
+	%TipPanel.visible = false
 	%SolutionDungeon.visible = false
 	%SolutionOverlay.visible = true
 	%EvaluateButton.visible = false

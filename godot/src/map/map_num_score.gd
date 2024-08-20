@@ -15,8 +15,10 @@ var level_scores=[0,0,0,0,0,0,0,0]
 
 var score:int:
 	get:		
-		score = level_scores.reduce(func(accum, number): return accum + number, 0)
-		return score
+		var sum = 0
+		for s in level_scores:
+			sum += s
+		return sum
 	set(v):
 		pass
 

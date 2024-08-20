@@ -26,13 +26,11 @@ func place(_cell: Vector2i, _side: Vector2i) -> void:
 	side = _side
 	
 
-func get_target_door() -> MapDoor:
-	var doors = get_overlapping_areas()
-	assert(doors.size() < 2)
-	if doors.is_empty():
-		return null
-	else:
-		return doors.front()
+func _copy_state_to_target_doors() -> void:
+	for door in get_overlapping_areas():
+		if door is MapDoor:
+			door.has_door = has_door
+	
 	
 
 func _build() -> void:
@@ -64,12 +62,12 @@ func _toggle_door() -> void:
 	Events.map_changed.emit()
 	
 
-func _on_input_event(_viewport: Viewport, event: InputEvent, _shape_idx):
-	if Globals.map_mode != Types.MapMode.Doors:
-		return
-	
+func _on_input_event(viewport: Viewport, event: InputEvent, _shape_idx):
 	if event.is_action_released("left_click"):
+		viewport.set_input_as_handled()
+			
 		has_door = !has_door
+		_copy_state_to_target_doors()
 	
 
 func _on_area_exited(area: Area2D) -> void:

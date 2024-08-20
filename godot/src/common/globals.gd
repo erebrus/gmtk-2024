@@ -24,11 +24,6 @@ var config:ConfigFile
 
 var debug_build := false
 var in_game:=false
-var map_mode:= Types.MapMode.Rooms:
-	set(value):
-		if value != map_mode:
-			map_mode = value
-			Events.map_mode_changed.emit()
 
 var last_dungeon:Dungeon
 var dungeon: Dungeon

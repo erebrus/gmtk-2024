@@ -147,14 +147,14 @@ func _on_dropped(to_global_position: Vector2) -> void:
 	Events.map_changed.emit()
 	
 
-func _on_input_event(_viewport, event: InputEvent, _shape_idx) -> void:
+func _on_input_event(viewport: Viewport, event: InputEvent, _shape_idx) -> void:
 	if is_start_room:
-		return
-	if Globals.map_mode != Types.MapMode.Rooms:
 		return
 	
 	if event is InputEventMouseButton:
-		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.is_action_pressed("left_click"):
+			viewport.set_input_as_handled()
+			
 			draggable.start(global_position)
 			var global_cell = dungeon.cell_from_global_position(get_global_mouse_position())
 			drag_cell = global_cell - cell

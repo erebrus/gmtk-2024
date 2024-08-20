@@ -25,7 +25,6 @@ func _ready() -> void:
 	Events.button_clicked.connect(_on_button_clicked)
 	target_dungeon = Globals.dungeon
 	rooms_radio.button_pressed = true
-	Globals.map_mode = Types.MapMode.Rooms
 	
 	
 	for button in landmark_container.get_children():
@@ -40,12 +39,7 @@ func _is_found_landmark(type: Types.Landmarks) -> bool:
 	return false
 
 func _on_map_mode_toggled(map_mode: Types.MapMode) -> void:
-	if map_mode == Globals.map_mode:
-		return
-	
 	Events.button_clicked.emit()
-	Logger.info("Change to map mode %s" % Types.MapMode.keys()[map_mode])
-	Globals.map_mode = map_mode
 	for m in panels:
 		panels[m].visible = map_mode == m
 	

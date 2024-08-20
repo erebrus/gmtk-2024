@@ -48,11 +48,10 @@ func _move_to(to_global_position: Vector2) -> void:
 	global_position = drop_position + Globals.MAP_CELL_SIZE * Vector2(0.5, 0.5)
 	
 
-func _on_input_event(_viewport, event: InputEvent, _shape_idx) -> void:
-	if Globals.map_mode != Types.MapMode.Landmarks:
-		return
-	
+func _on_input_event(viewport: Viewport, event: InputEvent, _shape_idx) -> void:
 	if event is InputEventMouseButton:
-		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.is_action_pressed("left_click"):
+			viewport.set_input_as_handled()
+			
 			draggable.start(global_position)
 	

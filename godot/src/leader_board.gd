@@ -12,7 +12,9 @@ var old_player_name: String
 
 @onready var leaderboard: Container = %LeaderboardContents
 
-
+func _ready() -> void:
+	await get_tree().process_frame
+	submit_score(Globals.score.score)
 func update():
 	var items = await LootLocker.leaderboard.list(LEADERBOARD_KEY, rows, 0)
 	Logger.info("Obtained items from lootlocker %s" % [items])

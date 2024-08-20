@@ -98,6 +98,7 @@ func do_end():
 	Logger.info("Finished game")
 	SceneManager.change_scene(END_SCENE_PATH)
 	
+	
 
 func start_game():
 	in_game=true

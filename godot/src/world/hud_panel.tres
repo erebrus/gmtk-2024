@@ -1,0 +1,14 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://di60vxprxbbr3"]
+
+[ext_resource type="Texture2D" uid="uid://ca1lf3j8el2iw" path="res://assets/gfx/ui/box_thin.png" id="1_gc5os"]
+
+[resource]
+content_margin_left = 50.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+texture = ExtResource("1_gc5os")
+texture_margin_left = 40.0
+texture_margin_top = 20.0
+texture_margin_right = 12.0
+texture_margin_bottom = 20.0

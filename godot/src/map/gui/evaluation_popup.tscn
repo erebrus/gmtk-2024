@@ -90,16 +90,11 @@ horizontal_alignment = 2
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="GradeLabel" type="Label" parent="VBoxContainer"]
-layout_mode = 2
-theme_type_variation = &"HeaderMedium"
-text = "Level"
-
 [node name="ScoreLabel" type="Label" parent="VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"HeaderLarge"
-text = "B"
+text = "1500"
 horizontal_alignment = 1
 
 [node name="Spacer2" type="Control" parent="VBoxContainer"]
@@ -109,7 +104,7 @@ layout_mode = 2
 [node name="NumScoreLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"HeaderMedium"
-text = "Score"
+text = "Total"
 
 [node name="TotalScore" type="Label" parent="VBoxContainer"]
 unique_name_in_owner = true

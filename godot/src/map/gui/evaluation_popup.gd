@@ -47,7 +47,7 @@ func _on_map_scored(score: MapScore) -> void:
 	else:
 		%SpecialScore.text = "-"
 	
-	%ScoreLabel.text = grade(score.total)
+	%ScoreLabel.text = "%d" % Globals.score.level_scores[Globals.current_level]
 	
 	if score.total > min_accuracy[passing_grade]:
 		$SuccessSFX.play()
@@ -58,7 +58,7 @@ func _on_map_scored(score: MapScore) -> void:
 	
 	Globals.bonus_time_factor = bonus_time_factor[grade(score.total)]
 	Globals.score.score_level(Globals.current_level,grade(score.total), Globals.dungeon.get_hint_count())
-	%NumScore.text = "%d" % Globals.score.level_scores[Globals.current_level]
+	%TotalScore.text = "%d" % Globals.score.score
 
 func grade(score: float) -> String:
 	var grade = "F"

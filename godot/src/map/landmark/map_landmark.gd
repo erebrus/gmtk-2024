@@ -27,7 +27,7 @@ func _on_drag_started() -> void:
 	$DragSFX.play()
 	Logger.info("Started dragging landmark")
 	modulate.a = 0.5
-	
+	z_index = 10
 
 func _on_dragged(to_global_position: Vector2) -> void:
 	_move_to(to_global_position)
@@ -38,6 +38,7 @@ func _on_dropped(to_global_position: Vector2) -> void:
 	_move_to(to_global_position)
 	Logger.info("Dropped room at cell %s (%s)" % [cell, to_global_position])
 	modulate.a = 1
+	z_index = 0
 	dropped.emit()
 	Events.map_changed.emit()
 	
@@ -52,11 +53,10 @@ func _move_to(to_global_position: Vector2) -> void:
 	_move_to_cell()
 	
 
-func _on_input_event(_viewport, event: InputEvent, _shape_idx) -> void:
-	if Globals.map_mode != Types.MapMode.Landmarks:
-		return
-	
+func _on_input_event(viewport: Viewport, event: InputEvent, _shape_idx) -> void:
 	if event is InputEventMouseButton:
-		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.is_action_pressed("drag_landmark"):
+			viewport.set_input_as_handled()
+			
 			draggable.start(global_position)
 	

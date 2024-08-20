@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://d26khfur8dgqb"]
 
-[ext_resource type="Theme" path="res://src/map/theme.tres" id="1_dmbyo"]
+[ext_resource type="Theme" uid="uid://bj1p8xiasxxdc" path="res://src/map/theme.tres" id="1_dmbyo"]
 [ext_resource type="Script" path="res://src/map/gui/evaluation_popup.gd" id="1_l2vvr"]
 [ext_resource type="AudioStream" uid="uid://rr4f62g45ueh" path="res://assets/music/Win Stinger.mp3" id="3_6iqmu"]
 [ext_resource type="AudioStream" uid="uid://p7ml3r1ggna0" path="res://assets/music/Lose Stinger2.mp3" id="4_25h05"]

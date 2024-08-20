@@ -55,16 +55,28 @@ func _on_map_scored(score: MapScore) -> void:
 	else:
 		$FailureSFX.play()
 		%ContinueButton.hide()
-	
+
+	var old_score = Globals.score.score
+	%TotalScore.text = "%d" % Globals.score.score		
 	Globals.bonus_time_factor = bonus_time_factor[grade(score.total)]
 	Globals.score.score_level(Globals.current_level,grade(score.total), Globals.dungeon.get_hint_count(true))
+	
 	var cheese_str:=""
 	for i in Globals.dungeon.get_hint_count(true):
 		cheese_str += "+"
+	if cheese_str == "":
+		cheese_str = "-"
 	%CheeseScore.text = cheese_str	
-	%ScoreLabel.text = "%d" % Globals.score.level_scores[Globals.current_level]
-	%TotalScore.text = "%d" % Globals.score.score
+	
+	var level_score:int = Globals.score.level_scores[Globals.current_level]
+	%ScoreLabel.text = "%d" % level_score
+	var tween := get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	
+	tween.tween_method(update_score_label,old_score, Globals.score.score,.5+round(float(level_score)/1000.0))
 
+func update_score_label(value:int):
+	%TotalScore.text = "%d" % value
+	
 func grade(score: float) -> String:
 	var grade = "F"
 	for g in min_accuracy:

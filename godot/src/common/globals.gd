@@ -33,8 +33,9 @@ var current_level:=0
 var current_hints:=0
 var last_landmarks:={}
 var done_tutorial_steps=[]
-var bonus_time:=0
-
+var bonus_time := 0
+var bonus_time_factor :=0.0
+var score:= MapNumScore.new()
 
 @export var levels:Array[BlockGenerator]
 @export var debug_skip_eval:bool = false
@@ -44,7 +45,7 @@ var music_on:=true:
 		music_on=v
 		Logger.info("music %s" % [music_on])
 		var sfx_index= AudioServer.get_bus_index("Music")
-		AudioServer.set_bus_volume_db(sfx_index, -9 if music_on else -100)
+		AudioServer.set_bus_volume_db(sfx_index, -10 if music_on else -100)
 	
 
 var sound_on:=true:
@@ -66,6 +67,12 @@ func _ready():
 	Logger.info("Starting menu music")
 	fade_in_music(menu_music)
 	
+func reset_game():
+	current_level=0
+	last_dungeon=null
+	score = MapNumScore.new()
+	start_game()
+	
 func next_level():
 	current_level += 1
 	last_dungeon=null
@@ -75,6 +82,7 @@ func next_level():
 		do_end()
 func retry_level():
 	start_game()
+
 	
 func do_game_over():
 	Logger.info("Game over")

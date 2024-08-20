@@ -115,6 +115,29 @@ func create_doors():
 	start_door.exit=true
 	dungeon.rooms[0].doors.push_front(start_door)
 	
+	_set_other_exit_door()
+	
+	
+func _set_other_exit_door():
+	var options := []
+	for room in dungeon.rooms:
+		options.append_array(room.get_possible_exit_doors())
+	var best_dist=0
+	var best:Door
+	for door in options:
+		var room = dungeon.get_room_for_cell(door.cell)
+		if room==dungeon.start_room:
+			continue
+		var dist = dungeon.start_room.cell.distance_to(door.cell)
+		if best==null or dist > best_dist:
+			best_dist = dist
+			best = door
+	var room:Room = dungeon.get_room_for_cell(best.cell)
+	best.cell -= room.cell
+	room.doors.append(best)
+	
+		
+	
 	
 func remove_room(room:Room):
 	dungeon.rooms.erase(room)

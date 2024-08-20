@@ -11,7 +11,6 @@
 [node name="Main" type="Node"]
 script = ExtResource("1_ffdrq")
 current_dungeon = ExtResource("2_c52b4")
-use_test_level = false
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 position = Vector2(288, 552)
@@ -49,6 +48,15 @@ layer = 2
 [node name="Timer" parent="HUD" instance=ExtResource("5_kmppd")]
 unique_name_in_owner = true
 visible = false
+custom_minimum_size = Vector2(100, 70)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 128.0
+offset_right = 248.0
+offset_bottom = -650.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Hud" parent="HUD" instance=ExtResource("6_iat6d")]
 unique_name_in_owner = true

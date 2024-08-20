@@ -1,18 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://ds07utbkl8c3s"]
+[gd_scene load_steps=5 format=3 uid="uid://ds07utbkl8c3s"]
 
 [ext_resource type="Script" path="res://src/world/ui/timer.gd" id="1_unu0a"]
 [ext_resource type="FontFile" uid="uid://caqw07j3maojx" path="res://assets/fonts/cellar.ttf" id="2_8ttr5"]
+[ext_resource type="Texture2D" uid="uid://0pnk7j5b8tn4" path="res://assets/gfx/ui/icons/clock.png" id="2_krn0g"]
+[ext_resource type="AudioStream" uid="uid://bfojfnrhx5uj3" path="res://assets/sfx/Tic tac.wav" id="4_67xqs"]
 
 [node name="Timer" type="Control"]
-custom_minimum_size = Vector2(100, 70)
+custom_minimum_size = Vector2(120, 70)
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -1180.0
-offset_bottom = -650.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+offset_right = 120.0
+offset_bottom = 70.0
 script = ExtResource("1_unu0a")
 
 [node name="Timer" type="Timer" parent="."]
@@ -26,14 +24,29 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 10
 
-[node name="Label" type="Label" parent="MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 3
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("2_krn0g")
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.803922, 0.619608, 0.247059, 1)
 theme_override_fonts/font = ExtResource("2_8ttr5")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 20
 text = "200"
 
 [node name="sfx_tick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_67xqs")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

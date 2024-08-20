@@ -22,5 +22,5 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("2_na5id")
 script = ExtResource("2_k7v5o")
-landmark_type = 0
 Scene = ExtResource("3_vl373")
+landmark_type = 0

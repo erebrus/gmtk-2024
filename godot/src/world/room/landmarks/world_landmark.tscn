@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://do1fi5d3bnnyo"]
+[gd_scene load_steps=5 format=3 uid="uid://do1fi5d3bnnyo"]
 
 [ext_resource type="Script" path="res://src/world/room/landmarks/world_landmark.gd" id="1_wi7ja"]
+[ext_resource type="PackedScene" uid="uid://ee8ffxc00qvf" path="res://src/world/room/landmarks/sparkle.tscn" id="2_vycwx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mah7h"]
 size = Vector2(128, 128)
@@ -24,6 +25,9 @@ shape = SubResource("RectangleShape2D_mah7h")
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
 shape = SubResource("CircleShape2D_sh4ox")
+
+[node name="Sparkle" parent="." instance=ExtResource("2_vycwx")]
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -53,11 +53,6 @@ func _build() -> void:
 	
 
 func _toggle_door() -> void:
-	if has_door:
-		$PlacedSFX.play()
-	else:
-		$RemovedSFX.play()
-	
 	sprite.frame = 0 if has_door else 1
 	Events.map_changed.emit()
 	
@@ -68,6 +63,11 @@ func _on_input_event(viewport: Viewport, event: InputEvent, _shape_idx):
 			
 		has_door = !has_door
 		_copy_state_to_target_doors()
+		
+		if has_door:
+			$PlacedSFX.play()
+		else:
+			$RemovedSFX.play()
 	
 
 func _on_area_exited(area: Area2D) -> void:

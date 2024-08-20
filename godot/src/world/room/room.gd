@@ -92,7 +92,22 @@ func get_cells()->Array:
 			ret.append(cell+Vector2i(x,y))
 	return ret
 	
-
+func get_possible_exit_doors()->Array:
+	var ret = []
+	for x in size.x:
+		var pos := Vector2i(x,0)
+		var exists:=false
+		for door in doors:
+			if door.cell == pos and door.side == Vector2i.UP:
+				exists = true
+		if not exists:
+			var new_door := Door.new()
+			new_door.cell= pos+cell
+			new_door.side = Vector2i.UP
+			new_door.exit = true
+			ret.append(new_door)
+	return ret
+	
 func door_at(global_cell: Vector2i, side: Vector2i) -> Door:
 	var local_cell = global_cell - cell
 	var door = _find_door(local_cell, side)

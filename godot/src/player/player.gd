@@ -18,6 +18,7 @@ class_name Player
 @onready var sfx_hurt: AudioStreamPlayer2D = $sfx/sfx_hurt
 @onready var sfx_dash: AudioStreamPlayer2D = $sfx/sfx_dash
 @onready var sfx_landmark: AudioStreamPlayer2D = $sfx/sfx_landmark
+@onready var squeal_timer: Timer = $SquealTimer
 
 
 
@@ -33,6 +34,7 @@ func _ready():
 	Globals.player = self
 	Events.on_hint_found.connect(_on_hint_found)
 	Events.on_landmark_found.connect(_on_landmark_found)
+	schedule_squeal()
 	#Events.on_transition_state_change.connect(_on_transition_state_change)
 	
 func _on_hint_found():
@@ -107,3 +109,13 @@ func _do_dash()->void:
 		return
 	$DashTimer.start()
 	xsm.change_state("dash")
+
+func schedule_squeal():
+	squeal_timer.wait_time = randf_range(5,15)
+	squeal_timer.start()
+
+func _on_squeal_timer_timeout() -> void:
+	sfx_hurt.play()
+	schedule_squeal()
+	
+	

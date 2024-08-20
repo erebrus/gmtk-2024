@@ -13,13 +13,13 @@ extends PanelContainer
 
 @export var passing_grade := "C"
 
-@export var bonus_time = {
+@export var bonus_time_factor = {
 	"E"= 0,
 	"D"= 0,
 	"C"= 0,
-	"B"= 0,
-	"A"= 0,
-	"S"= 0,
+	"B"= .05,
+	"A"= .1,
+	"S"= .2,
 }
 
 var time:= 0
@@ -40,14 +40,14 @@ func _on_map_scored(score: MapScore) -> void:
 	# TODO fancy animation with scores showing one by one?
 	show()
 	
-	%RoomsScore.text = _grade(score.rooms)
-	%DoorsScore.text = _grade(score.doors)
+	%RoomsScore.text = grade(score.rooms)
+	%DoorsScore.text = grade(score.doors)
 	if score.has_special():
-		%SpecialScore.text = _grade(score.special)
+		%SpecialScore.text = grade(score.special)
 	else:
 		%SpecialScore.text = "-"
 	
-	%ScoreLabel.text = _grade(score.total)
+	
 	
 	if score.total > min_accuracy[passing_grade]:
 		$SuccessSFX.play()
@@ -56,10 +56,16 @@ func _on_map_scored(score: MapScore) -> void:
 		$FailureSFX.play()
 		%ContinueButton.hide()
 	
-	Globals.bonus_time = bonus_time[_grade(score.total)]
-	
+	Globals.bonus_time_factor = bonus_time_factor[grade(score.total)]
+	Globals.score.score_level(Globals.current_level,grade(score.total), Globals.dungeon.get_hint_count(true))
+	var cheese_str:=""
+	for i in Globals.dungeon.get_hint_count(true):
+		cheese_str += "+"
+	%CheeseScore.text = cheese_str	
+	%ScoreLabel.text = "%d" % Globals.score.level_scores[Globals.current_level]
+	%TotalScore.text = "%d" % Globals.score.score
 
-func _grade(score: float) -> String:
+func grade(score: float) -> String:
 	var grade = "F"
 	for g in min_accuracy:
 		if score > min_accuracy[g]:
@@ -69,6 +75,7 @@ func _grade(score: float) -> String:
 
 func _on_continue_button_pressed():
 	Events.button_clicked.emit()
+	
 	Globals.next_level() 
 
 

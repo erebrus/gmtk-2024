@@ -1,6 +1,6 @@
 extends MarginContainer
 
-const LEADERBOARD_KEY = "gmtk-2024"
+const LEADERBOARD_KEY = "gmtk2024"
 const ROW = preload("res://src/leaderboard_row.tscn")
 
 

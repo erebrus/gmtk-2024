@@ -35,7 +35,7 @@ func _ready() -> void:
 	update_hud()
 	var time = Globals.levels[Globals.current_level].time
 	if time > 0:
-		%Timer.time=time+round(time*Globals.bonus_time_factor)+Globals.bonus_time
+		%Timer.time=time+round(time*Globals.bonus_time_factor)#+Globals.bonus_time
 		Globals.bonus_time=0
 		%Timer.visible=true
 		%Timer.start()
@@ -77,7 +77,7 @@ func _on_confirmation_requested(door:WorldDoor):
 func _unhandled_input(_event: InputEvent) -> void:
 	if %Confirmation.visible:
 		if Input.is_action_just_pressed("action"):
-			Globals.bonus_time=%Timer.time
+			#Globals.bonus_time=%Timer.time
 			Globals.go_to_map()
 		elif Input.is_action_just_pressed("ui_cancel"):
 			%Player.in_animation = false

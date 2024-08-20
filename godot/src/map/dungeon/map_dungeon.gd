@@ -43,6 +43,14 @@ func add_landmark(landmark: MapLandmark) -> void:
 		landmark.visible = true
 	
 
+func find_door(global_cell: Vector2i, side: Vector2i) -> MapDoor:
+	var room = find_room(global_cell)
+	if room == null:
+		return null
+		
+	return room.find_door(global_cell, side)
+	
+
 func cell_from_global_position(global: Vector2) -> Vector2i:
 	if global.x < grid_offset.x:
 		global.x -= Globals.MAP_CELL_SIZE

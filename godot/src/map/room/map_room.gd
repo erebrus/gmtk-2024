@@ -22,6 +22,7 @@ var is_start_room:= false
 var doors: Array[MapDoor]
 var landmarks: Array[MapLandmark]
 var drag_cell: Vector2i
+var start_cell: Vector2i
 
 
 @onready var draggable: Draggable = $Draggable
@@ -92,9 +93,14 @@ func evaluate(target: Room, score: MapScore) -> void:
 
 func _add_door(door_cell: Vector2i, side: Vector2i) -> void:
 	var door: MapDoor = DoorScene.instantiate()
+	door.room = self
 	door.place(door_cell, side)
 	doors.append(door)
 	door_container.add_child(door)
+	
+
+func find_door(global_cell: Vector2i, side: Vector2i) -> MapDoor:
+	return _find_door(global_cell - cell, side)
 	
 
 func _find_door(door_cell: Vector2i, side: Vector2i) -> MapDoor:
@@ -130,6 +136,11 @@ func _on_drag_started() -> void:
 	$DragSFX.play()
 	Logger.info("Started dragging room from cell %s" % drag_cell)
 	modulate.a = 0.5
+	z_index = 10
+	
+	for door in doors:
+		door.unset_door()
+	
 
 func _on_dragged(to_global_position: Vector2) -> void:
 	_move_to(to_global_position)
@@ -140,8 +151,13 @@ func _on_dropped(to_global_position: Vector2) -> void:
 	_move_to(to_global_position)
 	Logger.info("Dropped room at cell %s (%s)" % [cell, to_global_position])
 	modulate.a = 1
+	z_index = 0
 	for landmark in landmarks:
 		landmark.cell = dungeon.cell_from_global_position(landmark.global_position)
+	
+	if start_cell != cell:
+		for door in doors:
+			door.set_if_facing_door()
 	
 	dropped.emit()
 	Events.map_changed.emit()
@@ -152,9 +168,10 @@ func _on_input_event(viewport: Viewport, event: InputEvent, _shape_idx) -> void:
 		return
 	
 	if event is InputEventMouseButton:
-		if event.is_action_pressed("left_click"):
+		if event.is_action_pressed("left_click") and not event.is_action_pressed("drag_landmark"):
 			viewport.set_input_as_handled()
 			
 			draggable.start(global_position)
+			start_cell = cell
 			var global_cell = dungeon.cell_from_global_position(get_global_mouse_position())
 			drag_cell = global_cell - cell

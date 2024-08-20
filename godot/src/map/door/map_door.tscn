@@ -6,7 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://ce0vdxu1yv54o" path="res://assets/sfx/Door off.wav" id="4_plu3f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1sdqe"]
-size = Vector2(24, 28)
+size = Vector2(24, 14)
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_6nxjo"]
 random_pitch = 2.15
@@ -30,7 +30,7 @@ texture = ExtResource("2_21kk0")
 hframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -6)
+position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_1sdqe")
 
 [node name="PlacedSFX" type="AudioStreamPlayer2D" parent="."]
@@ -43,6 +43,4 @@ stream = SubResource("AudioStreamRandomizer_2bcn8")
 volume_db = -6.0
 bus = &"Sfx"
 
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="area_exited" from="." to="." method="_on_area_exited"]
 [connection signal="input_event" from="." to="." method="_on_input_event"]

@@ -1,8 +1,13 @@
 class_name MapDoor extends Area2D
 
+const GROUP = &"draggable"
+
+
 var cell: Vector2i
 var side: Vector2i
 var is_start_door:= false
+var room: MapRoom
+
 
 var has_door:= false:
 	set(value):
@@ -26,11 +31,28 @@ func place(_cell: Vector2i, _side: Vector2i) -> void:
 	side = _side
 	
 
-func _copy_state_to_target_doors() -> void:
+func unset_door() -> void:
+	has_door = false
 	for door in get_overlapping_areas():
 		if door is MapDoor:
-			door.has_door = has_door
+			door.has_door = false
 	
+
+func set_if_facing_door() -> void:
+	var target = _target_door()
+	if target != null and target.has_door:
+		has_door = true
+	
+	
+
+func _copy_state_to_target_doors() -> void:
+	var target = _target_door()
+	Logger.info("copying state %s to target door %s" % [has_door, target])
+	if target != null:
+		target.has_door = has_door
+
+func _target_door() -> MapDoor:
+	return room.dungeon.find_door(room.cell + cell + side, -side)
 	
 
 func _build() -> void:
@@ -58,6 +80,9 @@ func _toggle_door() -> void:
 	
 
 func _on_input_event(viewport: Viewport, event: InputEvent, _shape_idx):
+	if _is_dragging():
+		return
+	
 	if event.is_action_released("left_click"):
 		viewport.set_input_as_handled()
 			
@@ -69,17 +94,11 @@ func _on_input_event(viewport: Viewport, event: InputEvent, _shape_idx):
 		else:
 			$RemovedSFX.play()
 	
-
-func _on_area_exited(area: Area2D) -> void:
-	assert(area is MapDoor)
-	has_door = false
-
-
-func _on_area_entered(area: Area2D) -> void:
-	assert(area is MapDoor)
-	var door = area as MapDoor
-	if door.has_door:
-		has_door = true
+func _is_dragging() -> bool:
+	for draggable in get_tree().get_nodes_in_group(GROUP):
+		if draggable.is_dragging or draggable.is_about_to_drag:
+			return true
+	return false
 	
 
 func _to_string():

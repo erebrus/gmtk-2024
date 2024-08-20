@@ -44,7 +44,7 @@ func drop() -> void:
 	
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and not event.pressed:
+	if event.is_action_released("left_click"):
 		if is_about_to_drag:
 			is_about_to_drag = false
 		if is_dragging:

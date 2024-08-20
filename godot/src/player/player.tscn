@@ -318,7 +318,7 @@ text = "Found landmark"
 [node name="sfx" type="Node2D" parent="."]
 
 [node name="sfx_walk" type="AudioStreamPlayer2D" parent="sfx"]
-volume_db = 6.0
+volume_db = 3.0
 max_polyphony = 4
 bus = &"Sfx"
 
@@ -328,7 +328,7 @@ bus = &"Sfx"
 
 [node name="sfx_hurt" type="AudioStreamPlayer2D" parent="sfx"]
 stream = SubResource("AudioStreamRandomizer_juuge")
-volume_db = -3.089
+volume_db = -6.0
 bus = &"Sfx"
 
 [node name="sfx_landmark" type="AudioStreamPlayer2D" parent="sfx"]
@@ -337,6 +337,7 @@ bus = &"Sfx"
 
 [node name="sfx_dash" type="AudioStreamPlayer2D" parent="sfx"]
 stream = SubResource("AudioStreamRandomizer_e1yo4")
+volume_db = 3.0
 bus = &"Sfx"
 
 [node name="PointLight2D" type="PointLight2D" parent="."]

@@ -69,6 +69,7 @@ func _on_evaluate_button_pressed():
 	
 	%SolutionDungeon.visible = false
 	%SolutionOverlay.visible = true
+	%EvaluateButton.visible = false
 	
 
 func _on_button_clicked() -> void:

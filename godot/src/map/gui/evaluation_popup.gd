@@ -1,6 +1,9 @@
 extends PanelContainer
 
 
+const LEADERBOARD_KEY = "gmtk2024"
+
+
 @export_category("Score")
 @export var min_accuracy = {
 	"E"= 0.3,
@@ -60,6 +63,7 @@ func _on_map_scored(score: MapScore) -> void:
 	%TotalScore.text = "%d" % Globals.score.score		
 	Globals.bonus_time_factor = bonus_time_factor[grade(score.total)]
 	Globals.score.score_level(Globals.current_level,grade(score.total), Globals.dungeon.get_hint_count(true))
+	submit_score(Globals.score.score)
 	
 	var cheese_str:=""
 	for i in Globals.dungeon.get_hint_count(true):
@@ -83,6 +87,17 @@ func grade(score: float) -> String:
 		if score > min_accuracy[g]:
 			grade = g
 	return grade
+	
+
+func submit_score(score: int):
+	Globals.in_game = false
+	var previous = await LootLocker.leaderboard.get_player_score(LEADERBOARD_KEY)
+	
+	var is_highscore = previous == null or previous.score < score
+	
+	if is_highscore:
+		await LootLocker.leaderboard.upload_player_score(LEADERBOARD_KEY, score)
+	
 	
 
 func _on_continue_button_pressed():

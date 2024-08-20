@@ -15,7 +15,7 @@ var old_player_name: String
 func _ready() -> void:
 	%Leaderboard.hide()
 	await get_tree().process_frame
-	submit_score(Globals.score.score)
+	update()
 	
 
 func update():
@@ -42,48 +42,9 @@ func update():
 	%Leaderboard.show()
 	
 
-func submit_score(score: int):
-	Globals.in_game = false
-	var previous = await LootLocker.leaderboard.get_player_score(LEADERBOARD_KEY)
-	
-	is_highscore = previous == null or previous.score < score
-	
-	if is_highscore:
-		await LootLocker.leaderboard.upload_player_score(LEADERBOARD_KEY, score)
-		previous = await LootLocker.leaderboard.get_player_score(LEADERBOARD_KEY)
-	
-	await update()
-	update_granny_text(previous)
-	show()
-	
-
 func submit_name(player_name: String):
 	await LootLocker.player.set_name(player_name)
 	update()
-
-
-func update_granny_text(player):
-	pass
-	#var has_name = not player.player.name.is_empty()
-	#
-	#var text: String
-	#
-	#if is_highscore:
-		#text = "Well done, new highscore! "
-		#if is_top:
-			#text += "And in the top 6! "
-		#else:
-			#text += "Your new ranking is %s. " % player.rank
-	#else:
-		#text = "I know you can do better, you were number %s! " % player.rank
-	#if is_top:
-		#text += " "
-	#
-	#if not has_name:
-		#text += "\nGo on, tell us your name."
-	#
-	#%GrannyLabel.text = text
-	
 
 func _on_retry_button_pressed():
 	Globals.in_game = true

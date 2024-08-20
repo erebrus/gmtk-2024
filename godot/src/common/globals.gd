@@ -87,7 +87,8 @@ func retry_level():
 	
 func do_game_over():
 	Logger.info("Game over")
-	get_tree().quit()
+	do_end()
+	
 
 func do_end():
 	Logger.info("Finished game")

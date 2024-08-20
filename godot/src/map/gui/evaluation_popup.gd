@@ -13,13 +13,13 @@ extends PanelContainer
 
 @export var passing_grade := "C"
 
-@export var bonus_time = {
+@export var bonus_time_factor = {
 	"E"= 0,
 	"D"= 0,
 	"C"= 0,
-	"B"= 0,
-	"A"= 0,
-	"S"= 0,
+	"B"= .05,
+	"A"= .1,
+	"S"= .2,
 }
 
 var time:= 0
@@ -56,7 +56,7 @@ func _on_map_scored(score: MapScore) -> void:
 		$FailureSFX.play()
 		%ContinueButton.hide()
 	
-	Globals.bonus_time = bonus_time[_grade(score.total)]
+	Globals.bonus_time_factor = bonus_time_factor[_grade(score.total)]
 	
 
 func _grade(score: float) -> String:

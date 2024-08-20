@@ -34,7 +34,7 @@ func _ready() -> void:
 	update_hud()
 	var time = Globals.levels[Globals.current_level].time
 	if time > 0:
-		%Timer.time=time
+		%Timer.time=time+round(time*Globals.bonus_time_factor)
 		%Timer.visible=true
 		%Timer.start()
 		Events.tutorial_requested.emit(Types.TutorialSteps.TIME)

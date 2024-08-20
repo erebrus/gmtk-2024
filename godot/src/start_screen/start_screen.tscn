@@ -1,7 +1,102 @@
-[gd_scene load_steps=3 format=3 uid="uid://tew5nggvlbv0"]
+[gd_scene load_steps=34 format=3 uid="uid://tew5nggvlbv0"]
 
+[ext_resource type="Texture2D" uid="uid://tbog36tufoa1" path="res://assets/gfx/ui/title-animation/title1.png" id="1_pcn16"]
 [ext_resource type="Script" path="res://src/start_screen/start_screen.gd" id="1_yk0mb"]
 [ext_resource type="FontFile" uid="uid://caqw07j3maojx" path="res://assets/fonts/cellar.ttf" id="2_fddgx"]
+[ext_resource type="Texture2D" uid="uid://be8vkxfyrjimm" path="res://assets/gfx/ui/title-animation/title2.png" id="2_pbq1e"]
+[ext_resource type="Texture2D" uid="uid://dfuakgdy2m8bg" path="res://assets/gfx/ui/title-animation/title10.png" id="3_q7vxb"]
+[ext_resource type="Texture2D" uid="uid://djtxsai20cd8h" path="res://assets/gfx/ui/title-animation/title11.png" id="4_xcirs"]
+[ext_resource type="Texture2D" uid="uid://dsutwcqmv1drv" path="res://assets/gfx/ui/title-animation/title12.png" id="5_gt5vv"]
+[ext_resource type="Texture2D" uid="uid://ct75lofgcyfjw" path="res://assets/gfx/ui/title-animation/title13.png" id="6_58ixh"]
+[ext_resource type="Texture2D" uid="uid://0vnivoadmj4s" path="res://assets/gfx/ui/title-animation/title14.png" id="7_4022w"]
+[ext_resource type="Texture2D" uid="uid://didltvjk1l8x4" path="res://assets/gfx/ui/title-animation/title15.png" id="8_ow6w2"]
+[ext_resource type="Texture2D" uid="uid://uaekfgqf166o" path="res://assets/gfx/ui/title-animation/title16.png" id="9_jce3d"]
+[ext_resource type="Texture2D" uid="uid://b75nuty17pws1" path="res://assets/gfx/ui/title-animation/title17.png" id="10_o3t78"]
+[ext_resource type="Texture2D" uid="uid://dcnxfk4tgj4y6" path="res://assets/gfx/ui/title-animation/title18.png" id="11_epgyd"]
+[ext_resource type="Texture2D" uid="uid://crf6tydgjyb70" path="res://assets/gfx/ui/title-animation/title19.png" id="12_5duxv"]
+[ext_resource type="Texture2D" uid="uid://dqkxaxpdcbmm5" path="res://assets/gfx/ui/title-animation/title3.png" id="13_sk8uu"]
+[ext_resource type="Texture2D" uid="uid://cskd3o58757nv" path="res://assets/gfx/ui/title-animation/title20.png" id="14_et7a8"]
+[ext_resource type="Texture2D" uid="uid://0axy3eqt2dt7" path="res://assets/gfx/ui/title-animation/title21.png" id="15_rrwdp"]
+[ext_resource type="Texture2D" uid="uid://bkmmmqltbohla" path="res://assets/gfx/ui/title-animation/title22.png" id="16_0cqkq"]
+[ext_resource type="Texture2D" uid="uid://daqet1ghjveg0" path="res://assets/gfx/ui/title-animation/title23.png" id="17_krugf"]
+[ext_resource type="Texture2D" uid="uid://c8iqon8kbc65t" path="res://assets/gfx/ui/title-animation/title24.png" id="18_dkkod"]
+[ext_resource type="Texture2D" uid="uid://d2w8sp5bxus6v" path="res://assets/gfx/ui/title-animation/title25.png" id="19_4yvk7"]
+[ext_resource type="Texture2D" uid="uid://dcmbl2sbuhhkw" path="res://assets/gfx/ui/title-animation/title26.png" id="20_x8uy0"]
+[ext_resource type="Texture2D" uid="uid://drusprndfshk2" path="res://assets/gfx/ui/title-animation/title27.png" id="21_3lx43"]
+[ext_resource type="Texture2D" uid="uid://c6taajabmsuqa" path="res://assets/gfx/ui/title-animation/title28.png" id="22_101mo"]
+[ext_resource type="Texture2D" uid="uid://5u5bnwpc6v05" path="res://assets/gfx/ui/title-animation/title29.png" id="23_e3j68"]
+[ext_resource type="Texture2D" uid="uid://bljm67w586jsl" path="res://assets/gfx/ui/title-animation/title4.png" id="24_pwcjo"]
+[ext_resource type="Texture2D" uid="uid://00xw1kqv6adx" path="res://assets/gfx/ui/title-animation/title30.png" id="25_btpjv"]
+[ext_resource type="Texture2D" uid="uid://b5s854q35w71f" path="res://assets/gfx/ui/title-animation/title5.png" id="26_crcmb"]
+[ext_resource type="Texture2D" uid="uid://donld0dsdhii8" path="res://assets/gfx/ui/title-animation/title6.png" id="27_jgrfb"]
+[ext_resource type="Texture2D" uid="uid://dptro63ye2wn" path="res://assets/gfx/ui/title-animation/title7.png" id="28_vg2xb"]
+[ext_resource type="Texture2D" uid="uid://b6t60k13wfiqu" path="res://assets/gfx/ui/title-animation/title8.png" id="29_b46hi"]
+[ext_resource type="Texture2D" uid="uid://du8f2ups2eacs" path="res://assets/gfx/ui/title-animation/title9.png" id="30_lv6jf"]
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_d63j7"]
+frames = 31
+speed_scale = 5.0
+frame_0/texture = ExtResource("1_pcn16")
+frame_1/texture = ExtResource("2_pbq1e")
+frame_1/duration = 1.0
+frame_2/texture = ExtResource("13_sk8uu")
+frame_2/duration = 1.0
+frame_3/texture = ExtResource("24_pwcjo")
+frame_3/duration = 1.0
+frame_4/texture = ExtResource("24_pwcjo")
+frame_4/duration = 1.0
+frame_5/texture = ExtResource("26_crcmb")
+frame_5/duration = 1.0
+frame_6/texture = ExtResource("27_jgrfb")
+frame_6/duration = 1.0
+frame_7/texture = ExtResource("28_vg2xb")
+frame_7/duration = 1.0
+frame_8/texture = ExtResource("29_b46hi")
+frame_8/duration = 1.0
+frame_9/texture = ExtResource("30_lv6jf")
+frame_9/duration = 1.0
+frame_10/texture = ExtResource("3_q7vxb")
+frame_10/duration = 1.0
+frame_11/texture = ExtResource("4_xcirs")
+frame_11/duration = 1.0
+frame_12/texture = ExtResource("5_gt5vv")
+frame_12/duration = 1.0
+frame_13/texture = ExtResource("6_58ixh")
+frame_13/duration = 1.0
+frame_14/texture = ExtResource("7_4022w")
+frame_14/duration = 1.0
+frame_15/texture = ExtResource("8_ow6w2")
+frame_15/duration = 1.0
+frame_16/texture = ExtResource("9_jce3d")
+frame_16/duration = 1.0
+frame_17/texture = ExtResource("10_o3t78")
+frame_17/duration = 1.0
+frame_18/texture = ExtResource("11_epgyd")
+frame_18/duration = 1.0
+frame_19/texture = ExtResource("12_5duxv")
+frame_19/duration = 1.0
+frame_20/texture = ExtResource("14_et7a8")
+frame_20/duration = 1.0
+frame_21/texture = ExtResource("15_rrwdp")
+frame_21/duration = 1.0
+frame_22/texture = ExtResource("16_0cqkq")
+frame_22/duration = 1.0
+frame_23/texture = ExtResource("17_krugf")
+frame_23/duration = 1.0
+frame_24/texture = ExtResource("18_dkkod")
+frame_24/duration = 1.0
+frame_25/texture = ExtResource("19_4yvk7")
+frame_25/duration = 1.0
+frame_26/texture = ExtResource("20_x8uy0")
+frame_26/duration = 1.0
+frame_27/texture = ExtResource("21_3lx43")
+frame_27/duration = 1.0
+frame_28/texture = ExtResource("22_101mo")
+frame_28/duration = 1.0
+frame_29/texture = ExtResource("23_e3j68")
+frame_29/duration = 1.0
+frame_30/texture = ExtResource("25_btpjv")
+frame_30/duration = 1.0
 
 [node name="StartScreen" type="TextureRect"]
 anchors_preset = 15
@@ -9,15 +104,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = SubResource("AnimatedTexture_d63j7")
 script = ExtResource("1_yk0mb")
 
 [node name="StartButton" type="TextureButton" parent="."]
-custom_minimum_size = Vector2(440, 235)
+custom_minimum_size = Vector2(140, 80)
 layout_mode = 0
-offset_left = 763.0
-offset_top = 123.0
-offset_right = 1203.0
-offset_bottom = 358.0
+offset_left = 560.0
+offset_top = 536.0
+offset_right = 700.0
+offset_bottom = 616.0
 
 [node name="Label" type="Label" parent="StartButton"]
 layout_mode = 1
@@ -25,15 +121,17 @@ anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -11.5
-offset_bottom = 11.5
+offset_top = -30.0
+offset_right = 2.0
+offset_bottom = 22.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/font_color = Color(0.447059, 0.764706, 0.635294, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = -6
 theme_override_constants/outline_size = 4
 theme_override_fonts/font = ExtResource("2_fddgx")
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 32
 text = "Play"
 horizontal_alignment = 1
 

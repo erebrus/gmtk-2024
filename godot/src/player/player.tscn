@@ -328,6 +328,7 @@ bus = &"Sfx"
 
 [node name="sfx_hurt" type="AudioStreamPlayer2D" parent="sfx"]
 stream = SubResource("AudioStreamRandomizer_juuge")
+volume_db = -3.089
 bus = &"Sfx"
 
 [node name="sfx_landmark" type="AudioStreamPlayer2D" parent="sfx"]
@@ -341,3 +342,8 @@ bus = &"Sfx"
 [node name="PointLight2D" type="PointLight2D" parent="."]
 texture = ExtResource("8_os85y")
 texture_scale = 2.0
+
+[node name="SquealTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="SquealTimer" to="." method="_on_squeal_timer_timeout"]

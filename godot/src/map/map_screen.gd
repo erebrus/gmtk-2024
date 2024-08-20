@@ -31,6 +31,7 @@ func _create_solution_map() -> void:
 		var room = RoomScene.instantiate()
 		room.size = room_data.size
 		room.cell = room_data.cell
+		room.disable_collisions()
 		solution.add_room(room)
 		room._move_to_cell()
 		

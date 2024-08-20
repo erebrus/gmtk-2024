@@ -45,7 +45,9 @@ func _ready() -> void:
 		_add_door(Vector2i(0, y), Vector2i.LEFT)
 		_add_door(Vector2i(size.x - 1, y), Vector2i.RIGHT)
 	
-
+func disable_collisions():
+	$CollisionShape2D.disabled = true
+	
 func any_cell(filter: Callable) -> bool:
 	for x in size.x:
 		for y in size.y:

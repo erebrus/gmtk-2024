@@ -24,8 +24,7 @@ var found_landmarks: Array[Landmark]:
 	get:
 		var list: Array[Landmark]
 		for room in rooms:
-			#if room.landmark != null and room.landmark.found: # TODO: only found landmarks!
-			if room.landmark != null:
+			if room.landmark != null and room.landmark.found:
 				list.append(room.landmark)
 		return list
 	
@@ -107,3 +106,36 @@ func get_room_for_cell(cell:Vector2i)->Room:
 
 func has_room_for_cell(cell:Vector2i)->bool:
 	return rooms_by_cell.has(cell)
+
+func complete_gen():
+	for room in rooms:
+		room.build_tiles()
+
+func get_explored_room_count()->int:
+	var count:=0
+	for room in rooms:
+			if room.explored:
+				count += 1
+	return count
+	
+func get_landmarks_count(only_found:=false)->int:
+	var count:=0
+	for room in rooms:
+		if room.landmark:
+			if not only_found or room.landmark.found:
+				count += 1
+	return count
+			
+func get_hint_count(only_found:=false)->int:
+	var count:=0
+	for room in rooms:
+		if room.hint:
+			if not only_found or room.hint.found:
+				count += 1
+	return count
+	
+	
+func reset():
+	for room in rooms:
+		room.reset()
+			

@@ -1,9 +1,29 @@
-[gd_scene load_steps=5 format=3 uid="uid://ds2geaj03qxer"]
+[gd_scene load_steps=12 format=3 uid="uid://ds2geaj03qxer"]
 
 [ext_resource type="Script" path="res://src/map/room/map_room.gd" id="1_g0p23"]
 [ext_resource type="Texture2D" uid="uid://b6x23cnbcmgln" path="res://assets/gfx/map/room.png" id="1_qalxe"]
 [ext_resource type="PackedScene" uid="uid://btojqqgajj37t" path="res://src/map/door/map_door.tscn" id="2_xrf3q"]
 [ext_resource type="PackedScene" uid="uid://b38lu5l8p5qxf" path="res://src/map/draggable/draggable.tscn" id="3_3l3pu"]
+[ext_resource type="AudioStream" uid="uid://tgxiewnd6s42" path="res://assets/sfx/Map-001.wav" id="5_8vsr1"]
+[ext_resource type="AudioStream" uid="uid://dixmooe3ore8g" path="res://assets/sfx/Map-002.wav" id="6_om1w3"]
+[ext_resource type="AudioStream" uid="uid://bxpqrxu84w3gf" path="res://assets/sfx/Drop-001.wav" id="7_b7sql"]
+[ext_resource type="AudioStream" uid="uid://clxcol4vgbop5" path="res://assets/sfx/Drop-002.wav" id="8_elspm"]
+[ext_resource type="AudioStream" uid="uid://brtng03wm4tn2" path="res://assets/sfx/Drop-003.wav" id="9_dy5n4"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_id4kk"]
+random_pitch = 3.15
+random_volume_offset_db = 2.15
+streams_count = 2
+stream_0/stream = ExtResource("5_8vsr1")
+stream_1/stream = ExtResource("6_om1w3")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_yuspe"]
+random_pitch = 2.8
+random_volume_offset_db = 1.95
+streams_count = 3
+stream_0/stream = ExtResource("7_b7sql")
+stream_1/stream = ExtResource("8_elspm")
+stream_2/stream = ExtResource("9_dy5n4")
 
 [node name="MapRoom" type="Area2D"]
 collision_layer = 130
@@ -37,5 +57,13 @@ visible = false
 [node name="Doors" type="Node2D" parent="."]
 
 [node name="Draggable" parent="." instance=ExtResource("3_3l3pu")]
+
+[node name="DragSFX" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_id4kk")
+bus = &"Sfx"
+
+[node name="DropSFX" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_yuspe")
+bus = &"Sfx"
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]

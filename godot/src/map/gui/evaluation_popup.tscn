@@ -1,0 +1,139 @@
+[gd_scene load_steps=6 format=3 uid="uid://d26khfur8dgqb"]
+
+[ext_resource type="Theme" path="res://src/map/theme.tres" id="1_dmbyo"]
+[ext_resource type="Script" path="res://src/map/gui/evaluation_popup.gd" id="1_l2vvr"]
+[ext_resource type="AudioStream" uid="uid://rr4f62g45ueh" path="res://assets/music/Win Stinger.mp3" id="3_6iqmu"]
+[ext_resource type="AudioStream" uid="uid://p7ml3r1ggna0" path="res://assets/music/Lose Stinger2.mp3" id="4_25h05"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r80xs"]
+content_margin_left = 30.0
+content_margin_top = 36.0
+content_margin_right = 62.0
+content_margin_bottom = 36.0
+bg_color = Color(0.239216, 0.109804, 0.286275, 1)
+border_width_left = 3
+border_width_right = 32
+border_color = Color(0.447059, 0.764706, 0.635294, 1)
+
+[node name="EvaluationPopup" type="PanelContainer"]
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -141.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_dmbyo")
+theme_override_styles/panel = SubResource("StyleBoxFlat_r80xs")
+script = ExtResource("1_l2vvr")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="AccuracyLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"HeaderMedium"
+text = "ACCURACY"
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/v_separation = 10
+columns = 2
+
+[node name="RoomsLabel" type="Label" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "ROOMS"
+
+[node name="RoomsScore" type="Label" parent="VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "A"
+horizontal_alignment = 2
+
+[node name="DoorsLabel" type="Label" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "DOORS"
+
+[node name="DoorsScore" type="Label" parent="VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "A"
+horizontal_alignment = 2
+
+[node name="SpecialLabel" type="Label" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "SPECIAL"
+
+[node name="SpecialScore" type="Label" parent="VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "A"
+horizontal_alignment = 2
+
+[node name="CheeseLabel" type="Label" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "CHEESE"
+
+[node name="CheeseScore" type="Label" parent="VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "+"
+horizontal_alignment = 2
+
+[node name="Spacer1" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="GradeLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"HeaderMedium"
+text = "Level"
+
+[node name="ScoreLabel" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"HeaderLarge"
+text = "B"
+horizontal_alignment = 1
+
+[node name="Spacer2" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="NumScoreLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"HeaderMedium"
+text = "Score"
+
+[node name="TotalScore" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"HeaderLarge"
+text = "2000"
+horizontal_alignment = 1
+
+[node name="Spacer3" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="RetryButton" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Retry"
+
+[node name="ContinueButton" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Continue"
+
+[node name="SuccessSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_6iqmu")
+
+[node name="FailureSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_25h05")

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="BlockGenerator" load_steps=2 format=3 uid="uid://b6kt3wsao7exm"]
+
+[ext_resource type="Script" path="res://src/world/generator/block_generator.gd" id="1_srwqv"]
+
+[resource]
+script = ExtResource("1_srwqv")
+size = Vector2i(2, 3)
+hint_ratio = 0.0
+trap_ratio = 0.0
+landmark_ratio = 0.0
+time = 0.0
+max_attempts = 50
+min_coverage = 0.5
+max_coverage = 0.6
+s1x1_count = 3
+s2x1_count = 1
+s1x2_count = 1
+s2x2_count = 0
+block_limit = true
+cycle_factor = 0.1

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://s1bwp2kw3go5"]
+
+[ext_resource type="PackedScene" uid="uid://do1fi5d3bnnyo" path="res://src/world/room/landmarks/world_landmark.tscn" id="1_1q7r6"]
+[ext_resource type="Texture2D" uid="uid://cxnsqashooc42" path="res://assets/gfx/world/bones.png" id="2_srdkp"]
+
+[node name="BonesLandmark" instance=ExtResource("1_1q7r6")]
+collision_layer = 0
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_srdkp")
+
+[node name="Polygon2D" parent="." index="1"]
+visible = false

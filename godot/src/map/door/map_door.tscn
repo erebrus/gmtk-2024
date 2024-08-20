@@ -1,10 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://btojqqgajj37t"]
+[gd_scene load_steps=8 format=3 uid="uid://btojqqgajj37t"]
 
 [ext_resource type="Script" path="res://src/map/door/map_door.gd" id="1_7x5si"]
 [ext_resource type="Texture2D" uid="uid://cp1qxxfawp5ar" path="res://assets/gfx/map/door.png" id="2_21kk0"]
+[ext_resource type="AudioStream" uid="uid://c5i40kgm7yrco" path="res://assets/sfx/Door on.wav" id="3_7p5n5"]
+[ext_resource type="AudioStream" uid="uid://ce0vdxu1yv54o" path="res://assets/sfx/Door off.wav" id="4_plu3f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1sdqe"]
 size = Vector2(24, 28)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_6nxjo"]
+random_pitch = 2.15
+random_volume_offset_db = 2.22
+streams_count = 1
+stream_0/stream = ExtResource("3_7p5n5")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_2bcn8"]
+random_pitch = 3.0
+random_volume_offset_db = 2.0
+streams_count = 1
+stream_0/stream = ExtResource("4_plu3f")
 
 [node name="MapDoor" type="Area2D"]
 collision_layer = 132
@@ -18,6 +32,16 @@ hframes = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -6)
 shape = SubResource("RectangleShape2D_1sdqe")
+
+[node name="PlacedSFX" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_6nxjo")
+volume_db = -6.0
+bus = &"Sfx"
+
+[node name="RemovedSFX" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_2bcn8")
+volume_db = -6.0
+bus = &"Sfx"
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_area_exited"]

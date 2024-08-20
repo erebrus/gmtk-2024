@@ -7,7 +7,8 @@ func _ready() -> void:
 
 func _on_sound_button_toggled(toggled_on: bool) -> void:
 	$sfx_button.play()
-	Globals.sound_on=toggled_on
+	#Globals.sound_on=toggled_on
+	Globals.music_on=toggled_on
 
 
 func _on_music_button_toggled(toggled_on: bool) -> void:

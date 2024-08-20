@@ -14,7 +14,11 @@ class_name Player
 @onready var wall_rc: RayCast2D = $wall_rc
 
 @onready var sfx_walk: AudioStreamPlayer2D = $sfx/sfx_walk
+@onready var sfx_hint: AudioStreamPlayer2D = $sfx/sfx_hint
+@onready var sfx_hurt: AudioStreamPlayer2D = $sfx/sfx_hurt
 @onready var sfx_dash: AudioStreamPlayer2D = $sfx/sfx_dash
+@onready var sfx_landmark: AudioStreamPlayer2D = $sfx/sfx_landmark
+@onready var squeal_timer: Timer = $SquealTimer
 
 
 
@@ -28,8 +32,24 @@ var in_animation:bool = false
 
 func _ready():
 	Globals.player = self
-	
+	Events.on_hint_found.connect(_on_hint_found)
+	Events.on_landmark_found.connect(_on_landmark_found)
+	schedule_squeal()
 	#Events.on_transition_state_change.connect(_on_transition_state_change)
+	
+func _on_hint_found():
+	sfx_hint.play()
+	Globals.current_hints += 1
+	Logger.info("Clues found:%s" % Globals.last_landmarks)
+	
+func _on_landmark_found(_landmark):
+	sfx_landmark.play()
+	$Label.visible = true
+	$Label.modulate=Color(1,1,1,1)
+	var tween=get_tree().create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
+	tween.tween_property($Label,"modulate",Color(1,1,1,0),2)
+	Globals.last_landmarks[Globals.current_room.cell]=_landmark.type
+	Logger.info("Landmarks found:%s" % Globals.last_landmarks)
 	
 func _on_transition_state_change(state:bool):
 	in_animation=state
@@ -56,8 +76,11 @@ func _physics_process(delta: float) -> void:
 		#_update_sprite()
 	
 func update_sprite():
-
+	$CollisionShape2D.rotation=last_direction.angle()+PI/2
+	$CollisionShape2D.position=last_direction*5
 	if last_direction.x==0 or last_direction.y==0:
+		sprite.flip_h=false
+		sprite.flip_v=false
 		if last_direction.y < 0:
 			sprite.rotation=0
 		elif last_direction.y > 0:
@@ -86,3 +109,13 @@ func _do_dash()->void:
 		return
 	$DashTimer.start()
 	xsm.change_state("dash")
+
+func schedule_squeal():
+	squeal_timer.wait_time = randf_range(5,15)
+	squeal_timer.start()
+
+func _on_squeal_timer_timeout() -> void:
+	sfx_hurt.play()
+	schedule_squeal()
+	
+	

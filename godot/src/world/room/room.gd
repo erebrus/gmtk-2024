@@ -10,7 +10,8 @@ class_name Room extends Resource
 @export var hint:Hint
 
 var doors_by_cell: Dictionary
-
+var explored:=false
+var matrix
 
 func _to_string() -> String:
 	return "%sx%s room at %s (%s,%s,%s). Doors:%s " % [
@@ -40,7 +41,49 @@ func build() -> bool:
 		doors_by_cell[door.cell][door.side] = door
 	
 	return true
+func print_content():
+	build_tiles()
+	var tile_size:Vector2i=size*Globals.TILES_PER_ROOM
+	for y in range(tile_size.y):
+		var row=""
+		for x in range(tile_size.x):
+			row += " " if matrix[x][y]==0 else "X"
+		Logger.info(row)
+			
+func build_tiles():
+	var start=Time.get_ticks_msec()
+	matrix = []
+	var tile_size:Vector2i=size*Globals.TILES_PER_ROOM
+	for x in range(tile_size.x):
+		var column = []
+		for y in range(tile_size.y):
+			column.append(0)
+		matrix.append(column)
 	
+	for x in range(tile_size.x):
+		for y in range(tile_size.y):
+			var rng = randf()
+			#for ri in range(Globals.TILE_RATIO.size()):
+			if rng < Globals.FOLLIAGE_RATIO:
+					matrix[x][y]=1
+					
+	for i in range(Globals.AUTOMATA_ITERS):
+		var cell:Vector2i = Vector2i.ONE +Vector2i(randi()%tile_size.x-2, randi()%tile_size.y-2)
+		if count_neighbor_tiles(cell, 0) > 4:
+			matrix[cell.x][cell.y] = 0
+		elif count_neighbor_tiles(cell, 0) < 4:
+			matrix[cell.x][cell.y] = 1
+	Logger.info("Room content in %ds" % (Time.get_ticks_msec()-start))
+			
+func count_neighbor_tiles(cell:Vector2i, type:int)->int:
+	var count:=0
+	for dx in range(-1,2):
+		for dy in range(-1,2):
+			if dx==0 and dy==0:
+				continue
+			if matrix[cell.x+dx][cell.y+dy] == type:
+				count += 1
+	return count
 
 func get_cells()->Array:
 	var ret := []
@@ -49,7 +92,22 @@ func get_cells()->Array:
 			ret.append(cell+Vector2i(x,y))
 	return ret
 	
-
+func get_possible_exit_doors()->Array:
+	var ret = []
+	for x in size.x:
+		var pos := Vector2i(x,0)
+		var exists:=false
+		for door in doors:
+			if door.cell == pos and door.side == Vector2i.UP:
+				exists = true
+		if not exists:
+			var new_door := Door.new()
+			new_door.cell= pos+cell
+			new_door.side = Vector2i.UP
+			new_door.exit = true
+			ret.append(new_door)
+	return ret
+	
 func door_at(global_cell: Vector2i, side: Vector2i) -> Door:
 	var local_cell = global_cell - cell
 	var door = _find_door(local_cell, side)
@@ -59,6 +117,13 @@ func door_at(global_cell: Vector2i, side: Vector2i) -> Door:
 
 func has_door(local_cell: Vector2i, side: Vector2i) -> bool:
 	return _find_door(local_cell, side) != null
+	
+
+func check_missing_room(score: MapScore) -> void:
+	for door in doors:
+		score.check_doors(false)
+	if landmark != null:
+		score.check_special(false)
 	
 
 func _find_door(local_cell: Vector2i, side: Vector2i) -> Door:
@@ -82,3 +147,10 @@ func _is_valid_door(door_cell: Vector2i, door_side: Vector2i):
 			return door_cell.x == size.x - 1
 	
 	return false
+
+func reset():
+	explored=false
+	if hint:
+		hint.found = false
+	if landmark:
+		landmark.found = false

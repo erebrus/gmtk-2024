@@ -1,20 +1,45 @@
-[gd_scene load_steps=5 format=3 uid="uid://88dadohnwrnx"]
+[gd_scene load_steps=9 format=3 uid="uid://88dadohnwrnx"]
 
 [ext_resource type="Script" path="res://src/map/landmark/map_landmark.gd" id="1_b6r4m"]
-[ext_resource type="Texture2D" uid="uid://dl6ns20onu351" path="res://assets/gfx/map/landmarks.png" id="1_qpsn0"]
+[ext_resource type="Texture2D" uid="uid://te22pr8l07ek" path="res://assets/gfx/ui/icons/skull.png" id="2_q8p5x"]
 [ext_resource type="PackedScene" uid="uid://b38lu5l8p5qxf" path="res://src/map/draggable/draggable.tscn" id="3_2otrf"]
+[ext_resource type="AudioStream" uid="uid://c3bfpv41r2cyr" path="res://assets/sfx/Landmark-001.wav" id="4_4j7ld"]
+[ext_resource type="AudioStream" uid="uid://cblillmgev5c7" path="res://assets/sfx/Landmark-002.wav" id="5_oiyi4"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_oqf47"]
-radius = 24.0208
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_53x7o"]
+size = Vector2(32, 32)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_anwoq"]
+random_pitch = 2.9
+random_volume_offset_db = 1.85
+streams_count = 2
+stream_0/stream = ExtResource("4_4j7ld")
+stream_1/stream = ExtResource("5_oiyi4")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_7yrds"]
+random_pitch = 2.9
+random_volume_offset_db = 1.85
+streams_count = 2
+stream_0/stream = ExtResource("4_4j7ld")
+stream_1/stream = ExtResource("5_oiyi4")
 
 [node name="MapLandmark" type="Area2D"]
+collision_layer = 128
+collision_mask = 0
 script = ExtResource("1_b6r4m")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_qpsn0")
-hframes = 3
+texture = ExtResource("2_q8p5x")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_oqf47")
+shape = SubResource("RectangleShape2D_53x7o")
 
 [node name="Draggable" parent="." instance=ExtResource("3_2otrf")]
+
+[node name="DragSFX" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_anwoq")
+bus = &"Sfx"
+
+[node name="DropSFX" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_7yrds")
+bus = &"Sfx"

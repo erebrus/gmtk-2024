@@ -7,7 +7,7 @@
 script = ExtResource("1_daiet")
 
 [node name="TextureRect" type="TextureRect" parent="."]
-custom_minimum_size = Vector2(640, 640)
+custom_minimum_size = Vector2(512, 512)
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("2_nbfs0")

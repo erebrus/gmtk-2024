@@ -11,7 +11,7 @@ const GROUP = &"draggable"
 var is_about_to_drag = false
 var is_dragging = false
 var start_position: Vector2
-var is_valid_position: Callable = func(x): return true
+var is_valid_position: Callable = func(_x): return true
 
 
 func _init() -> void:

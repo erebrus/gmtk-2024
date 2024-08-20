@@ -1,4 +1,4 @@
-class_name DungeonGenerator extends Node
+class_name DungeonGenerator extends Resource
 
 @export var size:Vector2i = Vector2i(4,4)
 @export var hint_ratio := .2
@@ -18,8 +18,8 @@ static func generate_door(cell:Vector2i, side:Vector2i)->Door:
 		door.side = side
 		return door
 		
-static func generate_room_for_spec(size:Vector2i, position:Vector2i)->Room:
+static func generate_room_for_spec(room_size:Vector2i, position:Vector2i)->Room:
 	var room:Room = Room.new()
-	room.size=size
+	room.size=room_size
 	room.cell=position
 	return room

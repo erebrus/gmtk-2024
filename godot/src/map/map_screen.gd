@@ -22,7 +22,6 @@ func _ready() -> void:
 	for button in landmark_container.get_children():
 		button.visible = _is_found_landmark(button.landmark_type)
 	
-	_create_solution_map()
 	%SolutionDungeon.visible = false
 	%SolutionOverlay.visible = false
 	
@@ -62,6 +61,8 @@ func _on_map_changed() -> void:
 	
 
 func _on_evaluate_button_pressed():
+	_create_solution_map()
+	
 	Events.button_clicked.emit()
 	var score = dungeon.evaluate()
 	Logger.info("Score: %s" % score)

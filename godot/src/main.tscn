@@ -11,6 +11,7 @@
 [node name="Main" type="Node"]
 script = ExtResource("1_ffdrq")
 current_dungeon = ExtResource("2_c52b4")
+use_test_level = false
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 position = Vector2(288, 552)

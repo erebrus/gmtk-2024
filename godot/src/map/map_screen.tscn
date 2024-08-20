@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bq6sff2no7cjn" path="res://src/map/dungeon/map_dungeon.tscn" id="1_uj5lt"]
 [ext_resource type="PackedScene" uid="uid://ds2geaj03qxer" path="res://src/map/room/map_room.tscn" id="2_2ptas"]
 [ext_resource type="PackedScene" uid="uid://br78wlhmv1luf" path="res://src/map/landmark/landmark_button.tscn" id="3_3yg1q"]
+[ext_resource type="Texture2D" uid="uid://w1in1jbv3a3y" path="res://assets/gfx/ui/box_left.png" id="3_qohyb"]
 [ext_resource type="Texture2D" uid="uid://te22pr8l07ek" path="res://assets/gfx/ui/icons/skull.png" id="5_cght2"]
 [ext_resource type="PackedScene" uid="uid://c3miu0x2th1wn" path="res://src/map/room/room_button.tscn" id="6_3ekrt"]
 [ext_resource type="Texture2D" uid="uid://bif5hcahyl5xr" path="res://assets/gfx/ui/icons/button-pink.png" id="6_lsfjl"]
@@ -14,15 +15,12 @@
 [ext_resource type="AudioStream" uid="uid://du5w7oqqg2kg8" path="res://assets/sfx/Button-002.wav" id="12_13x0s"]
 [ext_resource type="AudioStream" uid="uid://dvoublyjf88hk" path="res://assets/sfx/Button-003.wav" id="13_u10yd"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mjx1d"]
-content_margin_left = 62.0
-content_margin_right = 30.0
-bg_color = Color(0.239216, 0.109804, 0.286275, 1)
-border_width_left = 32
-border_width_right = 3
-border_color = Color(0.447059, 0.764706, 0.635294, 1)
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_plko2"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g4y17"]
+texture = ExtResource("3_qohyb")
+texture_margin_left = 42.0
+texture_margin_top = 28.0
+texture_margin_right = 12.0
+texture_margin_bottom = 28.0
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_mp5wk"]
 random_pitch = 3.08
@@ -60,63 +58,40 @@ anchors_preset = 9
 anchor_bottom = 1.0
 offset_right = 219.0
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_mjx1d")
+theme_override_styles/panel = SubResource("StyleBoxTexture_g4y17")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BuildPanel"]
 layout_mode = 2
+theme_override_constants/separation = 20
 
-[node name="HBoxContainer" type="HBoxContainer" parent="BuildPanel/VBoxContainer"]
+[node name="BuildLabel" type="Label" parent="BuildPanel/VBoxContainer"]
 layout_mode = 2
+theme_type_variation = &"HeaderMedium"
+text = "BUILD"
 
-[node name="RoomsRadio" type="Button" parent="BuildPanel/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-toggle_mode = true
-button_group = SubResource("ButtonGroup_plko2")
-text = "Rooms"
-
-[node name="DoorsRadio" type="Button" parent="BuildPanel/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-toggle_mode = true
-button_group = SubResource("ButtonGroup_plko2")
-text = "Doors"
-
-[node name="LandmarksRadio" type="Button" parent="BuildPanel/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-toggle_mode = true
-button_group = SubResource("ButtonGroup_plko2")
-text = "Landmarks"
-
-[node name="RoomsPanel" type="PanelContainer" parent="BuildPanel/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="BuildPanel/VBoxContainer/RoomsPanel"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="BuildPanel/VBoxContainer/RoomsPanel/VBoxContainer"]
+[node name="RoomsLabel" type="Label" parent="BuildPanel/VBoxContainer"]
 layout_mode = 2
 text = "Rooms"
 
-[node name="Desc" type="Label" parent="BuildPanel/VBoxContainer/RoomsPanel/VBoxContainer"]
-custom_minimum_size = Vector2(160, 10)
+[node name="RoomsContainer" type="GridContainer" parent="BuildPanel/VBoxContainer"]
 layout_mode = 2
-text = "Drag&Drop rooms of the correct size where you remember seeing them"
-autowrap_mode = 3
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 2
 
-[node name="1x1" parent="BuildPanel/VBoxContainer/RoomsPanel/VBoxContainer" instance=ExtResource("6_3ekrt")]
+[node name="1x1" parent="BuildPanel/VBoxContainer/RoomsContainer" instance=ExtResource("6_3ekrt")]
+custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 mouse_filter = 1
 patch_margin_left = 12
 patch_margin_top = 12
 patch_margin_right = 12
 patch_margin_bottom = 12
-dungeon_path = NodePath("../../../../../MapContainer/MapDungeon")
+dungeon_path = NodePath("../../../../MapContainer/MapDungeon")
 
-[node name="2x1" parent="BuildPanel/VBoxContainer/RoomsPanel/VBoxContainer" instance=ExtResource("6_3ekrt")]
-custom_minimum_size = Vector2(128, 64)
+[node name="2x1" parent="BuildPanel/VBoxContainer/RoomsContainer" instance=ExtResource("6_3ekrt")]
+custom_minimum_size = Vector2(72, 36)
 layout_mode = 2
 mouse_filter = 1
 patch_margin_left = 12
@@ -124,10 +99,10 @@ patch_margin_top = 12
 patch_margin_right = 12
 patch_margin_bottom = 12
 room_size = Vector2i(2, 1)
-dungeon_path = NodePath("../../../../../MapContainer/MapDungeon")
+dungeon_path = NodePath("../../../../MapContainer/MapDungeon")
 
-[node name="1x2" parent="BuildPanel/VBoxContainer/RoomsPanel/VBoxContainer" instance=ExtResource("6_3ekrt")]
-custom_minimum_size = Vector2(64, 128)
+[node name="1x2" parent="BuildPanel/VBoxContainer/RoomsContainer" instance=ExtResource("6_3ekrt")]
+custom_minimum_size = Vector2(36, 72)
 layout_mode = 2
 mouse_filter = 1
 patch_margin_left = 12
@@ -135,10 +110,10 @@ patch_margin_top = 12
 patch_margin_right = 12
 patch_margin_bottom = 12
 room_size = Vector2i(1, 2)
-dungeon_path = NodePath("../../../../../MapContainer/MapDungeon")
+dungeon_path = NodePath("../../../../MapContainer/MapDungeon")
 
-[node name="2x2" parent="BuildPanel/VBoxContainer/RoomsPanel/VBoxContainer" instance=ExtResource("6_3ekrt")]
-custom_minimum_size = Vector2(128, 128)
+[node name="2x2" parent="BuildPanel/VBoxContainer/RoomsContainer" instance=ExtResource("6_3ekrt")]
+custom_minimum_size = Vector2(72, 72)
 layout_mode = 2
 mouse_filter = 1
 patch_margin_left = 12
@@ -146,71 +121,43 @@ patch_margin_top = 12
 patch_margin_right = 12
 patch_margin_bottom = 12
 room_size = Vector2i(2, 2)
-dungeon_path = NodePath("../../../../../MapContainer/MapDungeon")
+dungeon_path = NodePath("../../../../MapContainer/MapDungeon")
 
-[node name="DoorsPanel" type="PanelContainer" parent="BuildPanel/VBoxContainer"]
-unique_name_in_owner = true
-visible = false
+[node name="SpecialLabel" type="Label" parent="BuildPanel/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
+text = "Special ITEMS"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="BuildPanel/VBoxContainer/DoorsPanel"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="BuildPanel/VBoxContainer/DoorsPanel/VBoxContainer"]
-layout_mode = 2
-text = "Doors"
-
-[node name="Desc" type="Label" parent="BuildPanel/VBoxContainer/DoorsPanel/VBoxContainer"]
-custom_minimum_size = Vector2(160, 10)
-layout_mode = 2
-text = "Click on a wall to place or remove a door. There can only be one door leading outside!"
-autowrap_mode = 3
-
-[node name="LandmarksPanel" type="PanelContainer" parent="BuildPanel/VBoxContainer"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="BuildPanel/VBoxContainer/LandmarksPanel"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="BuildPanel/VBoxContainer/LandmarksPanel/VBoxContainer"]
-layout_mode = 2
-text = "Landmarks"
-
-[node name="Desc" type="Label" parent="BuildPanel/VBoxContainer/LandmarksPanel/VBoxContainer"]
-custom_minimum_size = Vector2(160, 10)
-layout_mode = 2
-text = "Drag these landmarks to the room where you found them"
-autowrap_mode = 3
-
-[node name="LandmarkContainer" type="GridContainer" parent="BuildPanel/VBoxContainer/LandmarksPanel/VBoxContainer"]
+[node name="LandmarkContainer" type="GridContainer" parent="BuildPanel/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 4
+columns = 4
 
-[node name="LandmarkButton" parent="BuildPanel/VBoxContainer/LandmarksPanel/VBoxContainer/LandmarkContainer" instance=ExtResource("3_3yg1q")]
+[node name="LandmarkButton" parent="BuildPanel/VBoxContainer/LandmarkContainer" instance=ExtResource("3_3yg1q")]
 layout_mode = 2
-dungeon_path = NodePath("../../../../../../MapContainer/MapDungeon")
+dungeon_path = NodePath("../../../../MapContainer/MapDungeon")
 
-[node name="LandmarkButton2" parent="BuildPanel/VBoxContainer/LandmarksPanel/VBoxContainer/LandmarkContainer" instance=ExtResource("3_3yg1q")]
+[node name="LandmarkButton2" parent="BuildPanel/VBoxContainer/LandmarkContainer" instance=ExtResource("3_3yg1q")]
 layout_mode = 2
 texture = ExtResource("5_cght2")
-dungeon_path = NodePath("../../../../../../MapContainer/MapDungeon")
 landmark_type = 1
+dungeon_path = NodePath("../../../../MapContainer/MapDungeon")
 
-[node name="LandmarkButton3" parent="BuildPanel/VBoxContainer/LandmarksPanel/VBoxContainer/LandmarkContainer" instance=ExtResource("3_3yg1q")]
+[node name="LandmarkButton3" parent="BuildPanel/VBoxContainer/LandmarkContainer" instance=ExtResource("3_3yg1q")]
 layout_mode = 2
 texture = ExtResource("6_lsfjl")
-dungeon_path = NodePath("../../../../../../MapContainer/MapDungeon")
 landmark_type = 2
+dungeon_path = NodePath("../../../../MapContainer/MapDungeon")
 
-[node name="LandmarkButton4" parent="BuildPanel/VBoxContainer/LandmarksPanel/VBoxContainer/LandmarkContainer" instance=ExtResource("3_3yg1q")]
+[node name="LandmarkButton4" parent="BuildPanel/VBoxContainer/LandmarkContainer" instance=ExtResource("3_3yg1q")]
 layout_mode = 2
 texture = ExtResource("7_wgqf0")
-dungeon_path = NodePath("../../../../../../MapContainer/MapDungeon")
 landmark_type = 3
+dungeon_path = NodePath("../../../../MapContainer/MapDungeon")
+
+[node name="Control" type="Control" parent="BuildPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 
 [node name="EvaluateButton" type="Button" parent="BuildPanel/VBoxContainer"]
 layout_mode = 2
@@ -251,7 +198,6 @@ horizontal_alignment = 1
 
 [node name="EvaluationPopup" parent="." instance=ExtResource("7_tovqu")]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 offset_left = -188.0
 
@@ -259,6 +205,33 @@ offset_left = -188.0
 unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_mp5wk")
 bus = &"Sfx"
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="Desc" type="Label" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(160, 10)
+layout_mode = 2
+text = "Drag&Drop rooms of the correct size where you remember seeing them"
+autowrap_mode = 3
+
+[node name="Desc2" type="Label" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(160, 10)
+layout_mode = 2
+text = "Click on a wall to place or remove a door. There can only be one door leading outside!"
+autowrap_mode = 3
+
+[node name="Desc3" type="Label" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(160, 10)
+layout_mode = 2
+text = "Drag these landmarks to the room where you found them"
+autowrap_mode = 3
 
 [connection signal="pressed" from="BuildPanel/VBoxContainer/EvaluateButton" to="." method="_on_evaluate_button_pressed"]
 [connection signal="gui_input" from="MapContainer/SolutionOverlay" to="." method="_on_solution_overlay_gui_input"]

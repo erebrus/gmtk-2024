@@ -7,7 +7,7 @@ on:
 env:
   GODOT_VERSION: 4.3.stable
   EXPORT_NAME: gmtk2024
-  ITCH_GAME: gmtk-2024-jam
+  ITCH_GAME: squeak-and-scale 
   ITCH_USER: erebrus
 
 jobs:

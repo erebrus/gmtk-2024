@@ -66,7 +66,7 @@ horizontal_alignment = 2
 
 [node name="SpecialLabel" type="Label" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
-text = "SPECIAL"
+text = "landmarks"
 
 [node name="SpecialScore" type="Label" parent="VBoxContainer/GridContainer"]
 unique_name_in_owner = true

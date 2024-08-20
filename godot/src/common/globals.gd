@@ -4,6 +4,7 @@ extends Node
 const MUSIC_VOLUME=-6
 const GAME_SCENE_PATH = "res://src/main.tscn"
 const MAP_SCENE_PATH = "res://src/map/map_screen.tscn"
+const END_SCENE_PATH = "res://src/leader_board.tscn"
 
 const TILES_PER_ROOM = 19 
 const TILE_SIZE = 32
@@ -95,7 +96,8 @@ func do_game_over():
 
 func do_end():
 	Logger.info("Finished game")
-	get_tree().quit()
+	SceneManager.change_scene(END_SCENE_PATH)
+	
 
 func start_game():
 	in_game=true
@@ -131,10 +133,10 @@ func _init_logger():
 
 func cross_fade_dungeon_music():
 	cross_fade_music(explore_music, fighter_music)
-#func _process(delta: float) -> void:
-	#if Input.is_action_just_pressed("ui_cancel"):
-		#cross_fade_music(explore_music, fighter_music)
-		#Logger.info("cross fade")
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("end_game"):
+		do_end()
+		
 func play_music(node:AudioStreamPlayer, volume :=MUSIC_VOLUME):
 	if not node.playing:
 		node.volume_db = volume

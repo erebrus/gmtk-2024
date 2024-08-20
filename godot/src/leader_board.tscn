@@ -1,0 +1,229 @@
+[gd_scene load_steps=13 format=3 uid="uid://c1ooemhm163m1"]
+
+[ext_resource type="Theme" path="res://src/map/theme.tres" id="1_04438"]
+[ext_resource type="Script" path="res://src/leader_board.gd" id="1_se5gb"]
+[ext_resource type="PackedScene" uid="uid://ubvcns0xn7a1" path="res://src/leaderboard_row.tscn" id="2_euj87"]
+[ext_resource type="Texture2D" uid="uid://c0tpqosj1mdx4" path="res://assets/gfx/ui/leaderboard_panel.png" id="3_7cm2f"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e8fc8"]
+texture = ExtResource("3_7cm2f")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
+[sub_resource type="Theme" id="Theme_wwgry"]
+default_font_size = 48
+Label/colors/font_color = Color(0.04, 0.0336, 0.03648, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_17suu"]
+content_margin_left = 30.0
+content_margin_top = 8.0
+content_margin_right = 30.0
+content_margin_bottom = 8.0
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_557si"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_32g3w"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_geul8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hjafg"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lmenb"]
+content_margin_left = 80.0
+content_margin_top = 40.0
+content_margin_right = 80.0
+content_margin_bottom = 30.0
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
+[node name="LeaderBoard" type="MarginContainer"]
+custom_minimum_size = Vector2(1280, 720)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_04438")
+script = ExtResource("1_se5gb")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 2
+color = Color(0.188235, 0.054902, 0.109804, 1)
+
+[node name="Leaderboard" type="Panel" parent="."]
+custom_minimum_size = Vector2(750, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_e8fc8")
+
+[node name="Background" type="TextureRect" parent="Leaderboard"]
+visible = false
+layout_mode = 2
+offset_left = 36.0
+offset_right = 681.0
+offset_bottom = 720.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_7cm2f")
+
+[node name="MarginContainer" type="MarginContainer" parent="Leaderboard"]
+layout_mode = 2
+offset_right = 718.0
+offset_bottom = 720.0
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Leaderboard/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Leaderboard/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/margin_top = 25
+
+[node name="Label" type="Label" parent="Leaderboard/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.803922, 0.619608, 0.247059, 1)
+theme_override_font_sizes/font_size = 64
+text = "Leaderboard"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="Leaderboard/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="LeaderboardContents" type="VBoxContainer" parent="Leaderboard/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = SubResource("Theme_wwgry")
+
+[node name="LeaderboardRow" parent="Leaderboard/MarginContainer/VBoxContainer/LeaderboardContents" instance=ExtResource("2_euj87")]
+layout_mode = 2
+
+[node name="LeaderboardRow2" parent="Leaderboard/MarginContainer/VBoxContainer/LeaderboardContents" instance=ExtResource("2_euj87")]
+layout_mode = 2
+
+[node name="LeaderboardRow3" parent="Leaderboard/MarginContainer/VBoxContainer/LeaderboardContents" instance=ExtResource("2_euj87")]
+layout_mode = 2
+
+[node name="LeaderboardRow4" parent="Leaderboard/MarginContainer/VBoxContainer/LeaderboardContents" instance=ExtResource("2_euj87")]
+layout_mode = 2
+
+[node name="LeaderboardRow5" parent="Leaderboard/MarginContainer/VBoxContainer/LeaderboardContents" instance=ExtResource("2_euj87")]
+layout_mode = 2
+
+[node name="LeaderboardRow6" parent="Leaderboard/MarginContainer/VBoxContainer/LeaderboardContents" instance=ExtResource("2_euj87")]
+layout_mode = 2
+
+[node name="Inputs" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/margin_right = 60
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Inputs"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/separation = 10
+
+[node name="MarginContainer" type="MarginContainer" parent="Inputs/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = -160
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = -50
+theme_override_constants/margin_bottom = -80
+
+[node name="Granny" type="TextureRect" parent="Inputs/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Inputs/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 300
+theme_override_constants/margin_bottom = 180
+
+[node name="GrannyLabel" type="Label" parent="Inputs/VBoxContainer/MarginContainer/MarginContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.04, 0.0336, 0.03648, 1)
+theme_override_font_sizes/font_size = 42
+text = "Well done, new highscore! Your new ranking is 20.
+Go on, tell us your name."
+vertical_alignment = 1
+autowrap_mode = 3
+clip_text = true
+
+[node name="PanelContainer" type="PanelContainer" parent="Inputs/VBoxContainer"]
+custom_minimum_size = Vector2(450, 180)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_17suu")
+
+[node name="PlayerName" type="LineEdit" parent="Inputs/VBoxContainer/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.803922, 0.619608, 0.247059, 1)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/focus = SubResource("StyleBoxEmpty_557si")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_32g3w")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_geul8")
+placeholder_text = "player name"
+max_length = 20
+context_menu_enabled = false
+
+[node name="SubmitButton" type="Button" parent="Inputs/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0.447059, 0.764706, 0.635294, 1)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hjafg")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxTexture_lmenb")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_lmenb")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxTexture_lmenb")
+theme_override_styles/hover = SubResource("StyleBoxTexture_lmenb")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxTexture_lmenb")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_lmenb")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxTexture_lmenb")
+theme_override_styles/normal = SubResource("StyleBoxTexture_lmenb")
+text = "submit"
+
+[node name="Control" type="Control" parent="Inputs/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="RetryButton" type="Button" parent="Inputs/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0.447059, 0.764706, 0.635294, 1)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hjafg")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxTexture_lmenb")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_lmenb")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxTexture_lmenb")
+theme_override_styles/hover = SubResource("StyleBoxTexture_lmenb")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxTexture_lmenb")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_lmenb")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxTexture_lmenb")
+theme_override_styles/normal = SubResource("StyleBoxTexture_lmenb")
+text = "RETRY"
+
+[connection signal="text_submitted" from="Inputs/VBoxContainer/PanelContainer/PlayerName" to="." method="_on_line_edit_text_submitted"]
+[connection signal="pressed" from="Inputs/VBoxContainer/SubmitButton" to="." method="_on_submit_button_pressed"]
+[connection signal="pressed" from="Inputs/VBoxContainer/RetryButton" to="." method="_on_retry_button_pressed"]

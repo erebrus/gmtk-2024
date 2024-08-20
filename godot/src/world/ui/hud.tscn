@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b6awdjji6h3ny"]
 
 [ext_resource type="Script" path="res://src/world/ui/hud.gd" id="1_jh24n"]
-[ext_resource type="Theme" uid="uid://dp62bc2khcy14" path="res://theme.tres" id="2_423p4"]
+[ext_resource type="Theme" path="res://theme.tres" id="2_423p4"]
 
 [node name="Hud" type="Control"]
 custom_minimum_size = Vector2(850, 70)

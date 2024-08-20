@@ -42,10 +42,14 @@ func _on_dropped(to_global_position: Vector2) -> void:
 	Events.map_changed.emit()
 	
 
-func _move_to(to_global_position: Vector2) -> void:
-	cell = dungeon.cell_from_global_position(to_global_position)
+func _move_to_cell() -> void:
 	var drop_position = dungeon.cell_to_global_position(cell)
 	global_position = drop_position + Globals.MAP_CELL_SIZE * Vector2(0.5, 0.5)
+	
+
+func _move_to(to_global_position: Vector2) -> void:
+	cell = dungeon.cell_from_global_position(to_global_position)
+	_move_to_cell()
 	
 
 func _on_input_event(_viewport, event: InputEvent, _shape_idx) -> void:

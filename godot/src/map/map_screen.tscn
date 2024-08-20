@@ -205,24 +205,41 @@ dungeon_path = NodePath("../../../../../../MapContainer/MapDungeon")
 layout_mode = 2
 text = "Evaluate"
 
-[node name="MapContainer" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 0
-grow_vertical = 2
-theme_override_constants/margin_right = 40
+[node name="MapContainer" type="Node2D" parent="."]
+position = Vector2(426, 104)
 
 [node name="MapDungeon" parent="MapContainer" instance=ExtResource("1_uj5lt")]
 unique_name_in_owner = true
-position = Vector2(-818, 96)
 RoomScene = ExtResource("2_2ptas")
+
+[node name="SolutionDungeon" parent="MapContainer" instance=ExtResource("1_uj5lt")]
+unique_name_in_owner = true
+RoomScene = ExtResource("2_2ptas")
+
+[node name="SolutionOverlay" type="MarginContainer" parent="MapContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(512, 620)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 512.0
+offset_bottom = 512.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_ouo8q")
+
+[node name="Label" type="Label" parent="MapContainer/SolutionOverlay"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Hold left mouse button to see your map"
+horizontal_alignment = 1
 
 [node name="EvaluationPopup" parent="." instance=ExtResource("7_tovqu")]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 offset_left = -188.0
 
@@ -234,3 +251,4 @@ bus = &"Sfx"
 [connection signal="pressed" from="BuildPanel/VBoxContainer/HBoxContainer/DoorsRadio" to="." method="_on_map_mode_toggled" binds= [1]]
 [connection signal="pressed" from="BuildPanel/VBoxContainer/HBoxContainer/LandmarksRadio" to="." method="_on_map_mode_toggled" binds= [2]]
 [connection signal="pressed" from="BuildPanel/VBoxContainer/EvaluateButton" to="." method="_on_evaluate_button_pressed"]
+[connection signal="gui_input" from="MapContainer/SolutionOverlay" to="." method="_on_solution_overlay_gui_input"]

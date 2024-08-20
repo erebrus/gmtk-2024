@@ -79,6 +79,8 @@ func _on_button_clicked() -> void:
 
 func _on_solution_overlay_gui_input(event:InputEvent):
 	if event.is_action_pressed("left_click"):
-		%SolutionDungeon.show()		
+		%SolutionDungeon.show()
+		%MapLabel.text = "Solution"
 	if event.is_action_released("left_click"):
 		%SolutionDungeon.hide()
+		%MapLabel.text = "Your map"

@@ -1,19 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://d26khfur8dgqb"]
 
-[ext_resource type="Theme" path="res://src/map/theme.tres" id="1_dmbyo"]
+[ext_resource type="Theme" uid="uid://cmaw5ierxgknn" path="res://src/map/theme.tres" id="1_dmbyo"]
 [ext_resource type="Script" path="res://src/map/gui/evaluation_popup.gd" id="1_l2vvr"]
+[ext_resource type="StyleBox" uid="uid://s1obbxmodrpn" path="res://src/map/right_panel.tres" id="2_4nj5m"]
 [ext_resource type="AudioStream" uid="uid://rr4f62g45ueh" path="res://assets/music/Win Stinger.mp3" id="3_6iqmu"]
 [ext_resource type="AudioStream" uid="uid://p7ml3r1ggna0" path="res://assets/music/Lose Stinger2.mp3" id="4_25h05"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r80xs"]
-content_margin_left = 30.0
-content_margin_top = 36.0
-content_margin_right = 62.0
-content_margin_bottom = 36.0
-bg_color = Color(0.239216, 0.109804, 0.286275, 1)
-border_width_left = 3
-border_width_right = 32
-border_color = Color(0.447059, 0.764706, 0.635294, 1)
 
 [node name="EvaluationPopup" type="PanelContainer"]
 anchors_preset = 11
@@ -26,7 +17,7 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("1_dmbyo")
-theme_override_styles/panel = SubResource("StyleBoxFlat_r80xs")
+theme_override_styles/panel = ExtResource("2_4nj5m")
 script = ExtResource("1_l2vvr")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]

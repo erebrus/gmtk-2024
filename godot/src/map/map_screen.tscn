@@ -1,16 +1,17 @@
-[gd_scene load_steps=17 format=3 uid="uid://bakmp3c63fsg6"]
+[gd_scene load_steps=20 format=3 uid="uid://bakmp3c63fsg6"]
 
 [ext_resource type="Script" path="res://src/map/map_screen.gd" id="1_fitck"]
-[ext_resource type="Theme" path="res://src/map/theme.tres" id="1_ouo8q"]
+[ext_resource type="Theme" uid="uid://cmaw5ierxgknn" path="res://src/map/theme.tres" id="1_ouo8q"]
 [ext_resource type="PackedScene" uid="uid://bq6sff2no7cjn" path="res://src/map/dungeon/map_dungeon.tscn" id="1_uj5lt"]
 [ext_resource type="PackedScene" uid="uid://ds2geaj03qxer" path="res://src/map/room/map_room.tscn" id="2_2ptas"]
 [ext_resource type="PackedScene" uid="uid://br78wlhmv1luf" path="res://src/map/landmark/landmark_button.tscn" id="3_3yg1q"]
 [ext_resource type="Texture2D" uid="uid://w1in1jbv3a3y" path="res://assets/gfx/ui/box_left.png" id="3_qohyb"]
 [ext_resource type="Texture2D" uid="uid://te22pr8l07ek" path="res://assets/gfx/ui/icons/skull.png" id="5_cght2"]
-[ext_resource type="PackedScene" path="res://src/map/room/room_button.tscn" id="6_3ekrt"]
+[ext_resource type="PackedScene" uid="uid://c3miu0x2th1wn" path="res://src/map/room/room_button.tscn" id="6_3ekrt"]
 [ext_resource type="Texture2D" uid="uid://bif5hcahyl5xr" path="res://assets/gfx/ui/icons/button-pink.png" id="6_lsfjl"]
 [ext_resource type="PackedScene" uid="uid://d26khfur8dgqb" path="res://src/map/gui/evaluation_popup.tscn" id="7_tovqu"]
 [ext_resource type="Texture2D" uid="uid://bp32cer6x0cq1" path="res://assets/gfx/ui/icons/button-green.png" id="7_wgqf0"]
+[ext_resource type="StyleBox" uid="uid://s1obbxmodrpn" path="res://src/map/right_panel.tres" id="11_lakk8"]
 [ext_resource type="AudioStream" uid="uid://cgg7qdbn62nt8" path="res://assets/sfx/Button-001.wav" id="11_njyrk"]
 [ext_resource type="AudioStream" uid="uid://du5w7oqqg2kg8" path="res://assets/sfx/Button-002.wav" id="12_13x0s"]
 [ext_resource type="AudioStream" uid="uid://dvoublyjf88hk" path="res://assets/sfx/Button-003.wav" id="13_u10yd"]
@@ -21,6 +22,16 @@ texture_margin_left = 42.0
 texture_margin_top = 28.0
 texture_margin_right = 12.0
 texture_margin_bottom = 28.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_30sb4"]
+draw_center = false
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.447059, 0.764706, 0.635294, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_udfct"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_mp5wk"]
 random_pitch = 3.08
@@ -50,7 +61,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.243137, 0.0980392, 0.282353, 1)
+color = Color(0.192157, 0.054902, 0.109804, 1)
 
 [node name="BuildPanel" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -164,8 +175,26 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Evaluate"
 
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 360
+theme_override_constants/margin_top = 101
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+custom_minimum_size = Vector2(518, 518)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_30sb4")
+
 [node name="MapContainer" type="Node2D" parent="."]
-position = Vector2(426, 104)
+position = Vector2(363, 104)
 
 [node name="MapDungeon" parent="MapContainer" instance=ExtResource("1_uj5lt")]
 unique_name_in_owner = true
@@ -175,7 +204,7 @@ RoomScene = ExtResource("2_2ptas")
 unique_name_in_owner = true
 RoomScene = ExtResource("2_2ptas")
 
-[node name="SolutionOverlay" type="MarginContainer" parent="MapContainer"]
+[node name="SolutionOverlay" type="Panel" parent="MapContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(512, 620)
 anchors_preset = 8
@@ -183,38 +212,54 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+offset_top = -54.0
 offset_right = 512.0
-offset_bottom = 512.0
+offset_bottom = 566.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("1_ouo8q")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_udfct")
 
-[node name="Label" type="Label" parent="MapContainer/SolutionOverlay"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MapContainer/SolutionOverlay"]
+layout_mode = 2
+offset_right = 512.0
+offset_bottom = 620.0
+
+[node name="MapLabel" type="Label" parent="MapContainer/SolutionOverlay/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "YOUR MAP"
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="MapContainer/SolutionOverlay/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="MapContainer/SolutionOverlay/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 8
 text = "Hold left mouse button to see the solution"
 horizontal_alignment = 1
 
-[node name="TipPanel" type="MarginContainer" parent="."]
+[node name="TipPanel" type="PanelContainer" parent="."]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(280, 0)
+custom_minimum_size = Vector2(320, 0)
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -190.0
+offset_left = -220.0
 grow_horizontal = 0
 grow_vertical = 2
-theme_override_constants/margin_top = 70
-theme_override_constants/margin_right = 30
-theme_override_constants/margin_bottom = 50
+theme_override_styles/panel = ExtResource("11_lakk8")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TipPanel"]
 layout_mode = 2
-theme_override_constants/separation = 30
+theme_override_constants/separation = 28
 
 [node name="Label" type="Label" parent="TipPanel/VBoxContainer"]
 custom_minimum_size = Vector2(160, 0)
@@ -246,6 +291,7 @@ text = "Toggle doors by clicking on door slots. Do not forget exit doors."
 autowrap_mode = 3
 
 [node name="Spacer" type="MarginContainer" parent="TipPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
 [node name="Label4" type="Label" parent="TipPanel/VBoxContainer"]
@@ -266,33 +312,6 @@ offset_left = -188.0
 unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_mp5wk")
 bus = &"Sfx"
-
-[node name="PanelContainer" type="PanelContainer" parent="."]
-visible = false
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
-layout_mode = 2
-
-[node name="Desc" type="Label" parent="PanelContainer/VBoxContainer"]
-custom_minimum_size = Vector2(160, 10)
-layout_mode = 2
-text = "Drag&Drop rooms of the correct size where you remember seeing them"
-autowrap_mode = 3
-
-[node name="Desc2" type="Label" parent="PanelContainer/VBoxContainer"]
-custom_minimum_size = Vector2(160, 10)
-layout_mode = 2
-text = "Click on a wall to place or remove a door. There can only be one door leading outside!"
-autowrap_mode = 3
-
-[node name="Desc3" type="Label" parent="PanelContainer/VBoxContainer"]
-custom_minimum_size = Vector2(160, 10)
-layout_mode = 2
-text = "Drag these landmarks to the room where you found them"
-autowrap_mode = 3
 
 [connection signal="pressed" from="BuildPanel/VBoxContainer/EvaluateButton" to="." method="_on_evaluate_button_pressed"]
 [connection signal="gui_input" from="MapContainer/SolutionOverlay" to="." method="_on_solution_overlay_gui_input"]

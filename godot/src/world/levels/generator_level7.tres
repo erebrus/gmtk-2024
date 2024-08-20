@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BlockGenerator" load_steps=2 format=3 uid="uid://crsdkdujog5xt"]
+[gd_resource type="Resource" script_class="BlockGenerator" load_steps=2 format=3 uid="uid://75u483h55de4"]
 
 [ext_resource type="Script" path="res://src/world/generator/block_generator.gd" id="1_8j1gl"]
 

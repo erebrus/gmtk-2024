@@ -1,15 +1,18 @@
-[gd_scene load_steps=13 format=3 uid="uid://bakmp3c63fsg6"]
+[gd_scene load_steps=17 format=3 uid="uid://bakmp3c63fsg6"]
 
 [ext_resource type="Script" path="res://src/map/map_screen.gd" id="1_fitck"]
-[ext_resource type="Theme" path="res://src/map/theme.tres" id="1_ouo8q"]
+[ext_resource type="Theme" uid="uid://bj1p8xiasxxdc" path="res://src/map/theme.tres" id="1_ouo8q"]
 [ext_resource type="PackedScene" uid="uid://bq6sff2no7cjn" path="res://src/map/dungeon/map_dungeon.tscn" id="1_uj5lt"]
 [ext_resource type="PackedScene" uid="uid://ds2geaj03qxer" path="res://src/map/room/map_room.tscn" id="2_2ptas"]
 [ext_resource type="PackedScene" uid="uid://br78wlhmv1luf" path="res://src/map/landmark/landmark_button.tscn" id="3_3yg1q"]
 [ext_resource type="Texture2D" uid="uid://te22pr8l07ek" path="res://assets/gfx/ui/icons/skull.png" id="5_cght2"]
-[ext_resource type="PackedScene" path="res://src/map/room/room_button.tscn" id="6_3ekrt"]
+[ext_resource type="PackedScene" uid="uid://c3miu0x2th1wn" path="res://src/map/room/room_button.tscn" id="6_3ekrt"]
 [ext_resource type="Texture2D" uid="uid://bif5hcahyl5xr" path="res://assets/gfx/ui/icons/button-pink.png" id="6_lsfjl"]
 [ext_resource type="PackedScene" uid="uid://d26khfur8dgqb" path="res://src/map/gui/evaluation_popup.tscn" id="7_tovqu"]
 [ext_resource type="Texture2D" uid="uid://bp32cer6x0cq1" path="res://assets/gfx/ui/icons/button-green.png" id="7_wgqf0"]
+[ext_resource type="AudioStream" uid="uid://cgg7qdbn62nt8" path="res://assets/sfx/Button-001.wav" id="11_njyrk"]
+[ext_resource type="AudioStream" uid="uid://du5w7oqqg2kg8" path="res://assets/sfx/Button-002.wav" id="12_13x0s"]
+[ext_resource type="AudioStream" uid="uid://dvoublyjf88hk" path="res://assets/sfx/Button-003.wav" id="13_u10yd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mjx1d"]
 content_margin_left = 62.0
@@ -20,6 +23,14 @@ border_width_right = 3
 border_color = Color(0.447059, 0.764706, 0.635294, 1)
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_plko2"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_mp5wk"]
+random_pitch = 3.08
+random_volume_offset_db = 2.2
+streams_count = 3
+stream_0/stream = ExtResource("11_njyrk")
+stream_1/stream = ExtResource("12_13x0s")
+stream_2/stream = ExtResource("13_u10yd")
 
 [node name="MapScreen" type="Control"]
 layout_mode = 3
@@ -246,6 +257,7 @@ offset_left = -188.0
 
 [node name="ClickSFX" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_mp5wk")
 bus = &"Sfx"
 
 [connection signal="pressed" from="BuildPanel/VBoxContainer/HBoxContainer/RoomsRadio" to="." method="_on_map_mode_toggled" binds= [0]]

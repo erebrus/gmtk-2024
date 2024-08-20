@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://ds07utbkl8c3s"]
+[gd_scene load_steps=5 format=3 uid="uid://ds07utbkl8c3s"]
 
 [ext_resource type="Script" path="res://src/world/ui/timer.gd" id="1_unu0a"]
 [ext_resource type="FontFile" uid="uid://caqw07j3maojx" path="res://assets/fonts/cellar.ttf" id="2_8ttr5"]
 [ext_resource type="Texture2D" uid="uid://0pnk7j5b8tn4" path="res://assets/gfx/ui/icons/clock.png" id="2_krn0g"]
+[ext_resource type="AudioStream" uid="uid://bfojfnrhx5uj3" path="res://assets/sfx/Tic tac.wav" id="4_67xqs"]
 
 [node name="Timer" type="Control"]
 custom_minimum_size = Vector2(120, 70)
@@ -46,5 +47,6 @@ theme_override_font_sizes/font_size = 20
 text = "200"
 
 [node name="sfx_tick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_67xqs")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
